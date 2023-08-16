@@ -1,24 +1,17 @@
 ---
 import PrimaryCTA from "../../components/common/PrimaryCTA.astro";
+import PostCardDesc from "./PostCardDesc.astro";
+import RemoteImage from "../common/RemoteImage.astro";
 
 const dummyFeatureImg =
   "https://unsplash.com/photos/ARVFsI-32Uk/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjkyMTc3NzQ5fA&force=true&w=1920";
 
-const test_desc = `Since its inception in 1850, St. Patrick's College has remained a bastion
-    of academic excellence and character development in the vibrant city of
-    Jaffna. With a storied history spanning over a minds and hearts of
-    countless generations.`;
+const test_desc = `Since its inception in 1850, St. Patrick's College has remained a bastion of academic excellence and character development in the vibrant city of Jaffna. With a storied history spanning over a minds and hearts of countless generations.`;
 ---
 
 <section class="my-10">
   <div class="relative">
-    <img
-      src={dummyFeatureImg}
-      alt="Feature Cover Image"
-      class="h-[256px] object-cover w-auto"
-      loading="lazy"
-      decoding="async"
-    />
+    <RemoteImage src={dummyFeatureImg} alt="Feature Image Cover" />"
 
     <div
       class="absolute bottom-0 justify-between items-baseline bg-spc-dark-green/40 backdrop-blur-lg flex w-full py-3 px-12 text-spc-light"
@@ -28,10 +21,9 @@ const test_desc = `Since its inception in 1850, St. Patrick's College has remain
     </div>
   </div>
 
-  <p
-    class="px-12 my-3 text-[10px] text-spc-light/80 text-justify"
-    set:html={test_desc}
-  />
+  <div class="px-12">
+    <PostCardDesc desc={test_desc} />
+  </div>
 
   <div class="px-12 my-4">
     <PrimaryCTA text="read featured." url="/" />
