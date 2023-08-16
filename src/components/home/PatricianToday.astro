@@ -1,0 +1,39 @@
+---
+import PrimaryCTA from "../common/PrimaryCTA.astro";
+import SecondaryCTA from "../common/SecondaryCTA.astro";
+import SectionTitle from "../common/SectionTitle.astro";
+import PatricianTodayCard from "./PatricianTodayCard.astro";
+
+const dummyImg =
+  "https://unsplash.com/photos/o4mP43oPGHk/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjkyMTY0MTgzfA&force=true&w=1920";
+---
+
+<section class="px-12 my-20">
+  <SectionTitle title="Patrician Today." />
+  <div
+    class="flex flex-no-wrap overflow-x-auto no-scrollbar scrolling-touch items-start my-6"
+  >
+    <PatricianTodayCard img={dummyImg} />
+    <PatricianTodayCard img={dummyImg} />
+    <PatricianTodayCard img={dummyImg} />
+    <PatricianTodayCard img={dummyImg} />
+  </div>
+
+  <div class="mt-8 space-y-4">
+    <PrimaryCTA text="intrigued? read more" url="/" />
+    <SecondaryCTA text="learn about editorial team, SPC Media Unit." url="/" />
+  </div>
+</section>
+
+<style>
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+</style>
