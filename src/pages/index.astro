@@ -1,17 +1,18 @@
 ---
-import "@fontsource/playfair-display/400.css";
+import CommonHead from "../components/common/CommonHead.astro";
+import CommonHeader from "../components/common/CommonHeader.astro";
+import Footer from "../components/footer/Footer.astro";
+import Hero from "../components/home/Hero.astro";
+
 import "@fontsource/space-grotesk/400.css";
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-    <meta name="viewport" content="width=device-width" />
-    <meta name="author" content="Birnadin Erick <birn.cc>" />
-    <title>St. Patrick's College | SPC Media Unit</title>
-  </head>
-  <body>
-    <h1 class="">Welcome 175!</h1>
+  <CommonHead title="St. Patrick's College | SPC Media Unit | 175 years" />
+
+  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+    <CommonHeader title="St. Patrick's <br/> College" />
+    <Hero />
+    <Footer />
   </body>
 </html>
