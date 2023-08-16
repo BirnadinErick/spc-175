@@ -1,0 +1,11 @@
+---
+const { url, display } = Astro.props;
+---
+
+<a href={url} target="_blank">
+  <h2
+    class="text-3xl font-bold transition-colors duration-300 ease-out cursor-pointer text-white/80 hover:text-white"
+  >
+    {display}
+  </h2>
+</a>

@@ -1,0 +1,22 @@
+---
+import FooterSocialItem from "./FooterSocialItem.astro";
+import SPCLogo from "../common/SPCLogo.astro";
+---
+
+<div class="flex justify-start items-center -m-2 mt-10 space-x-4">
+  <a href="/">
+    <SPCLogo />
+  </a>
+
+  {/* divider */}
+  <h2 class="text-4xl text-spc-light/50">|</h2>
+
+  <FooterSocialItem
+    url="https://www.youtube.com/@st.patrickscollegejaffna.8326"
+    display="Yt."
+  />
+  <FooterSocialItem
+    url="https://www.facebook.com/StPatricksCollegeJaffna"
+    display="Fb."
+  />
+</div>
