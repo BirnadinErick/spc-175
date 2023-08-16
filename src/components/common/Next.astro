@@ -4,13 +4,7 @@ import NextCards from "./NextCards.astro";
 import SecondaryCTA from "./SecondaryCTA.astro";
 import SectionTitle from "./SectionTitle.astro";
 
-const nexts = [
-  ["Patrician Publications.", "/patrician-publications"],
-  ["Our Spirituality.", "/our-spirituality"],
-  ["Academics.", "/academics"],
-  ["Sports.", "/sports"],
-  ["Clubs & Socities.", "clubs-and-socities"],
-];
+const { nexts } = Astro.props;
 ---
 
 <section class="my-20 px-12">

@@ -6,9 +6,17 @@ import Hero from "../components/home/Hero.astro";
 import AboutText from "../components/home/AboutText.astro";
 import PatricianToday from "../components/home/PatricianToday.astro";
 import PatricianNorms from "../components/home/PatricianNorms.astro";
+import Next from "../components/common/Next.astro";
 
 import "@fontsource/space-grotesk/400.css";
-import Next from "../components/common/Next.astro";
+
+const nexts = [
+  ["Patrician Publications.", "/patrician-publications"],
+  ["Our Spirituality.", "/our-spirituality"],
+  ["Academics.", "/academics"],
+  ["Sports.", "/sports"],
+  ["Clubs & Socities.", "clubs-and-socities"],
+];
 ---
 
 <html lang="en">
@@ -20,7 +28,7 @@ import Next from "../components/common/Next.astro";
     <AboutText />
     <PatricianToday />
     <PatricianNorms />
-    <Next />
+    <Next nexts={nexts} />
     <Footer />
   </body>
 </html>
