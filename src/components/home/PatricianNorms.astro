@@ -1,0 +1,32 @@
+---
+import PrimaryCTA from "../common/PrimaryCTA.astro";
+import SecondaryCTA from "../common/SecondaryCTA.astro";
+import SectionTitle from "../common/SectionTitle.astro";
+import PatricianNorm from "./PatricianNorm.astro";
+
+const norms = [
+  ["Moto", "Fide et Labore."],
+  [
+    "Mission",
+    "Total commitment and optimum use of the resources to obtain the best quality in everyone.",
+  ],
+  ["Vision", "Pursuing Excellence in Education and Character."],
+  ["Goal", "Transform the child into a unique personality."],
+  [
+    "Objective",
+    "To make the child a well integrated person and an asset to the society.",
+  ],
+];
+---
+
+<section class="px-12 my-20">
+  <SectionTitle title="Patrician Norms." />
+  <div class="mt-6 space-y-3">
+    {norms.map((n) => <PatricianNorm norm={n[0]} desc={n[1]} />)}
+  </div>
+
+  <div class="mt-8 space-y-4">
+    <PrimaryCTA text="learn more on alma mater" url="/" />
+    <SecondaryCTA text="get to know the staff" url="/" />
+  </div>
+</section>
