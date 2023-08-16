@@ -1,0 +1,31 @@
+---
+import NextCard from "./NextCard.astro";
+import NextCards from "./NextCards.astro";
+import SecondaryCTA from "./SecondaryCTA.astro";
+import SectionTitle from "./SectionTitle.astro";
+
+const nexts = [
+  ["Patrician Publications.", "/patrician-publications"],
+  ["Our Spirituality.", "/our-spirituality"],
+  ["Academics.", "/academics"],
+  ["Sports.", "/sports"],
+  ["Clubs & Socities.", "clubs-and-socities"],
+];
+---
+
+<section class="my-20 px-12">
+  <SectionTitle title="Where to next?" />
+
+  <NextCards nexts={nexts.slice(1)} />
+
+  <!-- Main Card -->
+  <NextCard
+    klass="font-bold bg-[#393B38] text-spc-light"
+    display={nexts[0][0]}
+    url={nexts[0][1]}
+  />
+
+  <div class="mt-3">
+    <SecondaryCTA text="love the site? let SPC Media Unit know." url="/" />
+  </div>
+</section>

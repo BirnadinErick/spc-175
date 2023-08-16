@@ -1,0 +1,10 @@
+---
+const genericClassName =
+  "w-full border border-[#393B38] p-4 flex justify-center items-center text-center";
+
+const { klass, url, display } = Astro.props;
+---
+
+<div class={klass ? `${genericClassName} ${klass}` : genericClassName}>
+  <a href={url}>{display}</a>
+</div>

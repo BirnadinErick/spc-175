@@ -1,0 +1,9 @@
+---
+import NextCard from "./NextCard.astro";
+
+const { nexts } = Astro.props;
+---
+
+<div class="grid grid-cols-2 gap-4 mt-6 mb-2">
+  {nexts.map((n: String[]) => <NextCard display={n[0]} url={n[1]} />)}
+</div>
