@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^0.19.7",
     "@astrojs/tailwind": "^4.0.0",
     "@fontsource/playfair-display": "^5.0.8",
     "@fontsource/space-grotesk": "^5.0.8",
@@ -21,6 +22,10 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.4",
-    "@tailwindcss/typography": "^0.5.9"
+    "@tailwindcss/typography": "^0.5.9",
+    "remark-emoji": "^4.0.0",
+    "remark-gfm": "^3.0.1",
+    "remark-images": "^3.1.0",
+    "remark-unwrap-images": "^3.0.1"
   }
 }
