@@ -6,8 +6,8 @@ const { src, alt, klass } = Astro.props;
   src={src}
   alt={alt}
   class={klass
-    ? `h-[256px] object-cover w-auto ${klass}`
-    : "h-[256px] object-cover w-auto"}
+    ? `min-h-[256px] object-cover min-w-full w-full ${klass}`
+    : "min-h-[256px] h-auto  object-cover min-w-full w-full"}
   loading="lazy"
   decoding="async"
 />
