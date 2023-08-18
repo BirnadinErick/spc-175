@@ -1,0 +1,35 @@
+---
+import CommonHead from "../components/common/CommonHead.astro";
+import CommonHeader from "../components/common/CommonHeader.astro";
+import Footer from "../components/footer/Footer.astro";
+import Next from "../components/common/Next.astro";
+
+import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/700.css";
+import "@fontsource/space-mono/400.css";
+
+const nexts = [
+  ["Home.", "/"],
+  ["Our Spirituality.", "/our-spirituality"],
+  ["Academics.", "/academics"],
+  ["Sports.", "/sports"],
+  ["Clubs & Socities.", "clubs-and-socities"],
+];
+---
+
+<html lang="en">
+  <CommonHead title="Patrician Publications | SPC Media Unit | 175 years" />
+
+  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+    <CommonHeader title="Patrician<br/>Publications" />
+
+    <article
+      class="my-20 prose-sm prose-headings:px-12 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-12 text-justify text-spc-light/75 prose-ul:text-left prose-ol:text-left"
+    >
+      <slot />
+    </article>
+
+    <Next nexts={nexts} />
+    <Footer />
+  </body>
+</html>
