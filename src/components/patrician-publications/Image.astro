@@ -1,0 +1,15 @@
+---
+import RemoteImage from "../common/RemoteImage.astro";
+const { src, alt } = Astro.props;
+---
+
+<figure>
+  <RemoteImage src={src} alt={alt} />
+  <figcaption class="text-[10px] text-spc-light/60 italic text-center">
+    {alt}
+    <span class="underline underline-offset-4 px-1">
+      Image credits:
+      <a href="/clubs-and-societies/spc-media-unit">SPC Media Unit</a></span
+    >
+  </figcaption>
+</figure>
