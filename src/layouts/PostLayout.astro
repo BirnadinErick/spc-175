@@ -30,9 +30,9 @@ const { frontmatter } = Astro.props;
   <body class="cursor-default bg-spc-dark text-spc-light font-sans">
     <CommonHeader title="Patrician<br/>Publications" />
 
-    <section class="px-12"><BackButton /></section>
+    <section class="px-6"><BackButton /></section>
 
-    <section class="px-12 mt-8">
+    <section class="px-6 mt-8">
       <h1 class="font-bold text-4xl leading-[95%]">{frontmatter.title}</h1>
       <div
         class="flex justify-start items-baseline font-mono text-[12px] text-spc-light/60 space-x-3 my-3"
@@ -52,12 +52,12 @@ const { frontmatter } = Astro.props;
     </div>
 
     <article
-      class="mb-20 mt-8 prose-sm prose-headings:px-12 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-12 text-spc-light/75"
+      class="mb-20 mt-8 prose-sm prose-headings:px-6 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 text-spc-light/75"
     >
       <slot />
     </article>
 
-    <section class="px-12">
+    <section class="px-6">
       {
         frontmatter.tags.map((s: string) => (
           <span class="first:pr-1 last:pl-1 px-1 text-spc-light/50 font-mono text-sm">
@@ -67,7 +67,7 @@ const { frontmatter } = Astro.props;
       }
     </section>
 
-    <section class="px-12 mt-4 mb-8 text-spc-light/80 text-sm">
+    <section class="px-6 mt-4 mb-8 text-spc-light/80 text-sm">
       <p>Comments? Coming soon.</p>
     </section>
 
