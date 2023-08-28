@@ -5,7 +5,9 @@ import SPCLogo from "./SPCLogo.astro";
 const { title } = Astro.props;
 ---
 
-<header class="flex justify-start items-center space-x-2 m-12 text-spc-light">
+<header
+  class="flex justify-start items-center space-x-2 mx-8 my-12 text-spc-light"
+>
   <SPCLogo />
   <h1 class="font-serif text-3xl font-bold" set:html={title} />
 </header>
