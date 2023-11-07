@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -18,8 +18,8 @@ dependencies:
     specifier: ^5.0.8
     version: 5.0.8
   '@fontsource/space-mono':
-    specifier: ^5.0.9
-    version: 5.0.9
+    specifier: ^5.0.17
+    version: 5.0.17
   astro:
     specifier: ^2.10.8
     version: 2.10.8
@@ -829,8 +829,8 @@ packages:
     resolution: {integrity: sha512-5nRIHgh7E65MxkTHWdLol+uweRrQm671CD8bWR+pvYZOTtQi70tW8bwpgzNFzuYS6selvaM3vfKhT0TEgiEFoQ==}
     dev: false
 
-  /@fontsource/space-mono@5.0.9:
-    resolution: {integrity: sha512-utiPKmdiPZZaP7u9Hpu6XmqM704Xij2KVPFGdBoXOLv3zHZ6E7McWimEj/Ml3hhbKF07FDIfctrXdobAATqGfw==}
+  /@fontsource/space-mono@5.0.17:
+    resolution: {integrity: sha512-AwglnwSQ6DRoAKhrmkTngY2GFjCjONA5vlw+62b6cC7z5FEWeJ+nleUaOQnLxkGKKL68fA30CjnHJvKENck5Fw==}
     dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
