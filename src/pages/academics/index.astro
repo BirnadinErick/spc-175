@@ -1,34 +1,37 @@
 ---
-import logo from "~/assets/logo.png";
-import { Image } from "astro:assets";
+import SoFarCard from "@components/academics/SoFarCard.astro";
+import CommonHead from "@components/common/CommonHead.astro";
+import CommonHeader from "@components/common/CommonHeader.astro";
+import SectionTitle from "@components/common/SectionTitle.astro";
+import Footer from "@components/footer/Footer.astro";
+import BackButton from "@components/patrician-publications/BackButton.astro";
+import Feature from "@components/patrician-publications/Feature.astro";
+
+const nexts: Array<string[]> = [
+    ["Sports.", "/sports"],
+    ["Patrician Publications.", "/patrician-publications"],
+    ["Our Spirituality.", "/our-spirituality"],
+    ["Academics.", "/academics"],
+    ["Clubs & Socities.", "clubs-and-socities"],
+];
 ---
 
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patricians</title>
-</head>
-<style>
-    *{
-        background: #000; 
-    }
-    .div{
-        display: inline-flex;
-        height: 1686px;
-        padding: 43px 463px 1451px 0px;
-        align-items: center;
-        gap: 11px;
-    }
-</style>
-<body>
-    <div style="width: 100%; height: 100%; padding-top: 43px; padding-bottom: 1451px; padding-right: 463px; background: black; justify-content: flex-start; align-items: center; gap: 11px; display: inline-flex">
-    <!-- <img style="width: 192px; height: 192px" src="/logo.png" /> -->
-<Image src={logo} alt="SPC Logo" quality={100} />
+    <CommonHead title="Patrician Academics | SPC Media Unit | 175 years" />
 
-    <div style="width: 422px; height: 167px; color: white; font-size: 72px; font-family: Inter; font-weight: 600; word-wrap: break-word">Patricians<br/>Academics</div>
-</div>
-</body>
+    <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+        <CommonHeader title="Patrician<br/>Academics" />
+        <section class="px-6"><BackButton /></section>
+        <Feature />
+        <section class="px-6 my-2">
+            <SectionTitle title="So far," />
+            <div class="grid grid-rows-1 grid-cols-2 gap-4">
+                <SoFarCard amount="70+" desc="Academic Staff" />
+                <div class="p-4 border border-spc-light/40 text-center">
+                    Prize winners
+                </div>
+            </div>
+        </section>
+        <Footer />
+    </body>
 </html>
-
