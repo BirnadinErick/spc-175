@@ -1,14 +1,25 @@
 ---
 import Flattered from "@components/academics/Flattered.astro";
+import MoreNews from "@components/academics/MoreNews.astro";
 import SoFar from "@components/academics/SoFar.astro";
 import CommonHead from "@components/common/CommonHead.astro";
 import CommonHeader from "@components/common/CommonHeader.astro";
+import Next from "@components/common/Next.astro";
 import Footer from "@components/footer/Footer.astro";
 import BackButton from "@components/patrician-publications/BackButton.astro";
 import Feature from "@components/patrician-publications/Feature.astro";
+
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
 import "@fontsource/space-mono/400.css";
+
+const NEXTS = [
+    ["Home.", "/"],
+    ["Our Spirituality.", "/our-spirituality"],
+    ["Academics.", "/academics"],
+    ["Sports.", "/sports"],
+    ["Clubs & Socities.", "clubs-and-socities"],
+];
 ---
 
 <html lang="en">
@@ -20,6 +31,9 @@ import "@fontsource/space-mono/400.css";
         <Feature />
         <SoFar />
         <Flattered />
+        <MoreNews />
+
+        <Next nexts={NEXTS} />
         <Footer />
     </body>
 </html>
