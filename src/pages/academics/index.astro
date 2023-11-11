@@ -1,19 +1,10 @@
 ---
-import SoFarCard from "@components/academics/SoFarCard.astro";
+import SoFar from "@components/academics/SoFar.astro";
 import CommonHead from "@components/common/CommonHead.astro";
 import CommonHeader from "@components/common/CommonHeader.astro";
-import SectionTitle from "@components/common/SectionTitle.astro";
 import Footer from "@components/footer/Footer.astro";
 import BackButton from "@components/patrician-publications/BackButton.astro";
 import Feature from "@components/patrician-publications/Feature.astro";
-
-const nexts: Array<string[]> = [
-    ["Sports.", "/sports"],
-    ["Patrician Publications.", "/patrician-publications"],
-    ["Our Spirituality.", "/our-spirituality"],
-    ["Academics.", "/academics"],
-    ["Clubs & Socities.", "clubs-and-socities"],
-];
 ---
 
 <html lang="en">
@@ -23,15 +14,7 @@ const nexts: Array<string[]> = [
         <CommonHeader title="Patrician<br/>Academics" />
         <section class="px-6"><BackButton /></section>
         <Feature />
-        <section class="px-6 my-2">
-            <SectionTitle title="So far," />
-            <div class="grid grid-rows-1 grid-cols-2 gap-4">
-                <SoFarCard amount="70+" desc="Academic Staff" />
-                <div class="p-4 border border-spc-light/40 text-center">
-                    Prize winners
-                </div>
-            </div>
-        </section>
+        <SoFar />
         <Footer />
     </body>
 </html>
