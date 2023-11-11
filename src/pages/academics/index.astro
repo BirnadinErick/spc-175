@@ -1,3 +1,8 @@
+---
+import logo from "~/assets/logo.png";
+import { Image } from "astro:assets";
+---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +24,9 @@
 </style>
 <body>
     <div style="width: 100%; height: 100%; padding-top: 43px; padding-bottom: 1451px; padding-right: 463px; background: black; justify-content: flex-start; align-items: center; gap: 11px; display: inline-flex">
-    <img style="width: 192px; height: 192px" src="logo.png" />
+    <!-- <img style="width: 192px; height: 192px" src="/logo.png" /> -->
+<Image src={logo} alt="SPC Logo" quality={100} />
+
     <div style="width: 422px; height: 167px; color: white; font-size: 72px; font-family: Inter; font-weight: 600; word-wrap: break-word">Patricians<br/>Academics</div>
 </div>
 </body>
