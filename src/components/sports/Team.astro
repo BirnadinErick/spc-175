@@ -1,0 +1,14 @@
+---
+const { team, img } = Astro.props;
+
+// TODO: make cards  clickable
+---
+
+<div class="relative my-4">
+    <img class="rounded-sm" src={img} alt={team} />
+    <div
+        class="absolute bottom-4 mx-auto py-2 px-4 bg-gradient-to-b from-spc-light/50 to-spc-dark/20 backdrop-blur-sm left-1/2 -translate-x-1/2"
+    >
+        <h3 class="font-bold text-xl text-spc-dark uppercase">{team}</h3>
+    </div>
+</div>

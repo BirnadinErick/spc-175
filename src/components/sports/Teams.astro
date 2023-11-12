@@ -1,0 +1,46 @@
+---
+import SectionTitle from "@components/common/SectionTitle.astro";
+import TeamGroup from "./TeamGroup.astro";
+
+// delte in productin, just for demo
+function shuffle(array: any) {
+    let currentIndex = array.length,
+        randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex],
+            array[currentIndex],
+        ];
+    }
+
+    return array;
+}
+
+const { title, teams } = Astro.props;
+---
+
+<section class="px-6 my-16">
+    <SectionTitle title={title} />
+    <p class="mt-2 text-spc-light/30 text-sm">
+        you may click on each photo to learn more
+    </p>
+
+    <ol class="list-decimal px-4 my-4">
+        {teams.map((t: { group: string }) => <li>{t.group}</li>)}
+    </ol>
+
+    <div>
+        {
+            teams.map((t: { group: any; team: any }) => (
+                <TeamGroup group={t.group} team={shuffle(t.team)} />
+            ))
+        }
+    </div>
+</section>
