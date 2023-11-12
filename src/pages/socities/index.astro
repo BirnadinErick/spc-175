@@ -6,7 +6,7 @@ import Footer from "@components/footer/Footer.astro";
 import BackButton from "@components/patrician-publications/BackButton.astro";
 import Feature from "@components/patrician-publications/Feature.astro";
 import Teams from "@components/sports/Teams.astro";
-import { TEAMS } from "@config/teams";
+import { SOCIETIES } from "@config/teams";
 
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
@@ -22,13 +22,13 @@ const NEXTS = [
 ---
 
 <html lang="en">
-    <CommonHead title="Patrician Sports | SPC Media Unit | 175 years" />
+    <CommonHead title="Patrician Societies | SPC Media Unit | 175 years" />
 
     <body class="cursor-default bg-spc-dark text-spc-light font-sans">
-        <CommonHeader title="Patrician<br/>Sports" />
+        <CommonHeader title="Patrician<br/>Societies" />
         <section class="px-6"><BackButton /></section>
         <Feature />
-        <Teams title="Meet the Teams." teams={TEAMS} />
+        <Teams title="Societies we have." teams={SOCIETIES} />
         <Next nexts={NEXTS} />
         <Footer />
     </body>
