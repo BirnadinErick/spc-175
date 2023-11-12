@@ -1,0 +1,17 @@
+---
+import Team from "./Team.astro";
+const { group, team } = Astro.props;
+---
+
+<div>
+    <h2
+        class="text-spc-sea font-serif font-bold text-2xl tracking-wide mt-12 mb-4"
+    >
+        {group}
+    </h2>
+    {
+        team.map((t: { name: string; img: string }) => (
+            <Team team={t.name} img={t.img} />
+        ))
+    }
+</div>
