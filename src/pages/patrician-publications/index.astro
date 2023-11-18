@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import CommonHead from "@components/common/CommonHead.astro";
 import CommonHeader from "@components/common/CommonHeader.astro";
 import Footer from "@components/footer/Footer.astro";
@@ -11,17 +12,18 @@ import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
 import "@fontsource/space-mono/400.css";
 
-const dummyPostImgs = [
-  "https://unsplash.com/photos/aaIN3y2zcMQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8ODd8fHdhbGxwYXBlcnxlbnwwfDB8fHwxNjkyMTMwMjMzfDA&force=true&w=1920",
-  "https://unsplash.com/photos/ABtmE3jhaPQ/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjkyMTc5ODc5fA&force=true&w=1920",
-  "https://unsplash.com/photos/p9u_ncr53sQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTh8fHBsYXlncm91bmR8ZW58MHwwfHx8MTY5MjE2NDQzM3ww&force=true&w=1920",
-  "https://unsplash.com/photos/70YxSTWa2Zw/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTV8fGZvb3RiYWxsfGVufDB8MHx8fDE2OTIxODE3OTV8MA&force=true&w=1920",
-];
+// get posts
+const allPosts = await getCollection("posts");
+// filter featured posts
+const featured = allPosts.filter((p) => p.data.tags.includes("feat"));
+// filter normal posts
+var other = allPosts.filter((p) => !p.data.tags.includes("feat"));
 
-const test_desc = `remained a bastion
-    of academic excellence and character development in the vibrant city of
-    Jaffna. With a storied history spanning over a minds and hearts of
-    countless generations.`;
+// incase author forgot to remove old `feat` indicator from tags
+// we combine them with other posts
+if (featured.length > 1) {
+  other = [featured.slice(1), other].flat();
+}
 
 const nexts = [
   ["Home.", "/"],
@@ -41,21 +43,21 @@ const nexts = [
     <Search />
 
     <main>
-      <!-- Patrician Publication Featured -->
-      <Feature />
-
-      <!-- Patrician Publications Showcase 
-        TODO: create a content collection and pass in the args
-    -->
+      <Feature feat={featured[0]} />
 
       <section class="my-16 px-6">
         {
-          dummyPostImgs.map((img) => (
+          other.map((p) => (
             <PatricianPublicationCard
-              imgSrc={img}
-              title="Battle of Golds"
-              date="May 19, 2003"
-              desc={test_desc}
+              imgSrc={p.data.cover}
+              title={p.data.title}
+              date={p.data.pubDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+              desc={p.data.desc}
+              slug={p.slug}
             />
           ))
         }

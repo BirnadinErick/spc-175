@@ -3,7 +3,6 @@ import CommonHead from "@components/common/CommonHead.astro";
 import CommonHeader from "@components/common/CommonHeader.astro";
 import Footer from "@components/footer/Footer.astro";
 import Next from "@components/common/Next.astro";
-import Search from "@components/patrician-publications/Search.astro";
 import Feature from "@components/patrician-publications/Feature.astro";
 import PatricianPublicationCard from "@components/patrician-publications/PatricianPublicationCard.astro";
 
@@ -39,8 +38,8 @@ const nexts = [
         <CommonHeader title="Patrician<br/>Spirituality" />
 
         <main>
-            <Feature />
-            <section class="my-8">
+            <!-- <Feature /> -->
+            <section class="my-8 px-6">
                 {
                     dummyPostImgs.map((img) => (
                         <PatricianPublicationCard
