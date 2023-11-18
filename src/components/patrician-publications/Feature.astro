@@ -3,29 +3,34 @@ import PrimaryCTA from "../../components/common/PrimaryCTA.astro";
 import PostCardDesc from "./PostCardDesc.astro";
 import RemoteImage from "../common/RemoteImage.astro";
 
-const dummyFeatureImg =
-  "https://unsplash.com/photos/ARVFsI-32Uk/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjkyMTc3NzQ5fA&force=true&w=1920";
-
-const test_desc = `Since its inception in 1850, St. Patrick's College has remained a bastion of academic excellence and character development in the vibrant city of Jaffna. With a storied history spanning over a minds and hearts of countless generations.`;
+const { feat } = Astro.props;
 ---
 
 <section class="my-10">
   <div class="relative">
-    <RemoteImage src={dummyFeatureImg} alt="Feature Image Cover" />"
+    <RemoteImage src={feat.data.cover} alt={feat.data.title} />"
 
     <div
       class="absolute bottom-0 justify-between items-baseline bg-spc-dark-green/40 backdrop-blur-lg flex w-full py-3 px-6 text-spc-light"
     >
-      <h2 class="font-bold text-xl">Battle of Golds</h2>
-      <p class="text-gray-200 font-mono text-sm">May 19, 2003</p>
+      <h2 class="font-bold text-xl">{feat.data.title}</h2>
+      <p class="text-gray-200 font-mono text-sm">
+        {
+          feat.data.pubDate.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })
+        }
+      </p>
     </div>
   </div>
 
   <div class="px-6">
-    <PostCardDesc desc={test_desc} />
+    <PostCardDesc desc={feat.data.desc} />
   </div>
 
   <div class="px-6 my-4">
-    <PrimaryCTA text="read featured." url="/" />
+    <PrimaryCTA text="read featured." url={feat.slug} />
   </div>
 </section>

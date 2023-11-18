@@ -36,7 +36,15 @@ const { frontmatter } = Astro.props;
       <div
         class="flex justify-start items-baseline font-mono text-[12px] text-spc-light/60 space-x-3 my-3"
       >
-        <p>{frontmatter.pubDate}</p>
+        <p>
+          {
+            frontmatter.pubDate.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </p>
         <p>/</p>
         <p>{frontmatter.author}</p>
       </div>
@@ -58,11 +66,15 @@ const { frontmatter } = Astro.props;
 
     <section class="px-6">
       {
-        frontmatter.tags.map((s: string) => (
-          <span class="first:pr-1 last:pl-1 px-1 text-spc-light/50 font-mono text-sm">
-            #{s}
-          </span>
-        ))
+        frontmatter.tags.map((s: string) =>
+          s !== "feat" ? (
+            <span class="first:pr-1 last:pl-1 px-1 text-spc-light/50 font-mono text-sm">
+              #{s}
+            </span>
+          ) : (
+            ""
+          )
+        )
       }
     </section>
 
