@@ -12,8 +12,8 @@ dependencies:
     specifier: ^4.0.0
     version: 4.0.0(astro@2.10.8)(tailwindcss@3.3.3)
   '@fontsource/playfair-display':
-    specifier: ^5.0.8
-    version: 5.0.8
+    specifier: ^5.0.17
+    version: 5.0.17
   '@fontsource/space-grotesk':
     specifier: ^5.0.8
     version: 5.0.8
@@ -889,8 +889,8 @@ packages:
     engines: {node: '>=14'}
     dev: false
 
-  /@fontsource/playfair-display@5.0.8:
-    resolution: {integrity: sha512-M5X0P3KWipF0zVmbTRtwKmJPU1K3uDiJemLsxNfMpFY87ka0M6V/ecdJJwB8eYV+ElrwPdc87BPBhmZLoVgh/Q==}
+  /@fontsource/playfair-display@5.0.17:
+    resolution: {integrity: sha512-8TregVIym6GN7frR7JULEdXHIwWCgC3YrHiFQXScCboDcRvMcTpHiKV/78UN0fIPhnza5xRpO9RvLhrP3lS05Q==}
     dev: false
 
   /@fontsource/space-grotesk@5.0.8:
