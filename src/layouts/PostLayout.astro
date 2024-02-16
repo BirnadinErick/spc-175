@@ -26,7 +26,7 @@ const { frontmatter } = Astro.props;
     title={`${frontmatter.title} | Patrician Publications by SPC Media Unit`}
   />
 
-  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+  <body class="cursor-default bg-spc-dark text-spc-light font-sans md:px-96">
     <CommonHeader title="Patrician<br/>Publications" />
 
     <section class="px-6"><BackButton /></section>
@@ -59,7 +59,7 @@ const { frontmatter } = Astro.props;
     </div>
 
     <article
-      class="mb-20 mt-8 prose-sm prose-headings:px-6 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 text-spc-light/75"
+      class="mb-20 mt-8 prose-sm prose-headings:px-6 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 md:prose-p:px-24 md:prose-p:text-lg text-spc-light/75"
     >
       <slot />
     </article>
