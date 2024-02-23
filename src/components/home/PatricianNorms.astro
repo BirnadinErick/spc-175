@@ -19,9 +19,11 @@ const norms = [
 ];
 ---
 
-<section class="px-6 my-20">
+<section class="px-6 my-20 md:px-0">
   <SectionTitle title="Patrician Norms." />
-  <div class="mt-6 space-y-3">
+  <div
+    class="mt-6 space-y-3 md:space-y-0 md:grid md:grid-cols-2 md:gap-4 last:row-span-2"
+  >
     {norms.map((n) => <PatricianNorm norm={n[0]} desc={n[1]} />)}
   </div>
 
