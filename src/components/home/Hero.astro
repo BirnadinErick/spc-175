@@ -8,7 +8,7 @@ import SecondaryCTA from "@components/common/SecondaryCTA.astro";
 ---
 
 <section
-  class="font-serif font-bold leading-none text-spc-light/80 bg-spc-dark px-6 mb-12"
+  class="font-serif font-bold leading-none text-spc-light/80 bg-spc-dark px-6 mb-12 md:hidden"
 >
   <h2 class="text-4xl">celebrating</h2>
   <h1 class="font-mono text-[128px] text-spc-gold font-bold">175</h1>
@@ -20,4 +20,24 @@ import SecondaryCTA from "@components/common/SecondaryCTA.astro";
     <PrimaryCTA text="how we feast it." url="/" />
     <SecondaryCTA text="learn about our 175 years" url="/" />
   </div>
+</section>
+
+<section class="hidden md:block md:px-96">
+  <div class="flex justify-between align-bottom relative">
+    <h1
+      class="w-4/5 leading-[90%] font-serif text-[76px] bg-gradient-to-b from-spc-sea to-spc-gold inline-block text-transparent bg-clip-text"
+    >
+      St. Patrick's College celebrates 175 years of Fide et Labore
+    </h1>
+
+    <div class="mt-8 space-y-4 absolute bottom-0 right-0">
+      <PrimaryCTA text="how we feast it." url="/" />
+    </div>
+  </div>
+</section>
+
+<section class="hidden md:block my-16 md:px-36">
+  <video muted autoplay width="100%" height="auto" loop>
+    <source src="/alma-mater.mp4" type="video/mp4" />
+  </video>
 </section>

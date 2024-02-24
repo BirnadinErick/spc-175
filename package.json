@@ -14,11 +14,11 @@
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
     "@astrojs/tailwind": "^4.0.0",
-    "@fontsource/playfair-display": "^5.0.17",
+    "@fontsource/playfair-display": "^5.0.19",
     "@fontsource/space-grotesk": "^5.0.15",
     "@fontsource/space-mono": "^5.0.17",
     "astro": "^2.10.8",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.4",

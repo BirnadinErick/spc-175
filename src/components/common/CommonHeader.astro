@@ -2,12 +2,106 @@
 import "@fontsource/playfair-display/700.css";
 import SPCLogo from "./SPCLogo.astro";
 
-const { title } = Astro.props;
+type navLinks =
+  | "Home"
+  | "Blog"
+  | "Donate"
+  | "Our Spirituality"
+  | "Academics"
+  | "Sports"
+  | "Facilities"
+  | "Societies"
+  | "Alumni";
+const { now, title }: { now: navLinks; title: string } = Astro.props;
 ---
 
 <header
-  class="flex justify-start items-center space-x-2 mx-6 my-12 text-spc-light"
+  class="flex justify-start items-center space-x-2 mx-6 my-12 text-spc-light md:hidden"
 >
   <SPCLogo />
   <h1 class="font-serif text-3xl font-bold" set:html={title} />
+</header>
+
+<header class="md:block hidden my-12 text-spc-light md:px-96">
+  <div class="flex justify-around align-center my-8 w-full">
+    <SPCLogo dim={120} />
+  </div>
+  <nav>
+    <ul class="flex justify-between">
+      <li>
+        <a
+          class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
+            now == "Home" && "text-spc-gold/80"
+          }`}
+          href="/">Home</a
+        >
+      </li>
+      <li>
+        <a
+          class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
+            now == "Blog" && "text-spc-gold/80"
+          }`}
+          href="/patrician-publications">Blog</a
+        >
+      </li>
+      <li>
+        <a
+          class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
+            now == "Donate" && "text-spc-gold/80"
+          }`}
+          href="/spc-aid">Donate</a
+        >
+      </li>
+      <li>
+        <a
+          class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
+            now == "Our Spirituality" && "text-spc-gold/80"
+          }`}
+          href="/our-spirituality">Our Spirituality</a
+        >
+      </li>
+      <li>
+        <a
+          class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
+            now == "Academics" && "text-spc-gold/80"
+          }`}
+          href="/academics">Academics</a
+        >
+      </li>
+      <li>
+        <a
+          class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
+            now == "Sports" && "text-spc-gold/80"
+          }`}
+          href="/sports">Sports</a
+        >
+      </li>
+      <li>
+        <a
+          class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
+            now == "Facilities" && "text-spc-gold/80"
+          }`}
+          href="/facilities">Facilities</a
+        >
+      </li>
+      <li>
+        <a
+          class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
+            now == "Societies" && "text-spc-gold/80"
+          }`}
+          href="/socities">Societies</a
+        >
+      </li>
+      <li>
+        <a
+          class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
+            now == "Alumni" && "text-spc-gold/80"
+          }`}
+          href="/spc-alumni">Alumni</a
+        >
+      </li>
+    </ul>
+  </nav>
+
+  <hr class="mt-4 border-spc-light/20" />
 </header>
