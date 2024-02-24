@@ -132,7 +132,7 @@ export const SOCIETIES = [
         group: "Us, the SPC Media Unit",
         team: [
             {
-                name: "Under 17",
+                name: "Members of 2022",
                 img: "https://unsplash.com/photos/aaIN3y2zcMQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8ODd8fHdhbGxwYXBlcnxlbnwwfDB8fHwxNjkyMTMwMjMzfDA&force=true&w=1920",
             },
             {
