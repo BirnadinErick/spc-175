@@ -5,6 +5,7 @@ import SoFar from "@components/academics/SoFar.astro";
 import CommonHead from "@components/common/CommonHead.astro";
 import CommonHeader from "@components/common/CommonHeader.astro";
 import Next from "@components/common/Next.astro";
+import PageTitle from "@components/common/PageTitle.astro";
 import Footer from "@components/footer/Footer.astro";
 import BackButton from "@components/patrician-publications/BackButton.astro";
 import Feature from "@components/patrician-publications/Feature.astro";
@@ -25,9 +26,12 @@ const NEXTS = [
 <html lang="en">
   <CommonHead title="Patrician Academics | SPC Media Unit | 175 years" />
 
-  <body class="cursor-default bg-spc-dark text-spc-light font-sans md:px-96">
+  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
     <CommonHeader title="Patrician<br/>Academics" />
-    <section class="px-6"><BackButton /></section>
+
+    <PageTitle title="Patrician Academics" />
+
+    <section class="px-6 md:hidden"><BackButton /></section>
     <!-- <Feature /> -->
     <SoFar />
     <Flattered />

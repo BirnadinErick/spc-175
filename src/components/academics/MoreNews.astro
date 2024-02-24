@@ -3,10 +3,10 @@ import SectionTitle from "@components/common/SectionTitle.astro";
 import PatricianPublicationCard from "@components/patrician-publications/PatricianPublicationCard.astro";
 
 const DUMMYPOST_IMAGES = [
-    "https://unsplash.com/photos/aaIN3y2zcMQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8ODd8fHdhbGxwYXBlcnxlbnwwfDB8fHwxNjkyMTMwMjMzfDA&force=true&w=1920",
-    "https://unsplash.com/photos/ABtmE3jhaPQ/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjkyMTc5ODc5fA&force=true&w=1920",
-    "https://unsplash.com/photos/p9u_ncr53sQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTh8fHBsYXlncm91bmR8ZW58MHwwfHx8MTY5MjE2NDQzM3ww&force=true&w=1920",
-    "https://unsplash.com/photos/70YxSTWa2Zw/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTV8fGZvb3RiYWxsfGVufDB8MHx8fDE2OTIxODE3OTV8MA&force=true&w=1920",
+  "https://unsplash.com/photos/aaIN3y2zcMQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8ODd8fHdhbGxwYXBlcnxlbnwwfDB8fHwxNjkyMTMwMjMzfDA&force=true&w=1920",
+  "https://unsplash.com/photos/ABtmE3jhaPQ/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjkyMTc5ODc5fA&force=true&w=1920",
+  "https://unsplash.com/photos/p9u_ncr53sQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTh8fHBsYXlncm91bmR8ZW58MHwwfHx8MTY5MjE2NDQzM3ww&force=true&w=1920",
+  "https://unsplash.com/photos/70YxSTWa2Zw/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTV8fGZvb3RiYWxsfGVufDB8MHx8fDE2OTIxODE3OTV8MA&force=true&w=1920",
 ];
 
 const TEST_DESCRIPTION = `remained a bastion
@@ -15,16 +15,18 @@ const TEST_DESCRIPTION = `remained a bastion
     countless generations.`;
 ---
 
-<section class="px-6 my-16">
-    <SectionTitle title="More News." />
+<section class="px-6 md:px-96 my-16">
+  <SectionTitle title="More News." />
+  <div class="md:grid md:grid-cols-2 md:gap-4">
     {
-        DUMMYPOST_IMAGES.map((img) => (
-            <PatricianPublicationCard
-                imgSrc={img}
-                title="Battle of Golds"
-                date="May 19, 2003"
-                desc={TEST_DESCRIPTION}
-            />
-        ))
+      DUMMYPOST_IMAGES.map((img) => (
+        <PatricianPublicationCard
+          imgSrc={img}
+          title="Battle of Golds"
+          date="May 19, 2003"
+          desc={TEST_DESCRIPTION}
+        />
+      ))
     }
+  </div>
 </section>
