@@ -22,7 +22,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
   <h1 class="font-serif text-3xl font-bold" set:html={title} />
 </header>
 
-<header class="md:block hidden my-12 text-spc-light">
+<header class="md:block hidden my-12 text-spc-light md:px-96">
   <nav>
     <ul class="flex justify-between">
       <li>
@@ -30,7 +30,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
           class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
             now == "Home" && "text-spc-gold/80"
           }`}
-          href="#">Home</a
+          href="/">Home</a
         >
       </li>
       <li>
@@ -38,7 +38,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
           class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
             now == "Blog" && "text-spc-gold/80"
           }`}
-          href="#">Blog</a
+          href="/patrician-publications">Blog</a
         >
       </li>
       <li>
@@ -46,7 +46,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
           class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
             now == "Donate" && "text-spc-gold/80"
           }`}
-          href="#">Donate</a
+          href="/spc-aid">Donate</a
         >
       </li>
       <li>
@@ -54,7 +54,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
           class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
             now == "Our Spirituality" && "text-spc-gold/80"
           }`}
-          href="#">Our Spirituality</a
+          href="/our-spirituality">Our Spirituality</a
         >
       </li>
       <li>
@@ -62,7 +62,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
           class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
             now == "Academics" && "text-spc-gold/80"
           }`}
-          href="#">Academics</a
+          href="/academics">Academics</a
         >
       </li>
       <li>
@@ -70,7 +70,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
           class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
             now == "Sports" && "text-spc-gold/80"
           }`}
-          href="#">Sports</a
+          href="/sports">Sports</a
         >
       </li>
       <li>
@@ -78,7 +78,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
           class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
             now == "Facilities" && "text-spc-gold/80"
           }`}
-          href="#">Facilities</a
+          href="/facilities">Facilities</a
         >
       </li>
       <li>
@@ -86,7 +86,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
           class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
             now == "Societies" && "text-spc-gold/80"
           }`}
-          href="#">Societies</a
+          href="/societies">Societies</a
         >
       </li>
       <li>
@@ -94,7 +94,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
           class={`hover:text-spc-gold hover:underline hover:underline-offset-4 ${
             now == "Alumni" && "text-spc-gold/80"
           }`}
-          href="#">Alumni</a
+          href="/spc-alumni">Alumni</a
         >
       </li>
     </ul>
