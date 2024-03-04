@@ -18,8 +18,8 @@ dependencies:
     specifier: ^5.0.15
     version: 5.0.15
   '@fontsource/space-mono':
-    specifier: ^5.0.17
-    version: 5.0.17
+    specifier: ^5.0.19
+    version: 5.0.19
   astro:
     specifier: ^2.10.8
     version: 2.10.8
@@ -897,8 +897,8 @@ packages:
     resolution: {integrity: sha512-9LaRK2f2B7X0Mx9F8UTuKuqW4w+Iv0RByoC5WyT7l3VSyepd2aJm+/s14tj8QJY+0gwfUG9P/6Gc8oDWy8+aeA==}
     dev: false
 
-  /@fontsource/space-mono@5.0.17:
-    resolution: {integrity: sha512-AwglnwSQ6DRoAKhrmkTngY2GFjCjONA5vlw+62b6cC7z5FEWeJ+nleUaOQnLxkGKKL68fA30CjnHJvKENck5Fw==}
+  /@fontsource/space-mono@5.0.19:
+    resolution: {integrity: sha512-gz9yaKtXCY+HutNvQ4APc15xwZ1f6pWXve5N55x5m/hOoGqgB9Auf3l7CitHNhNJkSKEmaM45M29b0rFeudXlg==}
     dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
