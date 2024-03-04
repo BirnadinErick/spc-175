@@ -15,8 +15,8 @@ dependencies:
     specifier: ^5.0.19
     version: 5.0.19
   '@fontsource/space-grotesk':
-    specifier: ^5.0.15
-    version: 5.0.15
+    specifier: ^5.0.17
+    version: 5.0.17
   '@fontsource/space-mono':
     specifier: ^5.0.17
     version: 5.0.17
@@ -893,8 +893,8 @@ packages:
     resolution: {integrity: sha512-rwYBjruBdNuyGNVqM769HhjCKZWQ4y0fwN3MS8klvYfVPJ9EM7Cmc8NWUlvmlDxJ+yhO3I/wG8m0idI+LFonug==}
     dev: false
 
-  /@fontsource/space-grotesk@5.0.15:
-    resolution: {integrity: sha512-9LaRK2f2B7X0Mx9F8UTuKuqW4w+Iv0RByoC5WyT7l3VSyepd2aJm+/s14tj8QJY+0gwfUG9P/6Gc8oDWy8+aeA==}
+  /@fontsource/space-grotesk@5.0.17:
+    resolution: {integrity: sha512-N2LC4atRec1b87oKDiXI/TYCOA8NanT4+cnmGYHbzzIJpQB4eQJtfLgJp8rm0+8xsvTID6eNi2fZGbvrzpL2CQ==}
     dev: false
 
   /@fontsource/space-mono@5.0.17:
