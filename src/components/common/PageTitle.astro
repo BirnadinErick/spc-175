@@ -3,23 +3,19 @@ import "@fontsource/space-mono/700.css";
 import "@fontsource/space-grotesk/700.css";
 import "@fontsource/space-grotesk/400.css";
 
-import PrimaryCTA from "@components/common/PrimaryCTA.astro";
-import SecondaryCTA from "@components/common/SecondaryCTA.astro";
-
-const {title}:{title:string} = Astro.props;
+const { title }: { title: string } = Astro.props;
 ---
 
-<section class="hidden md:block px-96">
+<section class="hidden xl:block px-96">
 	<div class="flex justify-between align-bottom relative">
 		<h1
 			class="font-serif text-[64px] bg-gradient-to-b from-spc-sea to-spc-green text-center text-transparent bg-clip-text"
 		>
-		{title}
+			{title}
 		</h1>
 
 		<div class="mt-8 space-y-4 absolute bottom-0 right-0">
-		<slot/>
+			<slot />
 		</div>
 	</div>
 </section>
-
