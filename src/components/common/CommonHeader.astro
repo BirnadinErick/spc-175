@@ -16,13 +16,15 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
 ---
 
 <header
-  class="flex justify-start items-center space-x-2 mx-6 my-12 text-spc-light md:hidden"
+  class="flex justify-start items-center space-x-2 mx-6 my-12 text-spc-light lg:hidden md:justify-around"
 >
-  <SPCLogo />
-  <h1 class="font-serif text-3xl font-bold" set:html={title} />
+  <div class="flex space-x-2 md:space-x-6">
+    <SPCLogo />
+    <h1 class="font-serif text-3xl font-bold" set:html={title} />
+  </div>
 </header>
 
-<header class="md:block hidden my-12 text-spc-light md:px-96">
+<header class="lg:block hidden my-12 text-spc-light lg:px-96">
   <div class="flex justify-around align-center my-8 w-full">
     <SPCLogo dim={120} />
   </div>
