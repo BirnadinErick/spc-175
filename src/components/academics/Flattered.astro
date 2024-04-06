@@ -1,6 +1,7 @@
 ---
 import SectionTitle from "@components/common/SectionTitle.astro";
 import how_join_school from "~/assets/how_join_school.png";
+import how_join_school_desk from "~/assets/how_join_school_desk.png";
 import { Image } from "astro:assets";
 
 const FLATTERED_TXT = `We understand the feeling, the anxiety when choosing the 
@@ -9,13 +10,21 @@ school for your son. Next big thing right? St. Patrick’s College stand
  We promise, you would regret if you chose otherwise.`;
 ---
 
-<section class="px-6 my-16">
+<section class="px-6 my-16 md:px-0">
+  <div class="md:px-12 xl:px-96">
     <SectionTitle title="Flattered? Join Us." />
     <p class="mt-4 text-spc-light">{FLATTERED_TXT}</p>
-    <Image
-        class="mt-3 rounded-sm"
-        src={how_join_school}
-        alt="Diagram depicting how to join St. Patrick's College of Jaffna"
-        quality={90}
-    />
+  </div>
+  <Image
+    class="mt-3 rounded-sm md:hidden"
+    src={how_join_school}
+    alt="Diagram depicting how to join St. Patrick's College of Jaffna"
+    quality={90}
+  />
+  <Image
+    class="mt-6 rounded-sm hidden md:block px-24"
+    src={how_join_school_desk}
+    alt="Diagram depicting how to join St. Patrick's College of Jaffna"
+    quality={100}
+  />
 </section>

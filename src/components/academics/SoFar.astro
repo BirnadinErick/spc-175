@@ -3,21 +3,19 @@ import SectionTitle from "@components/common/SectionTitle.astro";
 import SoFarCard from "./SoFarCard.astro";
 ---
 
-<section class="px-6 my-2">
-    <SectionTitle title="So far," />
-    <div class="my-4">
-        <div class="grid grid-rows-1 grid-cols-2 gap-4">
-            <SoFarCard amount="70+" desc="Academic Staff" />
-            <SoFarCard amount="190+" desc="Prize winners" />
-        </div>
-        <div class="mt-3">
-            <div class="p-4 text-center bg-spc-bg-mid">
-                <p class="font-bold text-2xl">2000+</p>
-                <p>Students lectures each year</p>
-            </div>
-        </div>
-        <p class="text-spc-light/70 tracking-wider text-sm mt-2">
-            and counting...
-        </p>
+<section class="px-6 my-2 md:mt-8 md:px-12 xl:mt-16 xl:px-96">
+  <SectionTitle title="So far," />
+  <div class="my-4">
+    <div class="grid grid-rows-1 grid-cols-2 gap-4">
+      <SoFarCard amount="70+" desc="Academic Staff" />
+      <SoFarCard amount="190+" desc="Prize winners" />
     </div>
+    <div class="mt-3">
+      <div class="p-4 text-center bg-spc-bg-mid">
+        <p class="font-bold text-2xl">2000+</p>
+        <p>Students lectures each year</p>
+      </div>
+    </div>
+    <p class="text-spc-light/70 tracking-wider text-sm mt-2">and counting...</p>
+  </div>
 </section>

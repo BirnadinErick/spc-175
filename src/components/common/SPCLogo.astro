@@ -1,6 +1,20 @@
 ---
+import logoOriginal from "~/assets/logo-original.png";
 import logo from "~/assets/logo.png";
 import { Image } from "astro:assets";
+
+const { dim }: { dim: number } = Astro.props;
 ---
 
-<Image src={logo} alt="SPC Logo" quality={100} />
+{
+  dim && (
+    <Image
+      src={logoOriginal}
+      alt="SPC Logo"
+      quality={100}
+      height={dim}
+      width={dim}
+    />
+  )
+}
+{!dim && <Image src={logo} alt="SPC Logo" quality={100} />}
