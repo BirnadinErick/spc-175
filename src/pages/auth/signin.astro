@@ -1,0 +1,212 @@
+---
+import CommonHead from "@components/common/CommonHead.astro";
+import CommonHeader from "@components/common/CommonHeader.astro";
+import SectionTitle from "@components/common/SectionTitle.astro";
+import Countries from "@components/auth/Countries.astro";
+import Footer from "@components/footer/Footer.astro";
+import BackButton from "@components/patrician-publications/BackButton.astro";
+
+import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/700.css";
+---
+
+<html lang="en">
+    <CommonHead title="Log In | SPC Media Unit | 175 years" />
+
+    <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+        <CommonHeader title="Digital <br/>Patrician" />
+        <section class="px-6 my-8 md:px-12 lg:px-24 xl:px-[30%]"><BackButton /></section>
+        <section class="px-6 my-8 md:px-12 lg:px-24 xl:px-[30%]">
+            <SectionTitle title="Create an Account." />
+        </section>
+        <section class="px-6 my-8 md:px-12 lg:px-24 xl:px-[30%]">
+            <form action="/api/v1/signin" method="post">
+                <div class="mb-4">
+                    <label class="block mb-1" for="fname">First name</label>
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <input
+                            class="text-white bg-spc-dark w-full focus:ring-0"
+                            required
+                            type="text"
+                            name="fname"
+                            id="fname"
+                            placeholder="e.g. Jesus"
+                            spellcheck="false"
+                            autofocus
+                        />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-1" for="lname">Last name</label>
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <input
+                            class="text-white bg-spc-dark w-full focus:ring-0"
+                            required
+                            type="text"
+                            name="lname"
+                            id="lname"
+                            placeholder="e.g. Christ"
+                            spellcheck="false"
+                        />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block mb-1" for="email">Email Address</label>
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <input
+                            class="text-white bg-spc-dark w-full focus:ring-0"
+                            required
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="e.g. jesus@heav.en"
+                            spellcheck="false"
+                        />
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <label class="block mb-1" for="password">Password</label>
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <input
+                            class="text-white bg-spc-dark w-full focus:ring-0 focus:outline-0"
+                            required
+                            type="password"
+                            name="password"
+                            id="password"
+                        />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-1" for="year"
+                        >Year of the Batch</label
+                    >
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <!-- 2050 is max, as on 200th new website should be published and this be ported ;) Birnadin E. -->
+                        <input
+                            class="text-white bg-spc-dark w-full focus:ring-0"
+                            required
+                            type="number"
+                            min="1850"
+                            max="2050"
+                            name="year"
+                            id="year"
+                            placeholder="e.g. 2022 for pupil who are born in 2003"
+                        />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-1" for="country"
+                        >Country of current residence</label
+                    >
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <Countries />
+                    </div>
+                </div>
+
+                <div class="mt-12 mb-2">
+                    <p class="text-sm text-spc-light/50">
+                        Tell us a bit more...
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block mb-1" for="address1"
+                        >Address Line 1</label
+                    >
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <input
+                            class="text-white bg-spc-dark w-full focus:ring-0"
+                            required
+                            type="text"
+                            autocomplete="address-line1"
+                            name="address1"
+                            id="address1"
+                            placeholder="e.g. House of Trinity,"
+                            spellcheck="false"
+                        />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-1" for="address2"
+                        >Address Line 2 <span
+                            class="ml-2 text-spc-light/50 text-sm"
+                            >(optional)</span
+                        ></label
+                    >
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <input
+                            class="text-white bg-spc-dark w-full focus:ring-0"
+                            type="text"
+                            autocomplete="address-line2"
+                            name="address2"
+                            id="address2"
+                            placeholder="Heaven"
+                            spellcheck="false"
+                        />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-1" for="zipcode">Zip Code</label>
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <input
+                            class="text-white bg-spc-dark w-full focus:ring-0"
+                            required
+                            type="text"
+                            autocomplete="postal-code"
+                            name="zipcode"
+                            id="zipcode"
+                            placeholder="e.g. 042+1850H"
+                            spellcheck="false"
+                        />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block mb-1" for="telephone"
+                        >Phone Number</label
+                    >
+                    <div
+                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+                    >
+                        <input
+                            class="text-white bg-spc-dark w-full focus:ring-0"
+                            required
+                            type="tel"
+                            autocomplete="tel"
+                            name="telephone"
+                            id="telephone"
+                            placeholder="e.g. 019 005 2003"
+                            spellcheck="false"
+                        />
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-6 items-center">
+                    <button type="reset" class="text-spc-gold"> Reset</button>
+                    <button
+                        class="font-bold px-4 py-2 bg-white text-spc-green"
+                        type="submit">Create</button
+                    >
+                </div>
+            </form>
+        </section>
+        <Footer />
+    </body>
+</html>
