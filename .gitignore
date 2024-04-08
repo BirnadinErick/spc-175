@@ -21,3 +21,10 @@ pnpm-debug.log*
 .DS_Store
 
 **/.obsidian
+
+# sftp ops config
+# please download the config file from ionos
+# individually!
+# create separate user for each download!
+upstream-config.xml
+sftp_backup*/

@@ -26,61 +26,62 @@ const { frontmatter } = Astro.props;
     title={`${frontmatter.title} | Patrician Publications by SPC Media Unit`}
   />
 
-  <body class="cursor-default bg-spc-dark text-spc-light font-sans md:px-96">
+  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
     <CommonHeader title="Patrician<br/>Publications" />
+    <div class="md:px-12 xl:px-96">
+      <section class="px-6"><BackButton /></section>
 
-    <section class="px-6"><BackButton /></section>
+      <section class="px-6 mt-8">
+        <h1 class="font-bold text-4xl leading-[95%]">{frontmatter.title}</h1>
+        <div
+          class="flex justify-start items-baseline font-mono text-[12px] text-spc-light/60 space-x-3 my-3"
+        >
+          <p>
+            {
+              frontmatter.pubDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }
+          </p>
+          <p>/</p>
+          <p>{frontmatter.author}</p>
+        </div>
+      </section>
 
-    <section class="px-6 mt-8">
-      <h1 class="font-bold text-4xl leading-[95%]">{frontmatter.title}</h1>
-      <div
-        class="flex justify-start items-baseline font-mono text-[12px] text-spc-light/60 space-x-3 my-3"
-      >
-        <p>
-          {
-            frontmatter.pubDate.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })
-          }
-        </p>
-        <p>/</p>
-        <p>{frontmatter.author}</p>
+      <div class="mt-6">
+        <img
+          src={frontmatter.cover}
+          alt={frontmatter.title}
+          class="w-full object-cover max-h-[512px]"
+        />
       </div>
-    </section>
 
-    <div class="mt-6">
-      <img
-        src={frontmatter.cover}
-        alt={frontmatter.title}
-        class="w-full object-cover max-h-[512px]"
-      />
-    </div>
+      <article
+        class="mb-20 mt-8 prose-sm prose-headings:px-6 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg text-spc-light/75"
+      >
+        <slot />
+      </article>
 
-    <article
-      class="mb-20 mt-8 prose-sm prose-headings:px-6 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 md:prose-p:px-24 md:prose-p:text-lg text-spc-light/75"
-    >
-      <slot />
-    </article>
-
-    <section class="px-6">
-      {
-        frontmatter.tags.map((s: string) =>
-          s !== "feat" ? (
-            <span class="first:pr-1 last:pl-1 px-1 text-spc-light/50 font-mono text-sm">
-              #{s}
-            </span>
-          ) : (
-            ""
+      <section class="px-6">
+        {
+          frontmatter.tags.map((s: string) =>
+            s !== "feat" ? (
+              <span class="first:pr-1 last:pl-1 px-1 text-spc-light/50 font-mono text-sm">
+                #{s}
+              </span>
+            ) : (
+              ""
+            )
           )
-        )
-      }
-    </section>
+        }
+      </section>
 
-    <section class="px-6 mt-4 mb-8 text-spc-light/80 text-sm">
-      <p>Comments? Coming soon.</p>
-    </section>
+      <section class="px-6 mt-4 mb-8 text-spc-light/80 text-sm">
+        <p>Comments? Coming soon.</p>
+      </section>
+    </div>
 
     <Next nexts={nexts} />
     <Footer />
