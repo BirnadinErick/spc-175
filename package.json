@@ -26,6 +26,7 @@
     "remark-emoji": "^4.0.1",
     "remark-gfm": "^3.0.1",
     "remark-images": "^4.0.0",
-    "remark-unwrap-images": "^4.0.0"
+    "remark-unwrap-images": "^4.0.0",
+    "typescript": "^5.4.4"
   }
 }
