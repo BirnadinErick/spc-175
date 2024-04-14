@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="astro+php" type="CompoundRunConfigurationType">
+    <toRun name="dev" type="js.build_tools.npm" />
+    <toRun name="built-in server" type="PhpBuiltInWebServerConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
