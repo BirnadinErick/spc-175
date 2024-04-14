@@ -1,5 +1,7 @@
 <?php
 define("CONTROLLERS", "./v1/controllers/");
+define("VIEWS", $_SERVER['DOCUMENT_ROOT']."/v1/views/");
+define("MODELS", $_SERVER['DOCUMENT_ROOT']."/v1/models/");
 
 require_once(CONTROLLERS."signin.php");
 require_once(CONTROLLERS."login.php");
