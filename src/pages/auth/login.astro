@@ -4,65 +4,78 @@ import CommonHeader from "@components/common/CommonHeader.astro";
 import Footer from "@components/footer/Footer.astro";
 import SectionTitle from "@components/common/SectionTitle.astro";
 import BackButton from "@components/patrician-publications/BackButton.astro";
+import { get_api_route } from "@config/global";
 
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
 ---
 
 <html lang="en">
-    <CommonHead title="Log In | SPC Media Unit | 175 years" />
+  <CommonHead title="Log In | SPC Media Unit | 175 years" />
 
-    <body class="cursor-default bg-spc-dark text-spc-light font-sans">
-        <CommonHeader title="Digital <br/>Patrician" />
-        <section class="px-6"><BackButton /></section>
-        <section class="px-6 my-4">
-            <SectionTitle title="Authenticate You." />
-        </section>
-        <section class="px-6 my-8">
-            <form action="/api/v1/login" method="post">
-                <div class="mb-4">
-                    <label class="block mb-1" for="email">Email Address</label>
-                    <div
-                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
-                    >
-                        <input
-                            class="text-white bg-spc-dark w-full focus:ring-0"
-                            type="email"
-                            name="email"
-                            id="email"
-                            spellcheck="false"
-                            autofocus
-                        />
-                    </div>
-                </div>
-                <div class="mb-8">
-                    <label class="block mb-1" for="password">Password</label>
-                    <div
-                        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
-                    >
-                        <input
-                            class="text-white bg-spc-dark w-full focus:ring-0 focus:outline-0"
-                            type="password"
-                            name="password"
-                            id="password"
-                        />
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-6 items-center">
-                    <button
-                        type="button"
-                        onclick="window.location = '/auth/password-reset'"
-                        class="text-spc-gold"
-                    >
-                        Forgot Password?
-                    </button>
-                    <button
-                        class="font-bold px-4 py-2 bg-white text-spc-green"
-                        type="submit">Log In</button
-                    >
-                </div>
-            </form>
-        </section>
-        <Footer />
-    </body>
+  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+    <CommonHeader title="Digital <br/>Patrician" />
+
+    <section class="px-6 my-8 md:px-12 lg:px-24 xl:px-[30%]">
+      <BackButton />
+    </section>
+
+    <section class="px-6 my-8 md:px-12 lg:px-24 xl:px-[30%]">
+      <SectionTitle title="Authenticate You." />
+    </section>
+
+    <section class="px-6 my-8 md:px-12 lg:px-24 xl:px-[30%]">
+      <form hx-post={get_api_route("login")} hx-swap="outerHTML">
+        <div class="mb-4">
+          <label class="block mb-1" for="email">Email Address</label>
+          <div
+            class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+          >
+            <input
+              class="text-white bg-spc-dark w-full focus:ring-0"
+              type="email"
+              name="email"
+              id="email"
+              spellcheck="false"
+              autofocus
+            />
+          </div>
+        </div>
+        <div class="mb-8">
+          <label class="block mb-1" for="password">Password</label>
+          <div
+            class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+          >
+            <input
+              class="text-white bg-spc-dark w-full focus:ring-0 focus:outline-0"
+              type="password"
+              name="password"
+              id="password"
+            />
+          </div>
+        </div>
+        <div class="flex justify-end space-x-6 items-center">
+          <button
+            type="button"
+            onclick="window.location = '/auth/password-reset'"
+            class="text-spc-gold"
+          >
+            Forgot Password?
+          </button>
+          <button
+            class="font-bold px-4 py-2 bg-white text-spc-green"
+            type="submit">Log In</button
+          >
+        </div>
+      </form>
+    </section>
+
+    <Footer />
+
+    <script
+      is:inline
+      src="https://unpkg.com/htmx.org@1.9.11"
+      integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+      crossorigin="anonymous"></script>
+  </body>
 </html>
