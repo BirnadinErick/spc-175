@@ -28,3 +28,5 @@ pnpm-debug.log*
 # create separate user for each download!
 upstream-config.xml
 sftp_backup*/
+
+*.sqlite
