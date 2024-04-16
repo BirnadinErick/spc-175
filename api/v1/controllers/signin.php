@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once(MODELS."users.php");
 
 function signin() {
@@ -47,7 +49,8 @@ function signin() {
       die();
     }
 
-    readfile(VIEWS."signin-ok.php");
+    $_SESSION['email'] = $data['email'];
+    readfile(VIEWS."signin-ok.html");
   } else if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
     echo "Yup, Fide et Labore";
   } else {

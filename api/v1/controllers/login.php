@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once(MODELS."users.php");
 
@@ -23,11 +24,12 @@ function login() {
 
     if ($ok === false) {
       http_response_code(400);
-      readfile(VIEWS."signin-400.php");
+      readfile(VIEWS."login-400.html");
       die();
     }
 
-    readfile(VIEWS."login-ok.php");
+    $_SESSION['email'] = $email;
+    readfile(VIEWS."login-ok.html");
   } else {
     echo "Error: This script accepts only POST requests.";
   }
