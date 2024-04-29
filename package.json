@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.4",
-    "@tailwindcss/typography": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.13",
     "remark-emoji": "^4.0.1",
     "remark-gfm": "^3.0.1",
     "remark-images": "^4.0.0",
