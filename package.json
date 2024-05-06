@@ -1,14 +1,14 @@
 {
   "name": "spc-175-birn-dot-cc",
   "type": "module",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "author": {
     "name": "BirnadinErick<me@birn.cc>"
   },
   "scripts": {
-    "dev": "astro dev --port 2003",
+    "dev": "astro dev --port 2007",
     "build": "astro build",
-    "preview": "astro preview --port 2003",
+    "preview": "astro preview --port 2007",
     "astro": "astro"
   },
   "dependencies": {
