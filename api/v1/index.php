@@ -2,14 +2,16 @@
 // logging setup
 error_reporting(E_ALL);
 ini_set("display_errors", 0);
+ini_set("log_errors", "On");
 
-define("DEBUG", true);
+define("DEBUG", false);
 
 function error_handler($errno, $errstr, $errfile, $errll)
 {
     $time = time();
     $msg = "$time $errno [$errfile::$errll] | $errstr";
     error_log($msg . PHP_EOL, 3, "error_log.txt");
+    file_put_contents($_SERVER["DOCUMENT_ROOT"] . '/error_log.bk.txt', $msg, FILE_APPEND);
 
     if (DEBUG) {
         $msg = "[$errfile] $errstr";
@@ -23,6 +25,7 @@ function debug($str, $file)
 {
     $msg = "[$file] $str";
     error_log($msg . PHP_EOL, 3, "debug_log.txt");
+    file_put_contents($_SERVER["DOCUMENT_ROOT"] . '/debug_log.bk.txt', $msg, FILE_APPEND);
 }
 
 debug(var_export($_SERVER, true), __FILE__);
