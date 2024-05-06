@@ -67,8 +67,10 @@ class UsersModel extends BaseModel
                 $stmt->bindValue($i++, $value);
             }
 
+            debug("new user query: $sql", __FILE__);
             $stmt->execute();
 
+            debug("new user!", __FILE__);
             return true;
         } catch (PDOException $e) {
             // log the failure
@@ -76,6 +78,7 @@ class UsersModel extends BaseModel
             fwrite($stdout, $e);
             fclose($stdout);
 
+            debug("failed new user! $e", __FILE__);
             return false;
         }
     }

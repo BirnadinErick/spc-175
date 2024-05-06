@@ -9,19 +9,33 @@ read_xml() {
 }
 
 # Execute pnpm build
-echo "Building project..."
+echo "Building frontend..."
 pnpm build
+
+# clean previous build
+echo "Cleaning upload stage..."
+rm -rf app/
+mkdir app
+
+# move files
+echo "Moving fend..."
+mv dist/* app/
+echo "Copying bend..."
+cp -r api/ app/
+echo "Copying route middleware..."
+cp .htaccess app/
 
 # Read connection data from XML file
 xml_file="upstream-config.xml"
+echo "Reading server manifest..."
 read_xml "$xml_file"
 
 # Transfer files via sftp
 echo "Transferring files to server..."
 sftp $username@$server <<EOF
-put -r dist/*
+put -r app/*
 exit
 EOF
 
-echo "Files transferred successfully."
+echo "Project sync."
 
