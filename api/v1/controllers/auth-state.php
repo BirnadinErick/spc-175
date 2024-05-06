@@ -13,7 +13,7 @@ function auth_state()
         ?>
         <p class="text-sm lg:text-xl font-bold">Herzlich Willkommen Patrician!</p>
         <div class="space-x-2 lg:space-x-0">
-            <form action="http://localhost:2004/api/v1/logout" method="post">
+            <form action="http://localhost:2004/api/v1/index.php?p=logout" method="post">
                 <button
                         type="submit"
                         class="bg-spc-dark px-4 text-sm lg:text-lg py-2 hover:bg-spc-dark/80 rounded-sm"
