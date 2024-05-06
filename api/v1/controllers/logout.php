@@ -12,7 +12,7 @@ debug("post-logout session is: " . var_export($_SESSION, true), __FILE__);
 session_destroy();
 debug("session destroyed!, re-routing...", __FILE__);
 
-header("Location: http://localhost:2003/");
+header("Location: " . SERVER . "/");
 http_response_code(303);
 exit();
 }

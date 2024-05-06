@@ -8,7 +8,7 @@ function login()
 if (isset($_SESSION['email'])){
     debug("loggin user in login route!", __FILE__);
     debug("session is: ". var_export($_SESSION, true), __FILE__);
-    header("Location: http://localhost:2003/");
+    header("Location: " . SERVER . "/");
     http_response_code(303);
     die(0);
 }

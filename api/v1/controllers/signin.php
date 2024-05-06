@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require_once(MODELS . "users.php");
 
@@ -34,9 +33,11 @@ function signin()
             die();
         }
 
+        session_start();
         $_SESSION['email'] = $data['email'];
         http_response_code(201);
         readfile(VIEWS . "signin-ok.html");
+        session_write_close();
         die(0);
     } else {
         http_response_code(400);
