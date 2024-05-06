@@ -9,13 +9,14 @@ import PatricianNorms from "@components/home/PatricianNorms.astro";
 import Next from "@components/common/Next.astro";
 
 import "@fontsource/space-grotesk/400.css";
+import AuthBanner from "../components/auth/AuthBanner.astro";
 
 const nexts = [
   ["Patrician Publications.", "/patrician-publications"],
   ["Our Spirituality.", "/our-spirituality"],
   ["Academics.", "/academics"],
   ["Sports.", "/sports"],
-  ["Socities.", "socities"],
+  ["Societies.", "societies"],
 ];
 ---
 
@@ -34,22 +35,12 @@ const nexts = [
     <PatricianNorms />
     <Next nexts={nexts} />
     <Footer />
-    <div
-      class="xl:flex space-y-2 xl:space-y-0 xl:justify-around xl:items-baseline bottom-0 fixed px-4 overflow-hidden xl:px-96 bg-spc-bg-mid/80 backdrop-blur-md py-6 xl:py-8 w-full"
-    >
-      <p class="text-sm lg:text-xl font-bold">Login to enjoy more</p>
-      <div class="space-x-2 lg:space-x-0">
-        <a
-          href="/auth/login"
-          class="bg-spc-dark px-4 text-sm lg:text-lg py-2 hover:bg-spc-dark/80 rounded-sm"
-          >Login</a
-        >
-        <a
-          href="/auth/signin"
-          class="bg-spc-bg-mid px-4 text-sm lg:text-lg py-2 hover:bg-spc-bg-mid/80 rounded-sm"
-          >Create New Account</a
-        >
-      </div>
-    </div>
+    <AuthBanner />
+
+    <script
+        is:inline
+        src="https://unpkg.com/htmx.org@1.9.11"
+        integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+        crossorigin="anonymous"></script>
   </body>
 </html>
