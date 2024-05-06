@@ -32,3 +32,5 @@ sftp_backup*/
 *.sqlite
 *_log.*
 app/
+
+**/.idea/
