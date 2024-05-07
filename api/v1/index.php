@@ -46,12 +46,14 @@ include_once(CONTROLLERS . "signin.php");
 include_once(CONTROLLERS . "login.php");
 include_once(CONTROLLERS . "logout.php");
 include_once(CONTROLLERS . "auth-state.php");
+include_once(CONTROLLERS . "comments.php");
 
 $routes = [
     'signin' => 'signin',
     'login' => 'login',
     'logout' => 'logout',
     'auth-state' => 'auth_state',
+    'comments' => 'comments',
 ];
 $request_uri = $_GET["p"];
 
