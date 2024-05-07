@@ -64,5 +64,56 @@ I initiated the project with a hope that any means will rise as the time passes 
 The Alumni team which sponsors the site has let us know that the site will initially on a shared hosting platform. So PHP it is. Frontend is to be chosen accordingly. At the time of writing -- HTMX is on fire, and I decided the Hypermedia-hype will be useful for this project as well.
 
 ---
+## How it all works?
 
-Proudly made in Jaffna with green-and-gold Love
+> Section intended for maintainers.
+
+The site works with one principle in mind: Apache 2 returns `index.*` when the
+path doesn't provide any filename. So when a user requests `/auth/login` to
+the server, it then tries whether `auth/login.*` is available and if not returns
+`index.*` in `/auth/login` directory.
+
+Fortunately, Astro framework's default build flow does this. Thusm we develop a
+page like a normal server page and Astro will handle flatening it for us.
+
+On the other hand, backend is fully in-house grown. I have put together a small
+footprint custom framework. This framework is not yet documented, nor complete.
+It is more of a *metaframework*! Read it's documentation for more.
+
+---
+
+## Deployment Guide
+
+The sponsors of the project offered us Shared Hosting. So that was the main 
+drive behind choosing php (or Django/Python was in my mind). Since the service
+allows for SFTP transfer, we employ it.
+
+There are 4 steps:
+
+1. Build frontend
+2. Trnaspile backend if needed
+3. Create a monolithic `app` folder
+4. Sync the upstream server
+
+*In addition, as a best practise we will backup the contents of the server right
+before push to developers local machine*.
+
+The deployment is termed as `push to upstream` in docs here and there, and the 
+same norm for the backup as well.
+
+The deployment is automated using a bash script which is located in project
+root `push_upstream.sh`. Execute the script after completing following steps:
+
+- change `DEBUG` in `src/config/global.ts` to false
+- change `DEBUG` in `api/v1/index.php` to false 
+
+A requirement other than having a bash-compliant interpreter in your local
+machine is to have the proper credentials in same directory level as the script
+for successful run. See [Obtaining FTP credentails](##FTPCredentials).
+
+---
+
+
+## FTPCredentials
+
+

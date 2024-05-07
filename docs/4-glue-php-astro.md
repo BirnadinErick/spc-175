@@ -1,13 +1,18 @@
-## How glue works?
+## How it all works?
 
-As discussed above, the project incoperates both PHP and astro.
-I accomplished this with `.htaccess` and playing with *Apache2* 
-configuration.
+> Section intended for maintainers.
 
-As of this commit(check file's commit hash), the project requires
-a special directory structure of the webroot...
+The site works with one principle in mind: Apache 2 returns `index.*` when the
+path doesn't provide any filename. So when a user requests `/auth/login` to
+the server, it then tries whether `auth/login.*` is available and if not returns
+`index.*` in `/auth/login` directory.
 
-- a directory with name `/api` and contains all the PHP stuff
-- root directory is then populated with astro build artifacts.
+Fortunately, Astro framework's default build flow does this. Thusm we develop a
+page like a normal server page and Astro will handle flatening it for us.
 
-> refer .htaccess file for logic of the **glue**
+On the other hand, backend is fully in-house grown. I have put together a small
+footprint custom framework. This framework is not yet documented, nor complete.
+It is more of a *metaframework*! Read it's documentation for more.
+
+---
+

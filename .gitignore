@@ -34,3 +34,5 @@ sftp_backup*/
 app/
 
 **/.idea/
+
+*.zip
