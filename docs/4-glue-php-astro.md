@@ -14,5 +14,3 @@ On the other hand, backend is fully in-house grown. I have put together a small
 footprint custom framework. This framework is not yet documented, nor complete.
 It is more of a *metaframework*! Read it's documentation for more.
 
----
-

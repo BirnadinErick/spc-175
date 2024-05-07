@@ -8,7 +8,6 @@ Welcome to the official website of St. Patrick's College, developed by the SPC M
 
 St. Patrick's College is a renowned educational institution committed to academic excellence, personal development, and community engagement. This website is a testament to our dedication to providing a seamless online experience for students, parents, faculty, and alumni.
 
----
 ## Credits
 
 This website is made possible because of a handful of Alumni and members of SPC Media Unit of 2021, 2022 and 2023. Please visit the [Contributors](https://github.com/BirnadinErick/spc-175/graphs/contributors) to view some of them.
@@ -21,7 +20,6 @@ Gratitude to the Vice Principal's Office for letting SPC Media Unit to develop t
 
 My thank to the Rector's Office for the permission to use the School's Logo and such.
 
----
 ## License: Apache 2.0
 
 > [License Text](https://www.apache.org/licenses/LICENSE-2.0)
@@ -44,7 +42,6 @@ My thank to the Rector's Office for the permission to use the School's Logo and 
     
 - **Compatible with GPL:** The Apache 2.0 License is compatible with the GNU General Public License (GPL), allowing code under both licenses to be combined in a single project.
 
----
 ## Tech Stack
 
 > This website equips an experimental approach!
@@ -63,7 +60,6 @@ I initiated the project with a hope that any means will rise as the time passes 
 
 The Alumni team which sponsors the site has let us know that the site will initially on a shared hosting platform. So PHP it is. Frontend is to be chosen accordingly. At the time of writing -- HTMX is on fire, and I decided the Hypermedia-hype will be useful for this project as well.
 
----
 ## How it all works?
 
 > Section intended for maintainers.
@@ -79,8 +75,6 @@ page like a normal server page and Astro will handle flatening it for us.
 On the other hand, backend is fully in-house grown. I have put together a small
 footprint custom framework. This framework is not yet documented, nor complete.
 It is more of a *metaframework*! Read it's documentation for more.
-
----
 
 ## Deployment Guide
 
@@ -109,11 +103,30 @@ root `push_upstream.sh`. Execute the script after completing following steps:
 
 A requirement other than having a bash-compliant interpreter in your local
 machine is to have the proper credentials in same directory level as the script
-for successful run. See [Obtaining FTP credentails](##FTPCredentials).
+for successful run. See [Obtaining FTP credentails](#ftp-credentials).
 
----
+## Backup Upstream
 
+Before each push please backup the state of the server. At this commit, the
+process is simply download the contents of `htdocs` of the server via SFTP
+protocol.
 
-## FTPCredentials
+For now backups are not stored in remote location. They reside in local computer
+of the person(FTP User) who executed the script `backup-upstream.sh`! This will
+later be stored in private repos/beta-server storage and cold store of School's
+SPC Media Unit Data Storage Drives.
 
+> For now this is enough, I guess!
+## FTP Credentials
+
+If you are thinking about pushing to the upstream servers for either *beta*
+or *production*, please ask me(Birnadin Erick) via any means for `upstream-config.xml`
+file needed for both `push-upstream.sh` and `backup-upstream.sh`.
+
+This file is unique for you and grants you read/write access via SFTP protocol.
+You will be prompted for password, which is also unique to each file. **Make sure
+you do not commit these files or their contents to the version control history**.
+
+> By accepting a designated file, you take on responsibility for any actions 
+> executed via these credentials.
 

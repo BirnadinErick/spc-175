@@ -20,4 +20,3 @@
     
 - **Compatible with GPL:** The Apache 2.0 License is compatible with the GNU General Public License (GPL), allowing code under both licenses to be combined in a single project.
 
----

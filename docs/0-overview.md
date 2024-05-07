@@ -8,4 +8,3 @@ Welcome to the official website of St. Patrick's College, developed by the SPC M
 
 St. Patrick's College is a renowned educational institution committed to academic excellence, personal development, and community engagement. This website is a testament to our dedication to providing a seamless online experience for students, parents, faculty, and alumni.
 
----

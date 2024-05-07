@@ -25,7 +25,5 @@ root `push_upstream.sh`. Execute the script after completing following steps:
 
 A requirement other than having a bash-compliant interpreter in your local
 machine is to have the proper credentials in same directory level as the script
-for successful run. See [Obtaining FTP credentails](##FTPCredentials).
-
----
+for successful run. See [Obtaining FTP credentails](#ftp-credentials).
 
