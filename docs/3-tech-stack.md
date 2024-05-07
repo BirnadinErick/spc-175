@@ -16,4 +16,3 @@ I initiated the project with a hope that any means will rise as the time passes 
 
 The Alumni team which sponsors the site has let us know that the site will initially on a shared hosting platform. So PHP it is. Frontend is to be chosen accordingly. At the time of writing -- HTMX is on fire, and I decided the Hypermedia-hype will be useful for this project as well.
 
----

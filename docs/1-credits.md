@@ -10,4 +10,3 @@ Gratitude to the Vice Principal's Office for letting SPC Media Unit to develop t
 
 My thank to the Rector's Office for the permission to use the School's Logo and such.
 
----
