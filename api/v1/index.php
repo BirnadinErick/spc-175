@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 0);
 ini_set("log_errors", "On");
 
-define("DEBUG", false);
+define("DEBUG", true);
 
 function error_handler($errno, $errstr, $errfile, $errll)
 {
@@ -27,8 +27,6 @@ function debug($str, $file)
     error_log($msg . PHP_EOL, 3, "debug_log.txt");
     file_put_contents($_SERVER["DOCUMENT_ROOT"] . '/debug_log.bk.txt', $msg, FILE_APPEND);
 }
-
-debug(var_export($_SERVER, true), __FILE__);
 
 define("CONTROLLERS", $_SERVER['DOCUMENT_ROOT'] . "/api/v1/controllers/");
 define("VIEWS", $_SERVER['DOCUMENT_ROOT'] . "/api/v1/views/");
