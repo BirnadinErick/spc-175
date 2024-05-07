@@ -82,4 +82,28 @@ class UsersModel extends BaseModel
             return false;
         }
     }
+
+    public function get_user_id(string $email): int {
+$sql = "SELECT id FROM users WHERE email = :email";
+
+try {
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($result) {
+        return $result['id']; 
+            } 
+        return -1;
+} catch (PDOException $e) {
+    // Log the failure
+    $stdout = fopen('php://stdout', 'w');
+    fwrite($stdout, $e);
+    fclose($stdout);
+
+    return -2; 
+}
+
+    }
 }
