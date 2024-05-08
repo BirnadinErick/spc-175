@@ -1,24 +1,16 @@
 ---
 import "@fontsource/playfair-display/700.css";
 import SPCLogo from "./SPCLogo.astro";
+import NavigationMenu from "@components/common/NavigationMenu.astro";
+import NAVIGATION_MENU_MANIFEST from "@config/navigation";
 
-type navLinks =
-  | "Home"
-  | "Blog"
-  | "Donate"
-  | "Our Spirituality"
-  | "Academics"
-  | "Sports"
-  | "Facilities"
-  | "Societies"
-  | "Alumni";
-const { now, title }: { now: navLinks; title: string } = Astro.props;
+const { now, title } = Astro.props;
 ---
 
 <header
-  class="flex justify-start items-center space-x-2 mx-6 my-12 text-spc-light xl:hidden md:justify-around"
+  class="flex justify-start items-center relative space-x-2 mx-6 my-12 text-spc-light xl:hidden md:justify-around"
 >
-  <div x-data="{open:false}" class="relative">
+  <div x-data="{open:false}" class="">
     <button
       @click="open = !open"
       type="button"
@@ -34,37 +26,7 @@ const { now, title }: { now: navLinks; title: string } = Astro.props;
       </div>
     </button>
 
-    <!--
-    Flyout menu, show/hide based on flyout menu state.
-
-    Entering: "transition ease-out duration-200"
-      From: "opacity-0 translate-y-1"
-      To: "opacity-100 translate-y-0"
-    Leaving: "transition ease-in duration-150"
-      From: "opacity-100 translate-y-0"
-      To: "opacity-0 translate-y-1"
-  -->
-    <div
-      x-show="open"
-      class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4"
-    >
-      <div
-        class="w-screen max-w-md text-spc-light flex-auto overflow-hidden rounded-sm bg-spc-bg-mid text-sm leading-6 shadow-lg ring-1 ring-gray-900/5"
-      >
-        <div class="p-4">
-          <div
-            class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50"
-          >
-            <div>
-              <a href="#" class="font-bold">
-                Analytics
-                <span class="absolute inset-0"></span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <NavigationMenu manifest={NAVIGATION_MENU_MANIFEST} />
   </div>
 </header>
 
