@@ -24,37 +24,30 @@ My thank to the Rector's Office for the permission to use the School's Logo and 
 
 > [License Text](https://www.apache.org/licenses/LICENSE-2.0)
 
-- **Permissive License:** Users can freely use, modify, and distribute the software.
-    
-- **Distribution Rights:** Users can distribute both original and modified versions of the software.
-    
-- **Modification Rights:** Users can modify the source code without being required to disclose the changes.
-    
-- **Copyright Notice:** Users must include the original copyright notice and disclaimers when distributing the software.
-    
-- **Sublicensing:** Users can sublicense the rights granted under the license.
-    
-- **Patent Grant:** The license includes an express grant of patent rights, providing an additional level of protection.
-    
-- **Promotes Collaboration:** Encourages collaboration and the creation of derivative works within the open-source community.
-    
-- **Respects User Rights:** Balances the freedom to use and modify with the requirement to maintain certain notices and disclaimers.
-    
-- **Compatible with GPL:** The Apache 2.0 License is compatible with the GNU General Public License (GPL), allowing code under both licenses to be combined in a single project.
+-   **Permissive License:** Users can freely use, modify, and distribute the software.
+-   **Distribution Rights:** Users can distribute both original and modified versions of the software.
+-   **Modification Rights:** Users can modify the source code without being required to disclose the changes.
+-   **Copyright Notice:** Users must include the original copyright notice and disclaimers when distributing the software.
+-   **Sublicensing:** Users can sublicense the rights granted under the license.
+-   **Patent Grant:** The license includes an express grant of patent rights, providing an additional level of protection.
+-   **Promotes Collaboration:** Encourages collaboration and the creation of derivative works within the open-source community.
+-   **Respects User Rights:** Balances the freedom to use and modify with the requirement to maintain certain notices and disclaimers.
+-   **Compatible with GPL:** The Apache 2.0 License is compatible with the GNU General Public License (GPL), allowing code under both licenses to be combined in a single project.
 
 ## Tech Stack
 
 > This website equips an experimental approach!
 
-When we had the final direction of the website drawn, it was definite we need an amalgamation of website & webapp. Thus the full capable version of the website is to  be on v3.0.0 which will have the entire pre-determined requisites built.
+When we had the final direction of the website drawn, it was definite we need an amalgamation of website & webapp. Thus the full capable version of the website is to be on v3.0.0 which will have the entire pre-determined requisites built.
 
 The site is divided into 2 categories:
-- website
-	- houses the information for most of the people
-	- news, academics, photos
-- webapp
-	- a portal for Alumni
-	- user authentication for comments etc.
+
+-   website
+    -   houses the information for most of the people
+    -   news, academics, photos
+-   webapp
+    -   a portal for Alumni
+    -   user authentication for comments etc.
 
 I initiated the project with a hope that any means will rise as the time passes by. So far I have decided to design the system for the website section( which is tracked as v1.0.0 milestone).
 
@@ -74,11 +67,11 @@ page like a normal server page and Astro will handle flatening it for us.
 
 On the other hand, backend is fully in-house grown. I have put together a small
 footprint custom framework. This framework is not yet documented, nor complete.
-It is more of a *metaframework*! Read it's documentation for more.
+It is more of a _metaframework_! Read it's documentation for more.
 
 ## Deployment Guide
 
-The sponsors of the project offered us Shared Hosting. So that was the main 
+The sponsors of the project offered us Shared Hosting. So that was the main
 drive behind choosing php (or Django/Python was in my mind). Since the service
 allows for SFTP transfer, we employ it.
 
@@ -89,17 +82,17 @@ There are 4 steps:
 3. Create a monolithic `app` folder
 4. Sync the upstream server
 
-*In addition, as a best practise we will backup the contents of the server right
-before push to developers local machine*.
+_In addition, as a best practise we will backup the contents of the server right
+before push to developers local machine_.
 
-The deployment is termed as `push to upstream` in docs here and there, and the 
+The deployment is termed as `push to upstream` in docs here and there, and the
 same norm for the backup as well.
 
 The deployment is automated using a bash script which is located in project
 root `push_upstream.sh`. Execute the script after completing following steps:
 
-- change `DEBUG` in `src/config/global.ts` to false
-- change `DEBUG` in `api/v1/index.php` to false 
+-   change `DEBUG` in `src/config/global.ts` to false
+-   change `DEBUG` in `api/v1/index.php` to false
 
 A requirement other than having a bash-compliant interpreter in your local
 machine is to have the proper credentials in same directory level as the script
@@ -117,16 +110,16 @@ later be stored in private repos/beta-server storage and cold store of School's
 SPC Media Unit Data Storage Drives.
 
 > For now this is enough, I guess!
+
 ## FTP Credentials
 
-If you are thinking about pushing to the upstream servers for either *beta*
-or *production*, please ask me(Birnadin Erick) via any means for `upstream-config.xml`
+If you are thinking about pushing to the upstream servers for either _beta_
+or _production_, please ask me(Birnadin Erick) via any means for `upstream-config.xml`
 file needed for both `push-upstream.sh` and `backup-upstream.sh`.
 
 This file is unique for you and grants you read/write access via SFTP protocol.
 You will be prompted for password, which is also unique to each file. **Make sure
 you do not commit these files or their contents to the version control history**.
 
-> By accepting a designated file, you take on responsibility for any actions 
+> By accepting a designated file, you take on responsibility for any actions
 > executed via these credentials.
-
