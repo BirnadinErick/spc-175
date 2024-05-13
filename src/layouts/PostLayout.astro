@@ -85,17 +85,19 @@ const {frontmatter} = Astro.props;
     <section id="comments" class="px-6 mt-4 mb-8 text-spc-light/80 text-sm lg:text-lg">
         <SectionTitle title="Comments..."/>
 
-        <div hx-get={get_api_route("comments") + "&post_id=103"} class="my-4 space-y-4"
+        <div hx-get={get_api_route("comments") + "&post_id=" + frontmatter.post_id} class="my-4 space-y-4"
              hx-swap="innerHTML" hx-trigger="load">
         </div>
 
         <div class="my-6">
             <form class="space-y-2" method="post" action={get_api_route("comments")}>
                 <label class="text-spc-light/60" for="text">Add your comment:</label>
-                <textarea class="block border-0 bg-spc-bg-mid text-white text-sm p-1 lg:text-lg w-full" id="text" name="text"
+                <textarea class="block border-0 bg-spc-bg-mid text-white text-sm p-1 lg:text-lg w-full" id="text"
+                          name="text"
                           placeholder="Let the world know what you think!" rows="5"/>
                 <input type="hidden" name="post_id" value={frontmatter.post_id}>
-                <button class="flex justify-around items-center space-x-2 bg-spc-bg-mid text-spc-light text-sm px-4 py-1 lg:text-lg rounded-sm" type="submit">
+                <button class="flex justify-around items-center space-x-2 bg-spc-bg-mid text-spc-light text-sm px-4 py-1 lg:text-lg rounded-sm"
+                        type="submit">
                     <span>Comment</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                          stroke="currentColor" class="w-6 h-6">
