@@ -42,7 +42,7 @@ define("MODELS", $_SERVER["DOCUMENT_ROOT"] . "/api/v1/models/");
 
 if (DEBUG) {
     define("SERVER", "http://localhost:2007");
-    define("API", "http://localhost:2003/api/v1/index.php?p=");
+    define("API", "http://localhost:2004/api/v1/index.php?p=");
 } else {
     define("SERVER", "https://www.spcjaffna-beta.org");
     define("API", "https://www.spcjaffna-beta.org/api/v1/index.php?p=");
@@ -53,6 +53,7 @@ include_once CONTROLLERS . "login.php";
 include_once CONTROLLERS . "logout.php";
 include_once CONTROLLERS . "auth-state.php";
 include_once CONTROLLERS . "comments.php";
+include_once CONTROLLERS . "allowed-to-comment.php";
 
 $routes = [
     "signin" => "signin",
@@ -60,6 +61,7 @@ $routes = [
     "logout" => "logout",
     "auth-state" => "auth_state",
     "comments" => "comments",
+   "allowed-to-comment" => "allowed_to_comment",
 ];
 $request_uri = $_GET["p"];
 

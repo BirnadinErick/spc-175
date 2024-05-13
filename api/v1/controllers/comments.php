@@ -34,17 +34,16 @@ function comments()
         $text = $_POST["text"];
 
         debug("creating comment for $post_id: \n$text", __FILE__);
-        $ok = $comments->addComment($post_id, $text, $user_id);
+        $ok = $comments->addComment(intval($post_id), $text, $user_id);
 
+        header("Location: ". SERVER . "/patrician-publications/$post_id#comments");
         if ($ok) {
-            http_response_code(201);
+            http_response_code(303);
         } else {
             debug("comment failed to commit", __FILE__);
             http_response_code(403);
         }
 
-        $curr_url = getallheaders()['Hx-Current-Url'];
-        header("Location: $curr_url#comments");
         session_write_close();
         exit();
     }
