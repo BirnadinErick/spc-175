@@ -6,11 +6,11 @@ import emoji from "remark-emoji";
 import remarkUnwrapImages from "remark-unwrap-images";
 
 export default defineConfig({
-  integrations: [tailwind(), mdx()],
-  experimental: {
-    assets: true,
-  },
-  markdown: {
-    remarkPlugins: [remarkGfm, emoji, remarkUnwrapImages],
-  },
+    integrations: [tailwind(), mdx()],
+    experimental: {
+        assets: true,
+    },
+    markdown: {
+        remarkPlugins: [remarkGfm, emoji, remarkUnwrapImages],
+    },
 });

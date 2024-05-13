@@ -10,4 +10,3 @@ later be stored in private repos/beta-server storage and cold store of School's
 SPC Media Unit Data Storage Drives.
 
 > For now this is enough, I guess!
-
