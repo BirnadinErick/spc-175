@@ -6,6 +6,7 @@ type NAV_MANIFEST = { icon: string; text: string; link: string };
 const { manifest } = Astro.props;
 ---
 
+<!--suppress ALL -->
 <div
   x-on:click.outside="open = !open"
   x-show="open"

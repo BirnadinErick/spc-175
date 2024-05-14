@@ -23,7 +23,7 @@ const nexts = [
 <html lang="en">
   <CommonHead title="St. Patrick's College | SPC Media Unit | 175 years" />
 
-  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+  <body class="cursor-default bg-spc-dark text-spc-light font-sans" x-data="{open:false}">
     <CommonHeader
       now="Home"
       title="St. Patrick's College <br/> Digital Experience"
@@ -36,6 +36,11 @@ const nexts = [
     <Next nexts={nexts} />
     <Footer />
     <AuthBanner />
+    <div x-on:click="open = !open" class="absolute bg-spc-dark-green items-center flex justify-around text-spc-gold w-12 h-12 bottom-2 right-2 overflow-hidden p-2 rounded-full">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+    </div>
 
     <script
         is:inline
