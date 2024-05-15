@@ -12,6 +12,7 @@ import BackButton from "@components/patrician-publications/BackButton.astro";
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
 import "@fontsource/space-mono/400.css";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
 
 const NEXTS = [
   ["Home.", "/"],
@@ -25,7 +26,7 @@ const NEXTS = [
 <html lang="en">
   <CommonHead title="Patrician Academics | SPC Media Unit | 175 years" />
 
-  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+  <body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
     <CommonHeader title="Patrician<br/>Academics" />
 
     <PageTitle title="Patrician Academics" />
@@ -38,5 +39,6 @@ const NEXTS = [
 
     <Next nexts={NEXTS} />
     <Footer />
+  <MobileNavButton />
   </body>
 </html>
