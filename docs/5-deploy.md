@@ -18,10 +18,7 @@ The deployment is termed as `push to upstream` in docs here and there, and the
 same norm for the backup as well.
 
 The deployment is automated using a bash script which is located in project
-root `push_upstream.sh`. Execute the script after completing following steps:
-
--   change `DEBUG` in `src/config/global.ts` to false
--   change `DEBUG` in `api/v1/index.php` to false
+root `push_upstream.sh`. 
 
 A requirement other than having a bash-compliant interpreter in your local
 machine is to have the proper credentials in same directory level as the script
