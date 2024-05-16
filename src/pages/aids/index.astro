@@ -1,4 +1,4 @@
----
+--
 import CommonHead from "@components/common/CommonHead.astro";
 import CommonHeader from "@components/common/CommonHeader.astro";
 import Footer from "@components/footer/Footer.astro";
@@ -8,6 +8,7 @@ import BackButton from "@components/patrician-publications/BackButton.astro";
 
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
 
 const nexts = [
     ["Patrician Publications.", "/patrician-publications"],
@@ -29,7 +30,7 @@ button.`;
 <html lang="en">
     <CommonHead title="SPC Aids | SPC Media Unit | 175 years" />
 
-    <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+    <body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
         <CommonHeader title="Digital<br/> Patrician" />
         <section class="px-6"><BackButton /></section>
         <section class="px-6 my-4">
@@ -131,5 +132,6 @@ button.`;
 
         <Next nexts={nexts} />
         <Footer />
+    <MobileNavButton />
     </body>
 </html>

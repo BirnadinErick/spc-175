@@ -9,6 +9,7 @@ import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
 import "@fontsource/space-mono/400.css";
 import PageTitle from "@components/common/PageTitle.astro";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
 
 const dummyPostImgs = [
   "https://unsplash.com/photos/aaIN3y2zcMQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8ODd8fHdhbGxwYXBlcnxlbnwwfDB8fHwxNjkyMTMwMjMzfDA&force=true&w=1920",
@@ -34,7 +35,7 @@ const nexts = [
 <html lang="en">
   <CommonHead title="Patrician Spirituality | SPC Media Unit | 175 years" />
 
-  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+  <body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
     <CommonHeader title="Patrician<br/>Spirituality" />
 
     <PageTitle title="Our Spirituality" />
@@ -56,5 +57,6 @@ const nexts = [
 
     <Next nexts={nexts} />
     <Footer />
+  <MobileNavButton />
   </body>
 </html>

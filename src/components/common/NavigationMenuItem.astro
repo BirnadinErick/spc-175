@@ -1,0 +1,16 @@
+---
+const { icon, link, text } = Astro.props;
+---
+
+<div
+  class="group relative flex items-center justify-start gap-x-4 my-2 bg-spc-dark rounded-sm p-2"
+>
+  <div
+    class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg"
+  >
+    <Fragment set:html={icon} />
+  </div>
+  <div>
+    <a href={link} class="font-bold"> {text}</a>
+  </div>
+</div>

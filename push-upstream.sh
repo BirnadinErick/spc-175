@@ -8,9 +8,14 @@ read_xml() {
     password=$(xmllint --xpath 'string(//Pass)' "$xml_file")
 }
 
+# set the DEBUG flag to false in Fend and Bend
+echo "setting DEBUG flag false..."
+sed -i 's/const DEBUG = true;/const DEBUG = false;/' "./src/config/global.ts"
+sed -i 's/define("DEBUG", true);/define("DEBUG", false);/' "./api/v1/index.php"
+
 # Execute pnpm build
 echo "Building frontend..."
-pnpm build
+pnpm build > fend-build.log
 
 # clean previous build
 echo "Cleaning upload stage..."
@@ -36,6 +41,13 @@ sftp $username@$server <<EOF
 put -r app/*
 exit
 EOF
+
+rm fend-build.log
+
+# set the DEBUG flag back to true 
+echo "setting DEBUG flag true..."
+sed -i 's/const DEBUG = false;/const DEBUG = true;/' "./src/config/global.ts"
+sed -i 's/define("DEBUG", false);/define("DEBUG", true);/' "./api/v1/index.php"
 
 echo "Project sync."
 
