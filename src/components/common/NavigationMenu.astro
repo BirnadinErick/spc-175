@@ -1,32 +1,72 @@
 ---
 import NavigationMenuItem from "@components/common/NavigationMenuItem.astro";
+import {NEW_NAVS} from "../../config/navigation";
 
 type NAV_MANIFEST = { icon: string; text: string; link: string };
 
-const { manifest } = Astro.props;
+const {manifest} = Astro.props;
 ---
 
 <!--suppress ALL -->
-<div
-  x-show="open"
-  x-transition:enter="transition ease-out duration-200"
-  x-transition:enter-start="opacity-0 translate-y-1"
-  x-transition:enter-end="opacity-100 translate-y-0"
-  x-transition:leave="transition ease-in duration-150"
-  x-transition:leave-start="opacity-100 translate-y-0"
-  x-transition:leave-end="opacity-0 translate-y-1"
-  class="absolute left-1/2 z-10 mt-5 flex w-full -translate-x-1/2 px-1"
->
-  <div
-    class="w-screen space-x-3 max-w-md text-spc-light flex-auto overflow-hidden rounded-sm bg-spc-bg-mid text-sm leading-6 shadow-lg ring-1 ring-gray-900/5"
-  >
-    <div class="p-6">
-      <!-- BEGIN Menu Item -->
-      {
-        manifest.map((m: NAV_MANIFEST) => (
-          <NavigationMenuItem icon={m.icon} link={m.link} text={m.text} />
-        ))
-      }<!-- END Menu Item -->
+<nav x-show="open"
+     class="left-0 w-full top-0 fixed bg-spc-dark text-spc-light h-screen px-6 py-8 z-10"
+     x-cloak
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="transform translate-y-full"
+     x-transition:enter-end="transform translate-y-0"
+     x-transition:leave="transition ease-in duration-300"
+     x-transition:leave-start="transform translate-y-0"
+     x-transition:leave-end="transform translate-y-full">
+
+    <h1 class="text-3xl font-serif mb-4 text-spc-light/50">Navigate the Site</h1>
+
+    <div class="space-y-5">
+    {NEW_NAVS.map(nav =>
+        nav.children && nav.children.length > 0 ? (
+                <div
+                        x-data="{ expanded: false }"
+                >
+                    <button
+                            class="text-lg font-bold mb-2 flex justify-between space-x-8 w-full items-center"
+                            @click="expanded = ! expanded"
+                    >
+                        <span>{nav.title}</span>
+                        <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewbox="0 0 24 24"
+                                stroke-width="3.5"
+                                stroke="currentcolor"
+                                class="size-4 transform transition-transform duration-500 ease-out"
+                                :class="expanded ? 'rotate-90' : 'rotate-0'">
+                            >
+                            <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                            />
+                        </svg>
+                    </button>
+                    <ul x-show="expanded" x-collapse class="pl-2 space-y-2">
+                        {nav.children?.map(child =>
+                                <li>
+                                    <a href={child.link} class="flex justify-between items-center group">
+                                        {child.title}
+                                    </a>
+                                </li>
+                        )}
+                    </ul>
+                </div>) : (
+                <a href={nav.link} class="text-lg font-bold mb-2 flex justify-start space-x-2 w-full items-center"
+                >
+                    <span>{nav.title}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                        <path fill-rule="evenodd"
+                              d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </a>
+        )
+    )}
     </div>
-  </div>
-</div>
+</nav>
