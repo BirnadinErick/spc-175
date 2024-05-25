@@ -76,9 +76,10 @@ export const NEW_NAVS = [
     ]
   },
   {
-    title: 'Academic',
+    title: 'Academics',
     link: '#academic',
     children: [
+      { title: 'Overview', link: '#overview' },
       { title: 'Achievements', link: '#achievements' },
       { title: 'News', link: '#news' }
     ]
@@ -99,6 +100,7 @@ export const NEW_NAVS = [
       { title: 'Prefects', link: '#prefects' }
     ]
   },
+  { title: 'Patrician Publications', link: 'patrician-publications', children: [] },
   { title: 'Facilities', link: '#facilities', children: [] },
   { title: 'Gallery', link: '#gallery', children: [] }
 ]
