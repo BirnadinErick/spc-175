@@ -1,0 +1,55 @@
+---
+import SectionTitle from "@components/common/SectionTitle.astro";
+import CommonHead from "@components/common/CommonHead.astro";
+import CommonHeader from "@components/common/CommonHeader.astro";
+import Footer from "@components/footer/Footer.astro";
+import Next from "@components/common/Next.astro";
+import BackButton from "@components/patrician-publications/BackButton.astro";
+import {get_api_route} from "@config/global";
+
+import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/700.css";
+import "@fontsource/space-mono/400.css";
+import MobileNavButton from "../components/common/MobileNavButton.astro";
+
+// TODO: need replace with next article
+const nexts = [
+    ["Home.", "/"],
+    ["Our Spirituality.", "/our-spirituality"],
+    ["Academics.", "/academics"],
+    ["Sports.", "/sports"],
+    ["Clubs & Socities.", "clubs-and-socities"],
+];
+
+const {frontmatter} = Astro.props;
+---
+
+<html lang="en">
+<CommonHead
+        title={frontmatter.title}
+/>
+
+<body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+<CommonHeader title={frontmatter.title} />
+<div class="md:px-12 xl:px-96">
+    <section class="px-6">
+        <BackButton/>
+    </section>
+
+    <section class="px-6 mt-8">
+        <h1 class="font-bold text-4xl leading-[95%]">{frontmatter.title}</h1>
+    </section>
+
+    <article
+            class="mb-20 mt-8 prose-sm prose-headings:px-6 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg text-spc-light/75"
+    >
+        <slot/>
+    </article>
+
+
+<Next nexts={nexts}/>
+<Footer/>
+<MobileNavButton />
+
+</body>
+</html>
