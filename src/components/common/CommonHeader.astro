@@ -63,7 +63,7 @@ const { now, title } = Astro.props;
                      role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                   <div class="py-1" role="none">
                     <template x-for="child in nav.children" :key="child.title">
-                      <a :href="`${nav.link}/${child.link}`" class="text-black font-bold block px-4 py-2 text-sm spc-light hover:bg-spc-gold" role="menuitem" tabindex="-1" x-text="child.title"></a>
+                      <a :href="`/${nav.link}/${child.link}`" class="text-black font-bold block px-4 py-2 text-sm spc-light hover:bg-spc-gold" role="menuitem" tabindex="-1" x-text="child.title"></a>
                     </template>
                   </div>
                 </div>
