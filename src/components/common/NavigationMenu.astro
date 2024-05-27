@@ -1,10 +1,7 @@
 ---
-import NavigationMenuItem from "@components/common/NavigationMenuItem.astro";
 import {NEW_NAVS} from "../../config/navigation";
 
-type NAV_MANIFEST = { icon: string; text: string; link: string };
-
-const {manifest} = Astro.props;
+const {manifest}:{manifest: typeof NEW_NAVS;} = Astro.props;
 ---
 
 <!--suppress ALL -->
@@ -21,7 +18,7 @@ const {manifest} = Astro.props;
     <h1 class="text-3xl font-serif mb-4 text-spc-light/50">Navigate the Site</h1>
 
     <div class="space-y-5">
-        {NEW_NAVS.map(nav =>
+        {manifest.map(nav =>
             nav.children && nav.children.length > 0 ? (
                     <div
                             x-data="{ expanded: false }"

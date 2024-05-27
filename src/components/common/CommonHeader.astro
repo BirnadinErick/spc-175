@@ -2,7 +2,7 @@
 import "@fontsource/playfair-display/700.css";
 import SPCLogo from "./SPCLogo.astro";
 import NavigationMenu from "@components/common/NavigationMenu.astro";
-import NAVIGATION_MENU_MANIFEST from "@config/navigation";
+import {NEW_NAVS} from "@config/navigation";
 
 const { now, title } = Astro.props;
 ---
@@ -26,7 +26,7 @@ const { now, title } = Astro.props;
       </div>
     </button>
 
-    <NavigationMenu manifest={NAVIGATION_MENU_MANIFEST} />
+    <NavigationMenu manifest={NEW_NAVS} />
   </div>
 </header>
 
