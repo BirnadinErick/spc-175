@@ -8,6 +8,14 @@ Welcome to the official website of St. Patrick's College, developed by the SPC M
 
 St. Patrick's College is a renowned educational institution committed to academic excellence, personal development, and community engagement. This website is a testament to our dedication to providing a seamless online experience for students, parents, faculty, and alumni.
 
+## Somehow... 2 mil LOC
+
+For some reasons, this repo uses 2 mil lines of Code from 8 different programming langs to spit the output. Yet not finished! 
+
+![image](https://github.com/BirnadinErick/spc-175/assets/45619033/18ad719b-ae21-4b97-8b08-fdc30d52353e)
+
+> output using [cloc](https://github.com/AlDanial/cloc)
+
 ## Credits
 
 This website is made possible because of a handful of Alumni and members of SPC Media Unit of 2021, 2022 and 2023. Please visit the [Contributors](https://github.com/BirnadinErick/spc-175/graphs/contributors) to view some of them.
