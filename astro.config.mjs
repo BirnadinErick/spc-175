@@ -4,13 +4,15 @@ import mdx from "@astrojs/mdx";
 import remarkGfm from "remark-gfm";
 import emoji from "remark-emoji";
 import remarkUnwrapImages from "remark-unwrap-images";
+import alpinejs from "@astrojs/alpinejs";
 
+// https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx()],
+  integrations: [tailwind(), mdx(), alpinejs()],
   experimental: {
-    assets: true,
+    assets: true
   },
   markdown: {
-    remarkPlugins: [remarkGfm, emoji, remarkUnwrapImages],
-  },
+    remarkPlugins: [remarkGfm, emoji, remarkUnwrapImages]
+  }
 });

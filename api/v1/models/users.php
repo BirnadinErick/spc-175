@@ -1,10 +1,9 @@
 <?php
-require_once(MODELS . "base.php");
+require_once MODELS . "base.php";
 
 class UsersModel extends BaseModel
 {
-
-    protected string $tableName = 'users';
+    protected string $tableName = "users";
 
     private function hash_password($password): string
     {
@@ -31,18 +30,18 @@ class UsersModel extends BaseModel
 
         try {
             $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(":username", $username);
             $stmt->execute();
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result) {
-                return $this->verify_password($password, $result['password']);
+                return $this->verify_password($password, $result["password"]);
             } else {
                 return false;
             }
         } catch (PDOException $e) {
             // log the failure
-            $stdout = fopen('php://stdout', 'w');
+            $stdout = fopen("php://stdout", "w");
             fwrite($stdout, $e);
             fclose($stdout);
 
@@ -52,12 +51,12 @@ class UsersModel extends BaseModel
 
     public function addNewUser($data): bool
     {
-        $columns = implode(', ', array_keys($data));
-        $placeholders = implode(', ', array_fill(0, count($data), '?'));
+        $columns = implode(", ", array_keys($data));
+        $placeholders = implode(", ", array_fill(0, count($data), "?"));
         $sql = "INSERT INTO $this->tableName ($columns) VALUES ($placeholders)";
 
         // prepare password
-        $data['password'] = $this->hash_password($data['password']);
+        $data["password"] = $this->hash_password($data["password"]);
 
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -74,12 +73,36 @@ class UsersModel extends BaseModel
             return true;
         } catch (PDOException $e) {
             // log the failure
-            $stdout = fopen('php://stdout', 'w');
+            $stdout = fopen("php://stdout", "w");
             fwrite($stdout, $e);
             fclose($stdout);
 
             debug("failed new user! $e", __FILE__);
             return false;
+        }
+    }
+
+    public function get_user_id(string $email): int
+    {
+        $sql = "SELECT id FROM users WHERE email = :email";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                return $result["id"];
+            }
+            return -1;
+        } catch (PDOException $e) {
+            // Log the failure
+            $stdout = fopen("php://stdout", "w");
+            fwrite($stdout, $e);
+            fclose($stdout);
+
+            return -2;
         }
     }
 }

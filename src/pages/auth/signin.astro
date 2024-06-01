@@ -9,12 +9,13 @@ import { get_api_route } from "@config/global";
 
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
 ---
 
 <html lang="en">
   <CommonHead title="Log In | SPC Media Unit | 175 years" />
 
-  <body class="cursor-default bg-spc-dark text-spc-light font-sans">
+  <body x-data="{open = false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
     <CommonHeader title="Digital <br/>Patrician" />
     <section class="px-6 my-8 md:px-12 lg:px-24 xl:px-[30%]">
       <BackButton />
@@ -207,6 +208,7 @@ import "@fontsource/space-grotesk/700.css";
     </section>
     <Footer />
 
+    <MobileNavButton />
     <script
       is:inline
       src="https://unpkg.com/htmx.org@1.9.11"

@@ -9,5 +9,3 @@ These contributors(not just the names in the [Contributors](https://github.com/B
 Gratitude to the Vice Principal's Office for letting SPC Media Unit to develop the site.
 
 My thank to the Rector's Office for the permission to use the School's Logo and such.
-
----
