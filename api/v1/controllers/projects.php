@@ -12,6 +12,12 @@ function projects()
         debug("new project request", __FILE__);
         session_start();
 
+        if (!isset($_SESSION["email"])){
+            debug("unauthorized request to projects POST handler", __FILE__);
+            http_response_code(401);
+            exit(1);
+        }
+
         $projects = new ProjectsModel();
         $title = $_POST["project_title"];
 
