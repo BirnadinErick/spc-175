@@ -46,7 +46,10 @@ function projects()
         exit();
 
     } elseif ($_SERVER["REQUEST_METHOD"] === "GET") {
-        echo "geting projects...";
+        $projects = new ProjectsModel();
+        $results = $projects->getProjects();
+
+        echo json_encode($results);
         return false;
     } else {
         return false;
