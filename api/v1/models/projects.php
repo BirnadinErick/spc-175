@@ -42,7 +42,7 @@ class ProjectsModel extends BaseModel
     public function getProjects()
     {
         // TODO: Paginate
-        $sql = "SELECT title, description, status, amount FROM " . $this->tableName;
+        $sql = "SELECT title, status, amount, upvote, deadline FROM " . $this->tableName;
 
         try {
             $stmt = $this->pdo->prepare($sql);
