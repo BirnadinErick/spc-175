@@ -52,7 +52,7 @@ function projects()
 
         foreach ($results as $r) {
             ?>
-            <div class="bg-[#393939]/50 rounded-sm p-4">
+            <div class="bg-spc-bg-mid rounded-sm p-4">
                 <div class="mb-6">
                     <h2 class="text-2xl font-bold uppercase truncate text-clip">
                         <?= $r['title'] ?>
