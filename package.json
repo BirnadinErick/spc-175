@@ -16,6 +16,8 @@
     "@astrojs/alpinejs": "^0.4.0",
     "@astrojs/mdx": "^0.19.7",
     "@astrojs/tailwind": "^4.0.0",
+    "@editorjs/editorjs": "^2.29.1",
+    "@editorjs/header": "^2.8.1",
     "@fontsource/playfair-display": "^5.0.19",
     "@fontsource/space-grotesk": "^5.0.15",
     "@fontsource/space-mono": "^5.0.17",

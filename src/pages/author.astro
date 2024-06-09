@@ -1,0 +1,41 @@
+---
+import CommonHead from "../components/common/CommonHead.astro";
+---
+
+<html>
+<CommonHead title="Authoring Test" />
+
+<body>
+<h1>Content Author Test Page</h1>
+<button id="saveEditorBtn" >
+    Save
+</button>
+<section id="editorjs"></section>
+</body>
+</html>
+
+
+<script>
+    import EditorJS from '@editorjs/editorjs';
+    import Header from '@editorjs/header';
+
+    const editor = new EditorJS({
+        onReady() {
+            console.log("editor is ready");
+        },
+        tools:{
+            header: Header,
+        }
+    });
+
+    function saveEditor() {
+        editor.save().then(data=>{
+            console.info(data);
+        }).catch(err=>{
+            console.error(err);
+        })
+    }
+
+    const saveEditorBtn = document.querySelector("#saveEditorBtn");
+    saveEditorBtn.addEventListener("click", saveEditor);
+</script>
