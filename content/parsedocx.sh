@@ -17,7 +17,7 @@ for file in *; do
     fi
 
     # convert the docx to md
-    md="${kebab_case%.docx}.md"
+    md="${kebab_case%.docx}.mdx"
     pandoc -f docx -t gfm --extract-media=. $kebab_case -o $md
 done
 
