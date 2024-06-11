@@ -35,10 +35,11 @@ import CommonHead from "../components/common/CommonHead.astro";
     import Header from "@editorjs/header";
     import SimpleImage from "@editorjs/simple-image";
     import ImageGallery from "@rodrigoodhin/editorjs-image-gallery";
-    import Embed from '@editorjs/embed';
+    import Embed from "@editorjs/embed";
     import List from "@editorjs/list";
+    import Delimiter from "@editorjs/delimiter";
 
-    import {EDITOR_DEMO_DATA} from "../config/global";
+    import { EDITOR_DEMO_DATA } from "../config/global";
 
     class SimpleImage2 {
         data = undefined;
@@ -48,10 +49,10 @@ import CommonHead from "../components/common/CommonHead.astro";
         }
 
         render() {
-            const wrapper = document.createElement('div');
+            const wrapper = document.createElement("div");
             const input = document.createElement("input");
 
-            wrapper.classList.add('image');
+            wrapper.classList.add("image");
             wrapper.appendChild(input);
 
             input.placeholder = "paste url of the image";
@@ -84,14 +85,15 @@ import CommonHead from "../components/common/CommonHead.astro";
             image: SimpleImage,
             imageGallery: ImageGallery,
             list: List,
+            delimiter: Delimiter,
             embed: {
                 class: Embed,
                 config: {
                     services: {
                         youtube: true,
-                        facebook: true,
-                    },
-                },
+                        facebook: true
+                    }
+                }
             }
         },
         data: EDITOR_DEMO_DATA

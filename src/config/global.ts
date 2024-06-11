@@ -12,7 +12,7 @@ function get_api_route(route: string) {
 }
 
 const EDITOR_DEMO_DATA = {
-    "time": 1718131887632,
+    "time": 1718133093918,
     "blocks": [
         {
             "id": "1FMkB6AnMI",
@@ -87,6 +87,11 @@ const EDITOR_DEMO_DATA = {
             }
         },
         {
+            "id": "mxqwKlU72G",
+            "type": "delimiter",
+            "data": {}
+        },
+        {
             "id": "iu_PFUEIdx",
             "type": "embed",
             "data": {
@@ -95,7 +100,17 @@ const EDITOR_DEMO_DATA = {
                 "embed": "https://www.youtube.com/embed/YYs_0e3ImSk",
                 "width": 580,
                 "height": 320,
-                "caption": ""
+                "caption": "An embed from YouTube is allowed..."
+            }
+        },
+        {
+            "id": "1TvHRYNiXf",
+            "type": "embed",
+            "data": {
+                "service": "facebook",
+                "source": "https://www.facebook.com/StPatricksCollegeJaffna/posts/pfbid0kXmJVu5KynN3nwexYmz9VBraPH9HFCeKEEncqkE4cn4h55NfegnxLCgTProsLbGcl",
+                "embed": "https://www.facebook.com/plugins/post.php?href=https://www.facebook.com/StPatricksCollegeJaffna/posts/pfbid0kXmJVu5KynN3nwexYmz9VBraPH9HFCeKEEncqkE4cn4h55NfegnxLCgTProsLbGcl&width=500",
+                "caption": "...or from Facebook as well"
             }
         }
     ],
