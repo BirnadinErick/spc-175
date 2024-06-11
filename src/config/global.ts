@@ -85,6 +85,18 @@ const EDITOR_DEMO_DATA = {
             "data": {
                 "text": "In ornare quam viverra orci sagittis eu volutpat. Consequat nisl vel pretium lectus quam id leo in vitae. Viverra ipsum nunc aliquet bibendum enim facilisis gravida. Varius morbi enim nunc faucibus a pellentesque sit. Suspendisse potenti nullam ac tortor vitae purus faucibus. Etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna. Auctor eu augue ut lectus arcu bibendum at varius. Sed adipiscing diam donec adipiscing tristique risus nec feugiat in. Porttitor eget dolor morbi non arcu risus quis varius. Molestie ac feugiat sed lectus vestibulum mattis. Volutpat commodo sed egestas egestas fringilla."
             }
+        },
+        {
+            "id": "iu_PFUEIdx",
+            "type": "embed",
+            "data": {
+                "service": "youtube",
+                "source": "https://www.youtube.com/watch?v=YYs_0e3ImSk",
+                "embed": "https://www.youtube.com/embed/YYs_0e3ImSk",
+                "width": 580,
+                "height": 320,
+                "caption": ""
+            }
         }
     ],
     "version": "2.29.1"

@@ -17,6 +17,9 @@ dependencies:
   '@editorjs/editorjs':
     specifier: ^2.29.1
     version: 2.29.1
+  '@editorjs/embed':
+    specifier: ^2.7.2
+    version: 2.7.2
   '@editorjs/header':
     specifier: ^2.8.1
     version: 2.8.1
@@ -44,6 +47,9 @@ dependencies:
   astro:
     specifier: ^2.10.8
     version: 2.10.8
+  simple-image-editorjs:
+    specifier: ^1.4.0
+    version: 1.4.0
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.1
@@ -522,6 +528,10 @@ packages:
 
   /@editorjs/editorjs@2.29.1:
     resolution: {integrity: sha512-WRT2pCfikMsvySQJqpCU21LfTZaPuxUWsDO8aFGrPx4MKzOR9D+Ur4mNb3jq0FXx2EMqvIWfTyFixJxtjGHTyQ==}
+    dev: false
+
+  /@editorjs/embed@2.7.2:
+    resolution: {integrity: sha512-gQbSpFXT6osH37bdS/tI9mGS2Pu64bMKzZNfMIRPWguDmwP+J+8Ly2Y9I0ptAZham4e48Ri5ZPCDAUXKT2WpSg==}
     dev: false
 
   /@editorjs/header@2.8.1:
@@ -3707,6 +3717,10 @@ packages:
 
   /signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
+    dev: false
+
+  /simple-image-editorjs@1.4.0:
+    resolution: {integrity: sha512-XSjWtf6HzzxWR4Fk0PTr3tpvw5OxCTHXJYEhMc0e8+uIa79H9M6Ct55ujWQctt6XP0IoXuhshCdPKFrcyUNtnw==}
     dev: false
 
   /sisteransi@1.0.5:

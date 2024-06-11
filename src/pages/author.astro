@@ -35,6 +35,9 @@ import CommonHead from "../components/common/CommonHead.astro";
     import Header from "@editorjs/header";
     import SimpleImage from "@editorjs/simple-image";
     import ImageGallery from "@rodrigoodhin/editorjs-image-gallery";
+    import Embed from '@editorjs/embed';
+
+    import {EDITOR_DEMO_DATA} from "../config/global";
 
     class SimpleImage2 {
         data = undefined;
@@ -78,8 +81,18 @@ import CommonHead from "../components/common/CommonHead.astro";
         tools: {
             header: Header,
             image: SimpleImage,
-            imageGallery: ImageGallery
+            imageGallery: ImageGallery,
+            embed: {
+                class: Embed,
+                config: {
+                    services: {
+                        youtube: true,
+                        facebook: true,
+                    },
+                },
+            }
         },
+        data: EDITOR_DEMO_DATA
     });
 
     function saveEditor() {
