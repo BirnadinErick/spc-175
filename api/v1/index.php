@@ -67,6 +67,7 @@ include_once CONTROLLERS . "logout.php";
 include_once CONTROLLERS . "auth-state.php";
 include_once CONTROLLERS . "comments.php";
 include_once CONTROLLERS . "allowed-to-comment.php";
+include_once CONTROLLERS . "save-post.php";
 
 $routes = [
     "signin" => "signin",
@@ -75,6 +76,7 @@ $routes = [
     "auth-state" => "auth_state",
     "comments" => "comments",
    "allowed-to-comment" => "allowed_to_comment",
+    "save-post" => "save_post",
 ];
 $request_uri = $_GET["p"];
 
