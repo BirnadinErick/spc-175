@@ -21,6 +21,7 @@ function signin()
             "address_line_2" => $_POST["address2"],
             "zip_code" => $_POST["zipcode"],
             "telephone" => $_POST["telephone"],
+            "role" => "0",
         ];
 
         $users = new UsersModel();
