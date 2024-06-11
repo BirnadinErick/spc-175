@@ -1,41 +1,101 @@
 ---
 import CommonHead from "../components/common/CommonHead.astro";
 ---
+<style>
+    .ce-toolbar__plus {
+        @apply text-white;
+    }
+</style>
 
 <html>
 <CommonHead title="Authoring Test" />
 
-<body>
+<body class="">
 <h1>Content Author Test Page</h1>
-<button id="saveEditorBtn" >
+
+<button id="readOnlyBtn">
+    Read Only Toggle
+</button>
+
+<button id="saveEditorBtn">
     Save
 </button>
-<section id="editorjs"></section>
+
+<section class="">
+    <article id="editorjs"
+             class="prose-sm prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg "
+    >
+    </article>
+</section>
 </body>
 </html>
 
-
 <script>
-    import EditorJS from '@editorjs/editorjs';
-    import Header from '@editorjs/header';
+    import EditorJS from "@editorjs/editorjs";
+    import Header from "@editorjs/header";
+    import SimpleImage from "@editorjs/simple-image";
+
+    class SimpleImage2 {
+        data = undefined;
+
+        constructor({ data }) {
+            this.data = data;
+        }
+
+        render() {
+            const wrapper = document.createElement('div');
+            const input = document.createElement("input");
+
+            wrapper.classList.add('image');
+            wrapper.appendChild(input);
+
+            input.placeholder = "paste url of the image";
+            input.value = this.data && this.data.url ? this.data.url : "";
+
+
+            return input;
+        }
+
+        save(blockContent) {
+            return {
+                url: blockContent.value
+            };
+        }
+
+        static get toolbox() {
+            return {
+                title: "Image",
+                icon: "<svg width=\"17\" height=\"15\" viewBox=\"0 0 336 276\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M291 150V79c0-19-15-34-34-34H79c-19 0-34 15-34 34v42l67-44 81 72 56-29 42 30zm0 52l-43-30-56 30-81-67-66 39v23c0 19 15 34 34 34h178c17 0 31-13 34-29zM79 0h178c44 0 79 35 79 79v118c0 44-35 79-79 79H79c-44 0-79-35-79-79V79C0 35 35 0 79 0z\"/></svg>"
+            };
+        }
+    }
 
     const editor = new EditorJS({
         onReady() {
             console.log("editor is ready");
         },
-        tools:{
+        tools: {
             header: Header,
-        }
+            image: SimpleImage
+        },
     });
 
     function saveEditor() {
-        editor.save().then(data=>{
+        editor.save().then(data => {
             console.info(data);
-        }).catch(err=>{
+        }).catch(err => {
             console.error(err);
-        })
+        });
+    }
+
+    function toggleReadOnly() {
+        editor.readOnly.toggle();
+        console.log("read only toggle");
     }
 
     const saveEditorBtn = document.querySelector("#saveEditorBtn");
+    const readOnlyBtn = document.querySelector("#readOnlyBtn");
+
     saveEditorBtn.addEventListener("click", saveEditor);
+    readOnlyBtn.addEventListener("click", toggleReadOnly);
 </script>
