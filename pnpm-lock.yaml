@@ -32,6 +32,9 @@ dependencies:
   '@fontsource/space-mono':
     specifier: ^5.0.17
     version: 5.0.17
+  '@rodrigoodhin/editorjs-image-gallery':
+    specifier: ^0.1.0
+    version: 0.1.0
   '@types/alpinejs':
     specifier: ^3.13.10
     version: 3.13.10
@@ -1050,6 +1053,10 @@ packages:
       php-parser: 3.1.5
       prettier: 3.2.5
     dev: true
+
+  /@rodrigoodhin/editorjs-image-gallery@0.1.0:
+    resolution: {integrity: sha512-yjUxk6jtjFvYJ9F14Wdk6D0EU/33LBBaUQTgUQ/ennPSOEcGZTqW0eEhfev4FgWC8i5qchcJFFnbCfITYfiqIg==}
+    dev: false
 
   /@sindresorhus/is@3.1.2:
     resolution: {integrity: sha512-JiX9vxoKMmu8Y3Zr2RVathBL1Cdu4Nt4MuNWemt1Nc06A0RAin9c5FArkhGsyMBWfCu4zj+9b+GxtjAnE4qqLQ==}

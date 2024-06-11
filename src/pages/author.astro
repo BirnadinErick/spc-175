@@ -34,6 +34,7 @@ import CommonHead from "../components/common/CommonHead.astro";
     import EditorJS from "@editorjs/editorjs";
     import Header from "@editorjs/header";
     import SimpleImage from "@editorjs/simple-image";
+    import ImageGallery from "@rodrigoodhin/editorjs-image-gallery";
 
     class SimpleImage2 {
         data = undefined;
@@ -76,7 +77,8 @@ import CommonHead from "../components/common/CommonHead.astro";
         },
         tools: {
             header: Header,
-            image: SimpleImage
+            image: SimpleImage,
+            imageGallery: ImageGallery
         },
     });
 
