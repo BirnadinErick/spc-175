@@ -10,10 +10,10 @@ class ContentsModel extends BaseModel
         $stmt->execute([$path, $uid, $updated_by, $data]);
     }
 
-    function read_content(int $id) {
-        $sql = 'SELECT * FROM content WHERE id = ?';
+    function read_content(string $path) {
+        $sql = 'SELECT * FROM contents WHERE path = ?';
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([(string) $id]);
+        $stmt->execute([$path]);
         return $stmt->fetch();
     }
 }

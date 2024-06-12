@@ -67,7 +67,7 @@ include_once CONTROLLERS . "logout.php";
 include_once CONTROLLERS . "auth-state.php";
 include_once CONTROLLERS . "comments.php";
 include_once CONTROLLERS . "allowed-to-comment.php";
-include_once CONTROLLERS . "save-post.php";
+include_once CONTROLLERS . "posts.php";
 
 $routes = [
     "signin" => "signin",
@@ -77,6 +77,7 @@ $routes = [
     "comments" => "comments",
    "allowed-to-comment" => "allowed_to_comment",
     "save-post" => "save_post",
+    "read-post" => "read_post",
 ];
 $request_uri = $_GET["p"];
 
@@ -99,9 +100,8 @@ if (array_key_exists($request_uri, $routes)) {
 
     $handler();
     http_response_code(200);
-    exit();
 } else {
     http_response_code(404);
     echo json_encode(["error" => "Route not found"]);
-    exit();
 }
+exit();
