@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 require_once MODELS . "base.php";
 
@@ -43,6 +43,7 @@ class CommentsModel extends BaseModel
     public function getComments(int $post_id)
     {
             $sql = "SELECT text, first_name, last_name FROM ".$this->tableName." JOIN users ON users.id = comments.user_id WHERE parent_id == :post_id AND is_reply == 0 ORDER BY date_created DESC";
+
             try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(":post_id", $post_id);

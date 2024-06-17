@@ -1,4 +1,4 @@
---
+---
 import CommonHead from "@components/common/CommonHead.astro";
 import CommonHeader from "@components/common/CommonHeader.astro";
 import Footer from "@components/footer/Footer.astro";
@@ -9,15 +9,16 @@ import BackButton from "@components/patrician-publications/BackButton.astro";
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
 import MobileNavButton from "../../components/common/MobileNavButton.astro";
+import { get_api_route } from "../../config/global";
 
 const nexts = [
     ["Patrician Publications.", "/patrician-publications"],
     ["Our Spirituality.", "/our-spirituality"],
     ["Academics.", "/academics"],
     ["Sports.", "/sports"],
-    ["Socities.", "socities"],
+    ["Socities.", "socities"]
 ];
-const introText = `Home of any aids (pun indented) to your Alma Mater! Below you will
+const introText = `Home of any aiding project to your Alma Mater! Below you will
 find suggested, approved and running aids to the College. You may
 explore the site and do your part as well.
 <br/>
@@ -28,110 +29,52 @@ button.`;
 ---
 
 <html lang="en">
-    <CommonHead title="SPC Aids | SPC Media Unit | 175 years" />
+<CommonHead title="SPC Aids | SPC Media Unit | 175 years" />
 
-    <body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
-        <CommonHeader title="Digital<br/> Patrician" />
-        <section class="px-6"><BackButton /></section>
-        <section class="px-6 my-4">
-            <SectionTitle title="Aid the SPC." />
-            <p class="mt-6 text-white/75" set:html={introText} />
-        </section>
-        <section class="px-6 my-6">
-            <main>
-                <button
-                    class="font-bold px-4 py-2 bg-white rounded-sm text-spc-green flex justify-start items-center"
-                    type="submit"
-                >
+<body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+<CommonHeader title="Digital<br/> Patrician" />
+<section class="px-6 md:px-12 xl:px-96">
+    <BackButton />
+</section>
+<section class="px-6  md:px-12 xl:px-96 my-4">
+    <SectionTitle title="Aid the SPC." />
+    <p class="mt-6 text-white/75" set:html={introText} />
+</section>
+<section class="px-6 my-6 md:px-12 xl:px-96">
+    <main>
+        <button
+            class="font-bold px-4 py-2 bg-white rounded-sm text-spc-green flex justify-start items-center"
+            type="submit"
+        >
                     <span class="pr-2"
-                        ><svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6"
-                        >
+                    ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6"
+                    >
                             <path
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 d="M12 4.5v15m7.5-7.5h-15"></path>
                         </svg>
                     </span>
-                    <span>Initiate New</span></button
-                >
-                <div class="my-4 space-y-4">
-                    {
-                        [0, 1, 2, 3].map((i: number) => (
-                            <div class="bg-[#393939]/50 rounded-sm p-4">
-                                <div class="mb-6">
-                                    <h2 class="text-2xl font-bold">
-                                        Night lights for therf
-                                    </h2>
-                                    <div class="flex justify-start items-center space-x-2 text-sm mt-1">
-                                        <span
-                                            class={
-                                                i % 2
-                                                    ? "text-spc-gold"
-                                                    : "text-spc-sea"
-                                            }
-                                        >
-                                            {i % 2
-                                                ? "Still Discussing"
-                                                : "Approved"}
-                                        </span>
-                                        <div class="w-[5px] h-[5px] rounded-full bg-white/20" />
-                                        <span class="text-spc-light/70">
-                                            initiated by Mathew
-                                        </span>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-start items-center space-x-3 text-spc-light/90">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.5"
-                                            stroke="currentColor"
-                                            class="w-6 h-6"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                            />
-                                        </svg>
-                                        <p>2003.00 estimated</p>
-                                    </div>
-                                    <div class="flex justify-start items-center space-x-3 text-spc-light/90">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.5"
-                                            stroke="currentColor"
-                                            class="w-6 h-6"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"
-                                            />
-                                        </svg>
+            <span>Initiate New</span>
+        </button>
+        <div hx-get={get_api_route("projects")} hx-trigger="load" hx-swap="innerHTML" class="my-4 space-y-4 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:space-x-4 lg:space-y-0">
+        </div>
+    </main>
+</section>
 
-                                        <p>2003 comments so far</p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-            </main>
-        </section>
-
-        <Next nexts={nexts} />
-        <Footer />
-    <MobileNavButton />
-    </body>
+<Next nexts={nexts} />
+<Footer />
+<MobileNavButton />
+<script
+    is:inline
+    src="https://unpkg.com/htmx.org@1.9.11"
+    integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+    crossorigin="anonymous"></script>
+</body>
 </html>
