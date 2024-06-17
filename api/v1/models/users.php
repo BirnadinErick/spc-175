@@ -105,4 +105,19 @@ class UsersModel extends BaseModel
             return -2;
         }
     }
+
+    private function get_user_role(int $user_id)
+    {
+        $stmt = $this->pdo->prepare('SELECT role FROM users WHERE id = ?');
+        $stmt->execute([$user_id]);
+        return $stmt->fetchColumn();
+    }
+
+    public function check_roles_exist(int $ref_roles, string $email): bool
+    {
+        $id = $this->get_user_id($email);
+        $user_roles = $this->get_user_role($id);
+
+        return ($user_roles & $ref_roles) === $ref_roles;
+    }
 }
