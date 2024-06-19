@@ -1,9 +1,53 @@
 <?php
 
+use BumpCore\EditorPhp\Block\Block;
+use BumpCore\EditorPhp\Blocks\Delimiter;
+use BumpCore\EditorPhp\Blocks\Image;
 use BumpCore\EditorPhp\EditorPhp;
+use BumpCore\EditorPhp\Helpers;
 
 require_once MODELS . "users.php";
 require_once MODELS . "contents.php";
+
+class CustomImageGallery extends Block
+{
+    public function rules(): array
+    {
+        return [
+            "urls" => "array"
+        ];
+    }
+
+    public function render(): string
+    {
+        return Helpers::renderNative(VIEWS . 'editor-img-gallery.php', ["imgs" => $this->data->get('urls')]);
+    }
+}
+
+class CustomDelimiter extends Delimiter
+{
+    public function render(): string
+    {
+        return "<hr />";
+    }
+}
+
+class CustomSimpleImage extends Image
+{
+    public function rules(): array
+    {
+        return [
+            "url" => "string",
+            "caption" => "string"
+        ];
+    }
+
+    public function render(): string
+    {
+        $data = $this->data;
+        return Helpers::renderNative(VIEWS . 'editor-img.php', ["url" => $data('url')]);
+    }
+}
 
 function save_post()
 {
@@ -110,6 +154,11 @@ function read_post_html()
     $content = $contents->read_content($path);
     $json = bzdecompress($content["data"]);
 
+    EditorPhp::register([
+        "imageGallery" => CustomImageGallery::class,
+        "image" => CustomSimpleImage::class,
+        "delimiter" => CustomDelimiter::class,
+    ]);
     $render = EditorPhp::make($json)->render();
 
     echo $render;
