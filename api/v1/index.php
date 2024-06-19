@@ -61,6 +61,8 @@ if (DEBUG) {
     define("API", "https://www.spcjaffna-beta.org/api/v1/index.php?p=");
 }
 
+require __DIR__ . '/vendor/autoload.php';
+
 include_once CONTROLLERS . "signin.php";
 include_once CONTROLLERS . "login.php";
 include_once CONTROLLERS . "logout.php";
@@ -78,6 +80,8 @@ $routes = [
    "allowed-to-comment" => "allowed_to_comment",
     "save-post" => "save_post",
     "read-post" => "read_post",
+    "read-post-html" => "read_post_html",
+    "create-post" => "create_post",
 ];
 $request_uri = $_GET["p"];
 

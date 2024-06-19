@@ -1,6 +1,11 @@
 ---
 import CommonHead from "../../components/common/CommonHead.astro";
 import Loader from "../../components/common/Loader.astro";
+import { NEW_NAVS } from "../../config/navigation";
+
+let pathsInManifest = [];
+
+let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.children.map(c => `/${i.link}/${c.link}`)).flat();
 ---
 <style>
     .ce-toolbar__plus {
@@ -13,6 +18,16 @@ import Loader from "../../components/common/Loader.astro";
 
 <body class="">
 <h1>Content Author Test Page</h1>
+
+<div>
+    <label for="path">Path:</label>
+    <input class="w-content" id="path" type="text" autofocus placeholder="e.g. academics/<new-path>" list="pathsManifest">
+    <p class="text-sm text-spc-dark/50 italic">Please make sure the path already exists in the manifest!</p>
+    <datalist id="pathsManifest">
+        {navsWithContent.map(n =>
+            <option value={n}></option>)}
+    </datalist>
+</div>
 
 <button id="saveEditorBtn">
     Save
@@ -43,24 +58,8 @@ import Loader from "../../components/common/Loader.astro";
     import { get_api_route } from "../../config/global";
 
     // get current path
-    const queryStr = window.location.search;
-    const searchParams = new URLSearchParams(queryStr);
-    const path = searchParams.get("path");
-
-    async function get_post_data(path) {
-        try {
-            const URL = get_api_route("read-post") + "&path=" + path;
-            const req = await fetch(URL, {
-                method: "POST",
-                credentials: "include"
-            });
-
-            return await req.json();
-        } catch (e) {
-            console.error(e);
-            throw new Error("Retrieving JSON failed!");
-        }
-    }
+    const path = document.querySelector("#path");
+    const saveEditorBtn = document.querySelector("#saveEditorBtn");
 
     // handle save request from editor
     async function saveEditor(editor, path) {
@@ -76,24 +75,20 @@ import Loader from "../../components/common/Loader.astro";
         }
 
         const formBody = new FormData();
-        formBody.append("path", path);
+        formBody.append("path", path.value);
         formBody.append("data", JSON.stringify(data));
 
         try {
-            const res = await fetch(get_api_route("save-post"), {
+            const res = await fetch(get_api_route("create-post"), {
                 method: "POST",
                 body: formBody
             });
 
-            if (res.status != 204) {
+            if (res.status != 201) {
                 throw new Error("post not created");
             }
-
-            console.info("new data saved");
         } catch (e) {
-            console.debug("failed to POST");
             console.error(e);
-            throw new Error("saveEditor failed in POST");
         }
     }
 
@@ -112,10 +107,8 @@ import Loader from "../../components/common/Loader.astro";
     }
 
 
-    const saveEditorBtn = document.querySelector("#saveEditorBtn");
     saveEditorBtn.addEventListener("click", () => saveEditor(editor, path));
 
-    const editorInitData = await get_post_data(path);
     const editor = new EditorJS({
         onReady: editorReady,
         tools: {
@@ -128,13 +121,11 @@ import Loader from "../../components/common/Loader.astro";
                 class: Embed,
                 config: {
                     services: {
-                        youtube: true,
-                        facebook: true
+                        youtube: true
                     }
                 }
             }
-        },
-        data: editorInitData
+        }
     });
 
 </script>
