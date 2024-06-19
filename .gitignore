@@ -36,3 +36,5 @@ app/
 **/.idea/
 
 *.zip
+
+**/vendor
