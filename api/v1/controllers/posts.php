@@ -33,15 +33,21 @@ function save_post()
     $compressed_data = bzcompress($data, 9);
 
     try {
-        $contents->write_content($path, $uid, $user_id, $compressed_data);
+        $ok = $contents->update_content($path, $uid, $user_id, $compressed_data);
+
+        if ($ok != 0) {
+            // TODO: specify why
+            throw new Exception("content update failed");
+        }
     } catch (Exception $ex) {
+        session_write_close();
         debug("writing failed", __FILE__);
         http_response_code(500);
         exit(1);
     }
 
     session_write_close();
-    http_response_code(201);
+    http_response_code(204);
     exit(0);
 }
 
@@ -59,7 +65,7 @@ function read_post()
     }
 
     $users = new UsersModel();
-    if (!$users->check_roles_exist(EDITOR_ROLE, $_SESSION["email"])){
+    if (!$users->check_roles_exist(EDITOR_ROLE, $_SESSION["email"])) {
         http_response_code(401);
         exit(1);
     }
