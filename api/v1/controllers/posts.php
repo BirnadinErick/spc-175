@@ -2,12 +2,21 @@
 
 use BumpCore\EditorPhp\Block\Block;
 use BumpCore\EditorPhp\Blocks\Delimiter;
+use BumpCore\EditorPhp\Blocks\Embed;
 use BumpCore\EditorPhp\Blocks\Image;
 use BumpCore\EditorPhp\EditorPhp;
 use BumpCore\EditorPhp\Helpers;
 
 require_once MODELS . "users.php";
 require_once MODELS . "contents.php";
+
+class CustomYoutubeEmbed extends Embed{
+    public function render(): string
+    {
+        debug(var_export($this->data, true), __FILE__);
+        return Helpers::renderNative(VIEWS.'editor-youtube-embed.php', ["height"=>$this->data->get('height'), "src"=>$this->data->get('embed')]);
+    }
+}
 
 class CustomImageGallery extends Block
 {
@@ -158,6 +167,7 @@ function read_post_html()
         "imageGallery" => CustomImageGallery::class,
         "image" => CustomSimpleImage::class,
         "delimiter" => CustomDelimiter::class,
+        "embed"=>CustomYoutubeEmbed::class,
     ]);
     $render = EditorPhp::make($json)->render();
 
