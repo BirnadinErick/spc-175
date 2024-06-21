@@ -47,6 +47,10 @@ import Loader from "../../components/common/Loader.astro";
     const searchParams = new URLSearchParams(queryStr);
     const path = searchParams.get("path");
 
+    if (path === null){
+        console.error("path string not given")
+    }
+
     async function get_post_data(path) {
         try {
             const URL = get_api_route("read-post") + "&path=" + path;
