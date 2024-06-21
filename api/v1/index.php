@@ -12,7 +12,7 @@ function error_handler($errno, $errstr, $errfile, $errll)
     $msg = "$time $errno [$errfile::$errll] | $errstr";
     error_log($msg . PHP_EOL, 3, "error_log.txt");
     file_put_contents(
-        $_SERVER["DOCUMENT_ROOT"] . "/error_log.bk.txt",
+        $_SERVER["DOCUMENT_ROOT"] . "/error_log.txt",
         $msg,
         FILE_APPEND
     );
