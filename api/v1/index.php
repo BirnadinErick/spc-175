@@ -69,6 +69,7 @@ include_once CONTROLLERS . "logout.php";
 include_once CONTROLLERS . "auth-state.php";
 include_once CONTROLLERS . "comments.php";
 include_once CONTROLLERS . "allowed-to-comment.php";
+include_once CONTROLLERS . "projects.php";
 include_once CONTROLLERS . "posts.php";
 
 $routes = [
@@ -77,7 +78,8 @@ $routes = [
     "logout" => "logout",
     "auth-state" => "auth_state",
     "comments" => "comments",
-   "allowed-to-comment" => "allowed_to_comment",
+    "allowed-to-comment" => "allowed_to_comment",
+    "projects" => "projects",
     "save-post" => "save_post",
     "read-post" => "read_post",
     "read-post-html" => "read_post_html",

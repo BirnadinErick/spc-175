@@ -102,6 +102,7 @@ export const NEW_NAVS = [
         ]
     },
     {title: 'Patrician Publications', link: 'patrician-publications', children: []},
+    {title: 'Donate', link: 'aids', children: []},
     {title: 'Facilities', link: 'facilities', children: []},
     {title: 'Gallery', link: 'gallery', children: []}
 ]
