@@ -2,6 +2,7 @@
 import CommonHead from "../../components/common/CommonHead.astro";
 import Loader from "../../components/common/Loader.astro";
 import { get_api_route } from "../../config/global";
+import PageLayout from "../../layouts/PageLayout.astro";
 
 export function getStaticPaths() {
     return [{
@@ -11,45 +12,18 @@ export function getStaticPaths() {
     }
     ];
 }
+
+const {slug}= Astro.params;
 ---
-<style>
-    .ce-toolbar__plus {
-        @apply text-white;
-    }
-</style>
 
-<html>
-<CommonHead title="Authoring Test" />
-
-<body class="">
-<h1>Content Author Test Page</h1>
-
-
-<section>
-    <article
-        class="prose-sm prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg "
-        hx-get={get_api_route("read-post-html") + "&path=zB1"}
+<PageLayout >
+    <div
+        hx-get={get_api_route("read-post-html") + "&path=" + slug}
         hx-swap="innerHTML"
         hx-trigger="load"
     >
         <div>
             <Loader />
         </div>
-    </article>
-</section>
-
-<script
-    is:inline
-    src="https://unpkg.com/htmx.org@1.9.11"
-    integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
-    crossorigin="anonymous"></script>
-
-<script>
-    document.body.addEventListener("htmx:beforeSwap", function(evt) {
-        if (evt.detail.xhr.status === 400) {
-            evt.detail.shouldSwap = true;
-        }
-    });
-</script>
-</body>
-</html>
+    </div>
+</PageLayout>
