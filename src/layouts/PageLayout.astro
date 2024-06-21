@@ -21,23 +21,24 @@ const nexts = [
     ["Clubs & Socities.", "clubs-and-socities"],
 ];
 
-const {frontmatter} = Astro.props;
+const {meta} = Astro.props;
+console.log(meta);
 ---
 
 <html lang="en">
 <CommonHead
-        title={frontmatter.title}
+        title={meta.title}
 />
 
 <body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
-<CommonHeader title={frontmatter.title}/>
+<CommonHeader title={meta.title}/>
 <div>
     <section class="px-6 md:px-12 xl:px-96 ">
         <BackButton/>
     </section>
 
     <section class="px-6 mt-8 md:px-12 xl:px-96 ">
-        <h1 class="font-bold text-4xl font-serif text-spc-sea leading-[95%]">{frontmatter.title}</h1>
+        <h1 class="font-bold text-4xl leading-[95%]">{meta.title}</h1>
     </section>
 
     <article
@@ -51,5 +52,18 @@ const {frontmatter} = Astro.props;
     <Footer/>
     <MobileNavButton/>
 
+    <script
+        is:inline
+        src="https://unpkg.com/htmx.org@1.9.11"
+        integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+        crossorigin="anonymous"></script>
+
+    <script>
+        document.body.addEventListener("htmx:beforeSwap", function(evt) {
+            if (evt.detail.xhr.status === 400) {
+                evt.detail.shouldSwap = true;
+            }
+        });
+    </script>
 </body>
 </html>
