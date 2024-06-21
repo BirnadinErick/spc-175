@@ -6,17 +6,14 @@ import Loader from "components/common/Loader.astro";
 import { NEW_NAVS } from "config/navigation";
 
 export async function getStaticPaths() {
-    const es = NEW_NAVS.map(i=> i.children.map(j=> ({parent:i.link, ...j}))).flat().map(l=>({
-        params:{slug: l.parent + '/'+ l.link},
-        props:{
-            meta: l
+    return NEW_NAVS.map(i => i.children.map(j => ({
+        parentLink: i.link,
+        parentTitle: i.title, ...j
+    }))).flat().map(l => ({
+        params: { slug: l.parentLink + '/' + l.link },
+        props: {
+            meta: { title: l.parentTitle + '  /  ' + l.title }
         }
-    }));
-    console.log(es);
-    return es;
-    return NEW_NAVS.map(i => i.children).flat().map(i => ({
-        params: { slug: i.link },
-        props: { meta: { parent: "alama-mater", ...i } }
     }));
 }
 
