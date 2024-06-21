@@ -161,6 +161,11 @@ function read_post_html()
 
     $contents = new ContentsModel();
     $content = $contents->read_content($path);
+    if ($content === false){
+        debug("content not found", __FILE__);
+        echo Helpers::renderNative(VIEWS.'404.html', []);
+        exit(1);
+    }
     $json = bzdecompress($content["data"]);
 
     EditorPhp::register([
