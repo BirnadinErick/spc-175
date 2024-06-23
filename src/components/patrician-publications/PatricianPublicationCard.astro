@@ -8,7 +8,7 @@ const { imgSrc, title, date, desc, slug } = Astro.props;
 <article
   class="my-8 hover:bg-[#393939]/40 py-4 md:px-4 transition-colors duration-300 ease-out"
 >
-  <a href={"/patrician-publications/" + slug}>
+  <a href={"/blogs/" + slug}>
     <RemoteImage src={imgSrc} alt={title} klass="rounded-sm" />
     <div class="flex justify-between items-baseline my-3">
       <h3 class="font-bold text-lg">{title}</h3>

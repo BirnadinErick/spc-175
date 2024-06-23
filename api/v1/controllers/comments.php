@@ -36,7 +36,7 @@ function comments()
         debug("creating comment for $post_id: \n$text", __FILE__);
         $ok = $comments->addComment(intval($post_id), $text, $user_id);
 
-        header("Location: ". SERVER . "/patrician-publications/$post_id#comments");
+        header("Location: ". SERVER . "/blogs/$post_id#comments");
         if ($ok) {
             http_response_code(303);
         } else {

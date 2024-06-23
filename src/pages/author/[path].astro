@@ -16,7 +16,7 @@ export function getStaticPaths() {
 const {slug}= Astro.params;
 ---
 
-<PageLayout >
+<PageLayout meta={{title: "Author Test Page"}}>
     <div
         hx-get={get_api_route("read-post-html") + "&path=" + slug}
         hx-swap="innerHTML"

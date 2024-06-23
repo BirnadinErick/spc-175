@@ -21,7 +21,8 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
 
 <div>
     <label for="path">Path:</label>
-    <input class="w-content" id="path" type="text" autofocus placeholder="e.g. academics/<new-path>" list="pathsManifest">
+    <input class="w-content" id="path" type="text" autofocus placeholder="e.g. academics/<new-path>"
+           list="pathsManifest">
     <p class="text-sm text-spc-dark/50 italic">Please make sure the path already exists in the manifest!</p>
     <datalist id="pathsManifest">
         {navsWithContent.map(n =>
@@ -32,7 +33,7 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
 <button id="saveEditorBtn">
     Save
 </button>
-
+<p id="save-progress" class="animate-pulse text-spc-dark/80"></p>
 <div id="loader" class="w-full flex justify-around my-12">
     <Loader />
 </div>
@@ -60,13 +61,16 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
     // get current path
     const path = document.querySelector("#path");
     const saveEditorBtn = document.querySelector("#saveEditorBtn");
+    const saveProgress = document.querySelector("#save-progress");
 
     // handle save request from editor
     async function saveEditor(editor, path) {
         let data;
+        saveProgress.innerHTML = "saving...";
 
         try {
             data = await editor.save();
+            saveProgress.innerHTML = "parsed data, POST-ing to server...";
             // console.info(data);
         } catch (e) {
             console.debug("threw due to editor save");
@@ -85,8 +89,11 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
             });
 
             if (res.status != 201) {
+                saveProgress.innerHTML = "failed! server returned: " + res.status;
                 throw new Error("post not created");
             }
+
+            saveProgress.innerHTML = "successfully saved.";
         } catch (e) {
             console.error(e);
         }

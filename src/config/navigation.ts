@@ -16,7 +16,7 @@ const NAVIGATION_MENU_MANIFEST = [
     }, {
         icon: blogIcon,
         text: "Blogs",
-        link: "/patrician-publications"
+        link: "/blogs"
     },
     {
         icon: aidIcon,
@@ -101,8 +101,8 @@ export const NEW_NAVS = [
             { title: "Prefects", link: "prefects" }
         ]
     },
-    { title: "Patrician Publications", link: "patrician-publications", children: [] },
-    { title: "Donate", link: "aids", children: [] },
+    { title: "Blogs", link: "blogs", children: [] },
+    { title: "Projects", link: "projects", children: [] },
     { title: "Facilities", link: "facilities", children: [] },
     { title: "Gallery", link: "gallery", children: [] }
 ];
