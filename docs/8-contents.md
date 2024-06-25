@@ -12,6 +12,7 @@
 4. The editor is insipired by Notion. The content is not representative of final render!![[Pasted image 20240625104510.png]]
 
 > Choose `/author/2` to an example content. The render is on path  [/Auhtor/2](https://www.spcjaffna-beta.org/author/2/)
-> ![[Pasted image 20240625104641.png]]
+
+![[Pasted image 20240625104641.png]]
 
 Should you have any doubt, please contact [Me(Birnadin Erick)](hi@methebe.com) or you supervising SPC Media Unit President or Mentor or Member.
