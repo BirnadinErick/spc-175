@@ -85,6 +85,7 @@ $routes = [
     "read-post-html" => "read_post_html",
     "create-post" => "create_post",
     "available-contents" => "available_contents",
+    "save-blog" => "save_blog",
 ];
 $request_uri = $_GET["p"];
 

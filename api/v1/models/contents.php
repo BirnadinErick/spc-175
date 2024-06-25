@@ -4,11 +4,11 @@ require_once MODELS . "base.php";
 
 class ContentsModel extends BaseModel
 {
-    function write_content($path, $uid, $updated_by, $data)
+    function write_content($path, $uid, $updated_by, $data, $meta = null)
     {
-        $sql = 'INSERT INTO contents (path, uid, updated_by, data) VALUES (?, ?, ?, ?)';
+        $sql = 'INSERT INTO contents (path, uid, updated_by, data, meta) VALUES (?, ?, ?, ?, ?)';
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$path, $uid, $updated_by, $data]);
+        $stmt->execute([$path, $uid, $updated_by, $data, $meta]);
     }
 
     function update_content($path, $uid, $updated_by, $data)
@@ -39,6 +39,35 @@ class ContentsModel extends BaseModel
         return -1;
     }
 
+    // from https://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
+    public function generate_slug($text):string
+    {
+        $divider = "-";
+
+        // replace non letter or digits by divider
+        $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, $divider);
+
+        // remove duplicate divider
+        $text = preg_replace('~-+~', $divider, $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
+    }
 
     function read_content(string $path)
     {

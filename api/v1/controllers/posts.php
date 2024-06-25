@@ -229,16 +229,73 @@ function create_post()
     exit(0);
 }
 
+function save_blog()
+{
+
+    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+        http_response_code(400);
+        echo("Our Engineers screwed up something, sorry. Please refresh the page");
+        exit(1);
+    }
+
+
+    session_start();
+    if (!isset($_SESSION["email"])) {
+        debug("annonymous post save attempt", __FILE__);
+        http_response_code(401);
+        exit(1);
+    }
+
+    $users = new UsersModel();
+    $contents = new ContentsModel();
+
+    if (!$users->check_roles_exist(EDITOR_ROLE, $_SESSION["email"])) {
+        debug("unauthorized post save attempt", __FILE__);
+        http_response_code(401);
+        exit(1);
+    }
+
+    $title = $_POST["title"];
+    $tags = $_POST["tags"];
+    $cover = $_POST["cover"];
+    $data = $_POST["data"];
+    $path = '/blogs/' . $contents->generate_slug($title) . '-' . (string)time();
+    $meta = [
+        'title' => $title,
+        'tags' => $tags,
+        'cover' => $cover
+    ];
+    $meta = json_encode($meta);
+    $uid = uniqid('spc_media_unit_', true);
+    $user_id = $users->get_user_id($_SESSION["email"]);
+    $compressed_data = bzcompress($data, 9);
+
+    try {
+        $contents->write_content($path, $uid, $user_id, $compressed_data, $meta);
+    } catch (Exception $ex) {
+        session_write_close();
+        debug("writing failed", __FILE__);
+        http_response_code(500);
+        exit(1);
+    }
+
+    session_write_close();
+    http_response_code(201);
+    echo $path;
+    exit(0);
+}
+
 function available_contents()
 {
     $c = new ContentsModel();
     $cs = $c->get_contents();
 //    debug(var_export($cs, true), __FILE__)
     ?>
-    <label for="path">Select a path to edit the content:</label>
+    <label class="lbl" for="path">Select a path to edit the content:</label>
     <select id="path" class="" style="color:black">
         <?php foreach ($cs as $i): ?>
             <option class="" value="<?= $i['path'] ?>"><?= $i['path'] ?></option>
         <?php endforeach; ?>
     </select>
 <?php }
+
