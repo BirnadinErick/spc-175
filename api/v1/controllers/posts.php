@@ -236,7 +236,7 @@ function available_contents()
 //    debug(var_export($cs, true), __FILE__)
     ?>
     <label for="path">Select a path to edit the content:</label>
-    <select id="path" class="">
+    <select id="path" class="" style="color:black">
         <?php foreach ($cs as $i): ?>
             <option class="" value="<?= $i['path'] ?>"><?= $i['path'] ?></option>
         <?php endforeach; ?>
