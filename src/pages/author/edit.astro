@@ -1,6 +1,9 @@
 ---
 import CommonHead from "../../components/common/CommonHead.astro";
 import Loader from "../../components/common/Loader.astro";
+import { NEW_NAVS } from "../../config/navigation";
+
+let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.children.map(c => `/${i.link}/${c.link}`)).flat();
 ---
 <style>
     .ce-toolbar__plus {
@@ -14,12 +17,26 @@ import Loader from "../../components/common/Loader.astro";
 <body class="">
 <h1>Content Author Test Page</h1>
 
+<div>
+    <label for="path">Path:</label>
+    <input class="w-content" id="path" type="text" autofocus placeholder="e.g. academics/<new-path>"
+           list="pathsManifest">
+    <p class="text-sm text-spc-dark/50 italic">Please make sure the path already exists in the manifest!</p>
+    <datalist id="pathsManifest">
+        {navsWithContent.map(n =>
+            <option value={n}></option>)}
+    </datalist>
+</div>
+
 <button id="saveEditorBtn">
     Save
 </button>
 
-<div id="loader" class="w-full flex justify-around my-12">
+<div id="loader" class="w-full hidden justify-around my-12">
     <Loader />
+</div>
+<div id="welcomeBanner" class="flex justify-around my-12">
+    Please select a path to edit
 </div>
 
 <section id="editor" class="hidden">
@@ -42,16 +59,28 @@ import Loader from "../../components/common/Loader.astro";
 
     import { get_api_route } from "../../config/global";
 
-    // get current path
-    const queryStr = window.location.search;
-    const searchParams = new URLSearchParams(queryStr);
-    const path = searchParams.get("path");
+    const saveEditorBtn = document.querySelector("#saveEditorBtn");
+    const loader = document.querySelector("#loader");
+    const welcomeBanner = document.querySelector("#welcomeBanner");
+    const editorElem = document.querySelector("#editor");
+    const pathElem = document.querySelector("#path");
 
-    if (path === null){
-        console.error("path string not given")
+    // handle editor ready
+    function editorReady() {
+        console.debug("editor ready to use");
+
+        loader.classList.remove("flex");
+        loader.classList.add("hidden");
+
+        editorElem.classList.remove("hidden");
+        editorElem.classList.add("block");
     }
 
     async function get_post_data(path) {
+        if (path === null) {
+            return;
+        }
+
         try {
             const URL = get_api_route("read-post") + "&path=" + path;
             const req = await fetch(URL, {
@@ -62,8 +91,59 @@ import Loader from "../../components/common/Loader.astro";
             return await req.json();
         } catch (e) {
             console.error(e);
+
+            if (path !== null) {
+                welcomeBanner.innerHTML = "Given Path not found, perhaps you forgot to create one?";
+                loader.replaceWith(welcomeBanner);
+            }
+
             throw new Error("Retrieving JSON failed!");
         }
+    }
+
+    let editor;
+
+    function initEditor(data) {
+        editor = new EditorJS({
+            onReady: editorReady,
+            tools: {
+                header: Header,
+                image: SimpleImage,
+                imageGallery: ImageGallery,
+                list: List,
+                delimiter: Delimiter,
+                embed: {
+                    class: Embed,
+                    config: {
+                        services: {
+                            youtube: true,
+                            facebook: true
+                        }
+                    }
+                }
+            },
+            data: data
+        });
+    }
+
+    // get current path
+    const queryStr = window.location.search;
+    const searchParams = new URLSearchParams(queryStr);
+    let path = searchParams.get("path");
+
+    pathElem.addEventListener("input", async (e) => {
+        path = e.target.value;
+
+        welcomeBanner.replaceWith(loader);
+        loader.classList.replace("hidden", "flex");
+
+        const data = await get_post_data(path);
+        initEditor(data);
+    });
+
+    if (path !== null) {
+        welcomeBanner.replaceWith(loader);
+        loader.classList.replace("hidden", "flex");
     }
 
     // handle save request from editor
@@ -101,44 +181,12 @@ import Loader from "../../components/common/Loader.astro";
         }
     }
 
-    // handle editor ready
-    function editorReady() {
-        console.debug("editor ready to use");
 
-        const loader = document.querySelector("#loader");
-        const editorElem = document.querySelector("#editor");
-
-        loader.classList.remove("flex");
-        loader.classList.add("hidden");
-
-        editorElem.classList.remove("hidden");
-        editorElem.classList.add("block");
-    }
-
-
-    const saveEditorBtn = document.querySelector("#saveEditorBtn");
     saveEditorBtn.addEventListener("click", () => saveEditor(editor, path));
 
     const editorInitData = await get_post_data(path);
-    const editor = new EditorJS({
-        onReady: editorReady,
-        tools: {
-            header: Header,
-            image: SimpleImage,
-            imageGallery: ImageGallery,
-            list: List,
-            delimiter: Delimiter,
-            embed: {
-                class: Embed,
-                config: {
-                    services: {
-                        youtube: true,
-                        facebook: true
-                    }
-                }
-            }
-        },
-        data: editorInitData
-    });
+    if (path !== null) {
+        initEditor(editorInitData);
+    }
 
 </script>

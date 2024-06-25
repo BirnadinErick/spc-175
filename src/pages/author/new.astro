@@ -3,8 +3,6 @@ import CommonHead from "../../components/common/CommonHead.astro";
 import Loader from "../../components/common/Loader.astro";
 import { NEW_NAVS } from "../../config/navigation";
 
-let pathsInManifest = [];
-
 let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.children.map(c => `/${i.link}/${c.link}`)).flat();
 ---
 <style>
