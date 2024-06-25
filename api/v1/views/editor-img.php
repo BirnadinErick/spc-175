@@ -1,0 +1,1 @@
+<img src="<?= $url ?>" alt="SPC Media Unit 2023">

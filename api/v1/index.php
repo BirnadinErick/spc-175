@@ -11,11 +11,11 @@ function error_handler($errno, $errstr, $errfile, $errll)
     $time = time();
     $msg = "$time $errno [$errfile::$errll] | $errstr";
     error_log($msg . PHP_EOL, 3, "error_log.txt");
-    file_put_contents(
-        $_SERVER["DOCUMENT_ROOT"] . "/error_log.bk.txt",
-        $msg,
-        FILE_APPEND
-    );
+    /*    file_put_contents(
+            $_SERVER["DOCUMENT_ROOT"] . "/error_log.txt",
+            $msg,
+            FILE_APPEND
+        );*/
 
     if (DEBUG) {
         $msg = "[$errfile] $errstr";
@@ -29,11 +29,11 @@ function debug($str, $file)
 {
     $msg = "[$file] $str";
     error_log($msg . PHP_EOL, 3, "debug_log.txt");
-    file_put_contents(
-        $_SERVER["DOCUMENT_ROOT"] . "/debug_log.bk.txt",
-        $msg,
-        FILE_APPEND
-    );
+    /*    file_put_contents(
+            $_SERVER["DOCUMENT_ROOT"] . "/debug_log.txt",
+            $msg,
+            FILE_APPEND
+        );*/
 }
 
 /* IAM Roles Def
@@ -61,6 +61,8 @@ if (DEBUG) {
     define("API", "https://www.spcjaffna-beta.org/api/v1/index.php?p=");
 }
 
+require __DIR__ . '/vendor/autoload.php';
+
 include_once CONTROLLERS . "signin.php";
 include_once CONTROLLERS . "login.php";
 include_once CONTROLLERS . "logout.php";
@@ -80,6 +82,9 @@ $routes = [
     "projects" => "projects",
     "save-post" => "save_post",
     "read-post" => "read_post",
+    "read-post-html" => "read_post_html",
+    "create-post" => "create_post",
+    "available-contents" => "available_contents",
 ];
 $request_uri = $_GET["p"];
 

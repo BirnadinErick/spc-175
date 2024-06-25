@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+import { get_api_route } from "../../config/global";
+import Loader from "../../components/common/Loader.astro";
+import { NEW_NAVS } from "../../config/navigation";
+
+export async function getStaticPaths() {
+    return NEW_NAVS.filter(i => i.link === "alma-mater").map(i => i.children).flat().map(i => ({
+        params: { slug: i.link },
+        props: { meta: { parent: "alama-mater", ...i } }
+    }));
+}
+
+const { meta } = Astro.props;
+const { slug } = Astro.params;
+---
+
+<PageLayout meta={meta}>
+    <div
+        hx-get={get_api_route("read-post-html") + "&path=" + slug}
+        hx-swap="innerHTML"
+        hx-trigger="load"
+    >
+        <div>
+            <Loader />
+        </div>
+    </div>
+</PageLayout>

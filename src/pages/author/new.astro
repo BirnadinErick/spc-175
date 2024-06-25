@@ -1,0 +1,136 @@
+---
+import CommonHead from "../../components/common/CommonHead.astro";
+import Loader from "../../components/common/Loader.astro";
+import { NEW_NAVS } from "../../config/navigation";
+
+let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.children.map(c => `/${i.link}/${c.link}`)).flat();
+---
+<style>
+    .ce-toolbar__plus {
+        @apply text-white;
+    }
+</style>
+
+<html>
+<CommonHead title="Authoring Test" />
+
+<body class="">
+<h1>Content Author Test Page</h1>
+
+<div>
+    <label for="path">Path:</label>
+    <input class="w-content" id="path" type="text" autofocus placeholder="e.g. academics/<new-path>"
+           list="pathsManifest">
+    <p class="text-sm text-spc-dark/50 italic">Please make sure the path already exists in the manifest!</p>
+    <datalist id="pathsManifest">
+        {navsWithContent.map(n =>
+            <option value={n}></option>)}
+    </datalist>
+</div>
+
+<button id="saveEditorBtn">
+    Save
+</button>
+<p id="save-progress" class="animate-pulse text-spc-dark/80"></p>
+<div id="loader" class="w-full flex justify-around my-12">
+    <Loader />
+</div>
+
+<section id="editor" class="hidden">
+    <article id="editorjs"
+             class="prose-sm prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg "
+    >
+    </article>
+</section>
+</body>
+</html>
+
+<script>
+    import EditorJS from "@editorjs/editorjs";
+    import Header from "@editorjs/header";
+    import SimpleImage from "@editorjs/simple-image";
+    import ImageGallery from "@rodrigoodhin/editorjs-image-gallery";
+    import Embed from "@editorjs/embed";
+    import List from "@editorjs/list";
+    import Delimiter from "@editorjs/delimiter";
+
+    import { get_api_route } from "../../config/global";
+
+    // get current path
+    const path = document.querySelector("#path");
+    const saveEditorBtn = document.querySelector("#saveEditorBtn");
+    const saveProgress = document.querySelector("#save-progress");
+
+    // handle save request from editor
+    async function saveEditor(editor, path) {
+        let data;
+        saveProgress.innerHTML = "saving...";
+
+        try {
+            data = await editor.save();
+            saveProgress.innerHTML = "parsed data, POST-ing to server...";
+            // console.info(data);
+        } catch (e) {
+            console.debug("threw due to editor save");
+            console.error(e);
+            throw new Error("Failed to save new data");
+        }
+
+        const formBody = new FormData();
+        formBody.append("path", path.value);
+        formBody.append("data", JSON.stringify(data));
+
+        try {
+            const res = await fetch(get_api_route("create-post"), {
+                method: "POST",
+                body: formBody
+            });
+
+            if (res.status != 201) {
+                saveProgress.innerHTML = "failed! server returned: " + res.status;
+                throw new Error("post not created");
+            }
+
+            saveProgress.innerHTML = "successfully saved.";
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    // handle editor ready
+    function editorReady() {
+        console.debug("editor ready to use");
+
+        const loader = document.querySelector("#loader");
+        const editorElem = document.querySelector("#editor");
+
+        loader.classList.remove("flex");
+        loader.classList.add("hidden");
+
+        editorElem.classList.remove("hidden");
+        editorElem.classList.add("block");
+    }
+
+
+    saveEditorBtn.addEventListener("click", () => saveEditor(editor, path));
+
+    const editor = new EditorJS({
+        onReady: editorReady,
+        tools: {
+            header: Header,
+            image: SimpleImage,
+            imageGallery: ImageGallery,
+            list: List,
+            delimiter: Delimiter,
+            embed: {
+                class: Embed,
+                config: {
+                    services: {
+                        youtube: true
+                    }
+                }
+            }
+        }
+    });
+
+</script>

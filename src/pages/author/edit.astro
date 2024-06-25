@@ -1,0 +1,192 @@
+---
+import CommonHead from "../../components/common/CommonHead.astro";
+import Loader from "../../components/common/Loader.astro";
+import { NEW_NAVS } from "../../config/navigation";
+
+let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.children.map(c => `/${i.link}/${c.link}`)).flat();
+---
+<style>
+    .ce-toolbar__plus {
+        @apply text-white;
+    }
+</style>
+
+<html>
+<CommonHead title="Authoring Test" />
+
+<body class="">
+<h1>Content Author Test Page</h1>
+
+<div>
+    <label for="path">Path:</label>
+    <input class="w-content" id="path" type="text" autofocus placeholder="e.g. academics/<new-path>"
+           list="pathsManifest">
+    <p class="text-sm text-spc-dark/50 italic">Please make sure the path already exists in the manifest!</p>
+    <datalist id="pathsManifest">
+        {navsWithContent.map(n =>
+            <option value={n}></option>)}
+    </datalist>
+</div>
+
+<button id="saveEditorBtn">
+    Save
+</button>
+
+<div id="loader" class="w-full hidden justify-around my-12">
+    <Loader />
+</div>
+<div id="welcomeBanner" class="flex justify-around my-12">
+    Please select a path to edit
+</div>
+
+<section id="editor" class="hidden">
+    <article id="editorjs"
+             class="prose-sm prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg "
+    >
+    </article>
+</section>
+</body>
+</html>
+
+<script>
+    import EditorJS from "@editorjs/editorjs";
+    import Header from "@editorjs/header";
+    import SimpleImage from "@editorjs/simple-image";
+    import ImageGallery from "@rodrigoodhin/editorjs-image-gallery";
+    import Embed from "@editorjs/embed";
+    import List from "@editorjs/list";
+    import Delimiter from "@editorjs/delimiter";
+
+    import { get_api_route } from "../../config/global";
+
+    const saveEditorBtn = document.querySelector("#saveEditorBtn");
+    const loader = document.querySelector("#loader");
+    const welcomeBanner = document.querySelector("#welcomeBanner");
+    const editorElem = document.querySelector("#editor");
+    const pathElem = document.querySelector("#path");
+
+    // handle editor ready
+    function editorReady() {
+        console.debug("editor ready to use");
+
+        loader.classList.remove("flex");
+        loader.classList.add("hidden");
+
+        editorElem.classList.remove("hidden");
+        editorElem.classList.add("block");
+    }
+
+    async function get_post_data(path) {
+        if (path === null) {
+            return;
+        }
+
+        try {
+            const URL = get_api_route("read-post") + "&path=" + path;
+            const req = await fetch(URL, {
+                method: "POST",
+                credentials: "include"
+            });
+
+            return await req.json();
+        } catch (e) {
+            console.error(e);
+
+            if (path !== null) {
+                welcomeBanner.innerHTML = "Given Path not found, perhaps you forgot to create one?";
+                loader.replaceWith(welcomeBanner);
+            }
+
+            throw new Error("Retrieving JSON failed!");
+        }
+    }
+
+    let editor;
+
+    function initEditor(data) {
+        editor = new EditorJS({
+            onReady: editorReady,
+            tools: {
+                header: Header,
+                image: SimpleImage,
+                imageGallery: ImageGallery,
+                list: List,
+                delimiter: Delimiter,
+                embed: {
+                    class: Embed,
+                    config: {
+                        services: {
+                            youtube: true,
+                            facebook: true
+                        }
+                    }
+                }
+            },
+            data: data
+        });
+    }
+
+    // get current path
+    const queryStr = window.location.search;
+    const searchParams = new URLSearchParams(queryStr);
+    let path = searchParams.get("path");
+
+    pathElem.addEventListener("input", async (e) => {
+        path = e.target.value;
+
+        welcomeBanner.replaceWith(loader);
+        loader.classList.replace("hidden", "flex");
+
+        const data = await get_post_data(path);
+        initEditor(data);
+    });
+
+    if (path !== null) {
+        welcomeBanner.replaceWith(loader);
+        loader.classList.replace("hidden", "flex");
+    }
+
+    // handle save request from editor
+    async function saveEditor(editor, path) {
+        let data;
+
+        try {
+            data = await editor.save();
+            // console.info(data);
+        } catch (e) {
+            console.debug("threw due to editor save");
+            console.error(e);
+            throw new Error("Failed to save new data");
+        }
+
+        const formBody = new FormData();
+        formBody.append("path", path);
+        formBody.append("data", JSON.stringify(data));
+
+        try {
+            const res = await fetch(get_api_route("save-post"), {
+                method: "POST",
+                body: formBody
+            });
+
+            if (res.status != 204) {
+                throw new Error("post not created");
+            }
+
+            console.info("new data saved");
+        } catch (e) {
+            console.debug("failed to POST");
+            console.error(e);
+            throw new Error("saveEditor failed in POST");
+        }
+    }
+
+
+    saveEditorBtn.addEventListener("click", () => saveEditor(editor, path));
+
+    const editorInitData = await get_post_data(path);
+    if (path !== null) {
+        initEditor(editorInitData);
+    }
+
+</script>

@@ -1,0 +1,45 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import { get_api_route } from "../../config/global";
+import Loader from "../../components/common/Loader.astro";
+---
+
+<style>
+    .btn {
+        @apply px-4 py-2 rounded-sm text-white bg-spc-bg-mid;
+    }
+</style>
+
+<PageLayout meta={{ title: "Author Dashboard | SPC Media Unit" }}>
+    <div class="bg-spc-light px-4 py-2 rounded-sm" hx-get={get_api_route("available-contents")} hx-swap="outerHTML"
+         hx-trigger="load">
+        <Loader />
+    </div>
+
+    <div class="space-x-2 my-4">
+        <button class="btn" onclick="editContent();">Edit</button>
+        <button class="btn" onclick="createContent();">Create</button>
+        <button class="btn cursor-none text-black/80 bg-spc-bg-mid">Delete</button>
+    </div>
+</PageLayout>
+
+<script is:inline>
+    let path = "";
+
+    htmx.on('htmx:afterSwap', function(e){
+        path = e.target[0].value;
+
+        const pathElem = document.querySelector("#path");
+        pathElem.addEventListener("input", (e) => {
+            path = e.target.value;
+        });
+    })
+
+    function editContent() {
+        window.location = '/author/edit?path='+path;
+    }
+
+    function createContent() {
+        window.location = '/author/new';
+    }
+</script>

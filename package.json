@@ -6,7 +6,11 @@
     "name": "BirnadinErick<me@birn.cc>"
   },
   "scripts": {
-    "dev": "astro dev --port 2007",
+    "dev-f": "astro dev --port 2007",
+    "dev-b": "php -S localhost:2004",
+    "log-d": "tail --lines 15 --follow api/v1/debug_log.txt",
+    "log-e": "tail --lines 15 --follow api/v1/error_log.txt",
+    "dev-c": "cd ~/tmp/edge && microsoft-edge --disable-web-security --user-data-dir=. http://localhost:2007/",
     "build": "astro build",
     "preview": "astro preview --port 2007",
     "astro": "astro",

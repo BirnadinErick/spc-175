@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="spc-175" type="CompoundRunConfigurationType">
+    <toRun name="run-bend-server" type="ShConfigurationType" />
+    <toRun name="run-browser" type="ShConfigurationType" />
+    <toRun name="run-fend" type="ShConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
