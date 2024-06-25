@@ -11,11 +11,11 @@ function error_handler($errno, $errstr, $errfile, $errll)
     $time = time();
     $msg = "$time $errno [$errfile::$errll] | $errstr";
     error_log($msg . PHP_EOL, 3, "error_log.txt");
-    file_put_contents(
-        $_SERVER["DOCUMENT_ROOT"] . "/error_log.txt",
-        $msg,
-        FILE_APPEND
-    );
+    /*    file_put_contents(
+            $_SERVER["DOCUMENT_ROOT"] . "/error_log.txt",
+            $msg,
+            FILE_APPEND
+        );*/
 
     if (DEBUG) {
         $msg = "[$errfile] $errstr";
@@ -29,11 +29,11 @@ function debug($str, $file)
 {
     $msg = "[$file] $str";
     error_log($msg . PHP_EOL, 3, "debug_log.txt");
-    file_put_contents(
-        $_SERVER["DOCUMENT_ROOT"] . "/debug_log.bk.txt",
-        $msg,
-        FILE_APPEND
-    );
+    /*    file_put_contents(
+            $_SERVER["DOCUMENT_ROOT"] . "/debug_log.txt",
+            $msg,
+            FILE_APPEND
+        );*/
 }
 
 /* IAM Roles Def
@@ -84,6 +84,7 @@ $routes = [
     "read-post" => "read_post",
     "read-post-html" => "read_post_html",
     "create-post" => "create_post",
+    "available-contents" => "available_contents",
 ];
 $request_uri = $_GET["p"];
 

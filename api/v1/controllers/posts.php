@@ -10,11 +10,12 @@ use BumpCore\EditorPhp\Helpers;
 require_once MODELS . "users.php";
 require_once MODELS . "contents.php";
 
-class CustomYoutubeEmbed extends Embed{
+class CustomYoutubeEmbed extends Embed
+{
     public function render(): string
     {
         debug(var_export($this->data, true), __FILE__);
-        return Helpers::renderNative(VIEWS.'editor-youtube-embed.php', ["height"=>$this->data->get('height'), "src"=>$this->data->get('embed')]);
+        return Helpers::renderNative(VIEWS . 'editor-youtube-embed.php', ["height" => $this->data->get('height'), "src" => $this->data->get('embed')]);
     }
 }
 
@@ -151,8 +152,10 @@ function read_post_html()
     if (isset($_SERVER['HTTP_HX_CURRENT_URL'])) {
         $url = $_SERVER['HTTP_HX_CURRENT_URL'];
         $path = parse_url($url, PHP_URL_PATH);
+        debug("path from HX-Header with url: $url and path: $path", __FILE__);
     } elseif (isset($_GET["path"])) {
         $path = $_GET["path"];
+        debug("path from _GET with path: $path", __FILE__);
     } else {
         echo "NOT FOUND";
         http_response_code(404);
@@ -161,9 +164,9 @@ function read_post_html()
 
     $contents = new ContentsModel();
     $content = $contents->read_content($path);
-    if ($content === false){
-        debug("content not found", __FILE__);
-        echo Helpers::renderNative(VIEWS.'404.html', []);
+    if ($content === false) {
+        debug("content not found" . var_export($content, true), __FILE__);
+        echo Helpers::renderNative(VIEWS . '404.html', []);
         exit(1);
     }
     $json = bzdecompress($content["data"]);
@@ -172,7 +175,7 @@ function read_post_html()
         "imageGallery" => CustomImageGallery::class,
         "image" => CustomSimpleImage::class,
         "delimiter" => CustomDelimiter::class,
-        "embed"=>CustomYoutubeEmbed::class,
+        "embed" => CustomYoutubeEmbed::class,
     ]);
     $render = EditorPhp::make($json)->render();
 
@@ -225,3 +228,17 @@ function create_post()
     http_response_code(201);
     exit(0);
 }
+
+function available_contents()
+{
+    $c = new ContentsModel();
+    $cs = $c->get_contents();
+//    debug(var_export($cs, true), __FILE__)
+    ?>
+    <label for="path">Select a path to edit the content:</label>
+    <select id="path" class="">
+        <?php foreach ($cs as $i): ?>
+            <option class="" value="<?= $i['path'] ?>"><?= $i['path'] ?></option>
+        <?php endforeach; ?>
+    </select>
+<?php }
