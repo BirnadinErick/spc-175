@@ -259,7 +259,7 @@ function save_blog()
     $tags = $_POST["tags"];
     $cover = $_POST["cover"];
     $data = $_POST["data"];
-    $path = '/blogs/' . $contents->generate_slug($title) . '-' . (string)time();
+    $path = '/blogs/entry?p=' . $contents->generate_slug($title) . '-' . (string)time();
     $meta = [
         'title' => $title,
         'tags' => $tags,
@@ -272,6 +272,7 @@ function save_blog()
 
     try {
         $contents->write_content($path, $uid, $user_id, $compressed_data, $meta);
+
     } catch (Exception $ex) {
         session_write_close();
         debug("writing failed", __FILE__);
@@ -282,6 +283,58 @@ function save_blog()
     session_write_close();
     http_response_code(201);
     echo $path;
+    exit(0);
+}
+
+function read_blog_html()
+{
+    if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+        http_response_code(400);
+        echo("Our Engineers screwed up something, sorry. Please refresh the page");
+        exit(1);
+    }
+
+    if (isset($_GET["path"])) {
+        $path = $_GET["path"];
+        debug("path from _GET with path: $path", __FILE__);
+    } else {
+        debug(var_export($_GET, true), __FILE__);
+        echo "NOT FOUND";
+        http_response_code(404);
+        exit(1);
+    }
+
+    $contents = new ContentsModel();
+    $content = $contents->read_content($path);
+    if ($content === false) {
+        debug("content not found" . var_export($content, true), __FILE__);
+        echo Helpers::renderNative(VIEWS . '404.html', []);
+        http_response_code(404);
+        exit(1);
+    }
+    $json = bzdecompress($content["data"]);
+
+    EditorPhp::register([
+        "imageGallery" => CustomImageGallery::class,
+        "image" => CustomSimpleImage::class,
+        "delimiter" => CustomDelimiter::class,
+        "embed" => CustomYoutubeEmbed::class,
+    ]);
+    $render = EditorPhp::make($json)->render();
+
+    $meta = $content['meta'];
+    $meta = json_decode($meta, true);
+    $tags = explode(',', $meta['tags']);
+
+    echo Helpers::renderNative(VIEWS . 'skeleton-entry.php', [
+        'date' => $content['updated_at'],
+        'uid' => $content['uid'],
+        'title' => $meta['title'],
+        'blog' => $render,
+        'tags' => $tags,
+        'cover' => $meta['cover']
+    ]);
+    http_response_code(200);
     exit(0);
 }
 
