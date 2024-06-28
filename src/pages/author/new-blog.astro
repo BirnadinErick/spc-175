@@ -6,6 +6,10 @@ import Footer from "../../components/footer/Footer.astro";
 ---
 
 <style>
+    .ce-toolbar__plus {
+        @apply text-white;
+    }
+
     section {
         @apply px-96;
     }
@@ -59,7 +63,7 @@ import Footer from "../../components/footer/Footer.astro";
 </section>
 
 <section class="border-t-2 border-spc-dark mt-8 pt-8 ">
-    <div id="editorjs"></div>
+    <div id="editorjs" class="prose-sm prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg"></div>
 </section>
 
 <Footer />
