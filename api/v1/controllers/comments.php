@@ -9,7 +9,7 @@ function comments()
     $comments = new CommentsModel();
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
-        $cs = $comments->getComments(intval($_GET["post_id"]));
+        $cs = $comments->getComments($_GET["post_id"]);
 
         foreach ($cs as $c): ?>
             <div>

@@ -6,11 +6,11 @@ require_once MODELS . "base.php";
 
 class ContentsModel extends BaseModel
 {
-    function write_content($path, $uid, $updated_by, $data, $meta = null)
+    function write_content($path, $uid, $updated_by, $data, $meta = null): bool
     {
         $sql = 'INSERT INTO contents (path, uid, updated_by, data, meta, updated_at) VALUES (?, ?, ?, ?, ?, ?)';
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$path, $uid, $updated_by, $data, $meta, date('Y.m.d', time())]);
+        return $stmt->execute([$path, $uid, $updated_by, $data, $meta, date('Y.m.d', time())]);
     }
 
     function update_content($path, $uid, $updated_by, $data): int
@@ -42,7 +42,7 @@ class ContentsModel extends BaseModel
     }
 
     // from https://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
-    public function generate_slug($text): string
+    static public function generate_slug($text): string
     {
         $divider = "-";
 
@@ -99,7 +99,7 @@ class ContentsModel extends BaseModel
         which is `feat` and which is not. We play God here!*/
 
         debug("getting feat", __FILE__);
-        $sql = 'SELECT updated_at, path, meta FROM CONTENTS ORDER BY updated_at DESC LIMIT 10';
+        $sql = 'SELECT updated_at, path, meta FROM contents ORDER BY updated_at DESC LIMIT 10';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -134,23 +134,23 @@ class ContentsModel extends BaseModel
 
     public function get_blogs()
     {
-        $sql = 'SELECT updated_at, path, meta FROM CONTENTS ORDER BY updated_at DESC LIMIT 100';
+        $sql = 'SELECT updated_at, path, meta FROM contents ORDER BY updated_at DESC LIMIT 100';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $output = '';
-        foreach ($blogs as $b){
+        foreach ($blogs as $b) {
             $meta = $b['meta'];
             $meta = json_decode($meta, true);
             $b['meta'] = $meta;
             debug(var_export($b, true), __FILE__);
-            $output .= Helpers::renderNative(VIEWS.'blog-list-single.php', [
+            $output .= Helpers::renderNative(VIEWS . 'blog-list-single.php', [
                 'path' => $b['path'],
-                'cover'=>$b['meta']['cover'],
-                'title'=>$b['meta']['title'],
-                'date'=>$b['updated_at'],
-                'desc'=> str_replace(',', ', ', $b['meta']['tags'])
+                'cover' => $b['meta']['cover'],
+                'title' => $b['meta']['title'],
+                'date' => $b['updated_at'],
+                'desc' => str_replace(',', ', ', $b['meta']['tags'])
             ]);
         }
 

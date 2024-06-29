@@ -138,7 +138,7 @@ import Footer from "../../components/footer/Footer.astro";
         formBody.append("data", JSON.stringify(data));
 
         try {
-            const res = await fetch(get_api_route("save-blog"), {
+            const res = await fetch(get_api_route("create-blog"), {
                 method: "POST",
                 body: formBody
             });
