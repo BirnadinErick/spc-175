@@ -371,3 +371,16 @@ function read_blog_feat()
     ]);
     exit(0);
 }
+
+function read_blog_list()
+{
+    if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+        http_response_code(400);
+        echo("Our Engineers screwed up something, sorry. Please refresh the page");
+        exit(1);
+    }
+
+    $c = new ContentsModel();
+    $blogs = $c->get_blogs();
+
+}

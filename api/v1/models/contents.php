@@ -1,5 +1,7 @@
 <?php
 
+use BumpCore\EditorPhp\Helpers;
+
 require_once MODELS . "base.php";
 
 class ContentsModel extends BaseModel
@@ -121,7 +123,6 @@ class ContentsModel extends BaseModel
          * datastore.
          */
         foreach ($blogs as $b) {
-            debug(var_export($b, true), __FILE__);
             if (str_contains($b['meta']['tags'], 'feat')) {
                 return $b;
             }
@@ -129,5 +130,31 @@ class ContentsModel extends BaseModel
 
         // return first result if no `feat` tag was discovered.
         return $blogs[0];
+    }
+
+    public function get_blogs()
+    {
+        $sql = 'SELECT updated_at, path, meta FROM CONTENTS ORDER BY updated_at DESC LIMIT 100';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $output = '';
+        foreach ($blogs as $b){
+            $meta = $b['meta'];
+            $meta = json_decode($meta, true);
+            $b['meta'] = $meta;
+            debug(var_export($b, true), __FILE__);
+            $output .= Helpers::renderNative(VIEWS.'blog-list-single.php', [
+                'path' => $b['path'],
+                'cover'=>$b['meta']['cover'],
+                'title'=>$b['meta']['title'],
+                'date'=>$b['updated_at'],
+                'desc'=> str_replace(',', ', ', $b['meta']['tags'])
+            ]);
+        }
+
+        echo $output;
+        exit(0);
     }
 }
