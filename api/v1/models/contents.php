@@ -6,12 +6,12 @@ class ContentsModel extends BaseModel
 {
     function write_content($path, $uid, $updated_by, $data, $meta = null)
     {
-        $sql = 'INSERT INTO contents (path, uid, updated_by, data, meta) VALUES (?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO contents (path, uid, updated_by, data, meta, updated_at) VALUES (?, ?, ?, ?, ?, ?)';
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$path, $uid, $updated_by, $data, $meta]);
+        $stmt->execute([$path, $uid, $updated_by, $data, $meta, date('Y.m.d', time())]);
     }
 
-    function update_content($path, $uid, $updated_by, $data)
+    function update_content($path, $uid, $updated_by, $data): int
     {
         try {
             // for now let's do this instead of using JOIN to check existence to
@@ -40,7 +40,7 @@ class ContentsModel extends BaseModel
     }
 
     // from https://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
-    public function generate_slug($text):string
+    public function generate_slug($text): string
     {
         $divider = "-";
 
@@ -74,7 +74,7 @@ class ContentsModel extends BaseModel
         debug("ContentsModel received $path", __FILE__);
         $sql = 'SELECT * FROM contents WHERE path = ? OR path = ?';
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$path, substr($path, 0, strlen($path)-1)]);
+        $stmt->execute([$path, substr($path, 0, strlen($path) - 1)]);
         return $stmt->fetch();
     }
 
@@ -84,5 +84,50 @@ class ContentsModel extends BaseModel
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    public function get_feat(): array
+    {
+        /*
+        we don't waste resource searching for last `feat` by searching
+        meta string. Instead, we only take first 10 and search if any of
+        them are `feat`.
+
+        If not, then we pass and return the latest entry. Cuz nobody knows
+        which is `feat` and which is not. We play God here!*/
+
+        debug("getting feat", __FILE__);
+        $sql = 'SELECT updated_at, path, meta FROM CONTENTS ORDER BY updated_at DESC LIMIT 10';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // we need to parse 'meta'
+        foreach ($blogs as &$b) {
+            $meta = $b['meta'];
+            $meta = json_decode($meta, true);
+            $b['meta'] = $meta;
+        }
+        unset($b);
+
+        /*
+         * filter for feats.
+         *
+         * since arrays are ordered at our SQL query guaranteed to bring
+         * latest blog before oldest, we can go in turns and assume that
+         * the first discovery is latest.
+         *
+         * If no discovery is found then we return the first item from the
+         * datastore.
+         */
+        foreach ($blogs as $b) {
+            debug(var_export($b, true), __FILE__);
+            if (str_contains($b['meta']['tags'], 'feat')) {
+                return $b;
+            }
+        }
+
+        // return first result if no `feat` tag was discovered.
+        return $blogs[0];
     }
 }

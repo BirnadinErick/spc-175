@@ -352,3 +352,22 @@ function available_contents()
     </select>
 <?php }
 
+function read_blog_feat()
+{
+    if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+        http_response_code(400);
+        echo("Our Engineers screwed up something, sorry. Please refresh the page");
+        exit(1);
+    }
+
+    $c = new ContentsModel();
+    $feat = $c->get_feat();
+
+    echo Helpers::renderNative(VIEWS . 'blog-feat.php', [
+        'cover' => $feat['meta']['cover'],
+        'title' => $feat['meta']['title'],
+        'date' => $feat['updated_at'],
+        'path' => $feat['path']
+    ]);
+    exit(0);
+}
