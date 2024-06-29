@@ -39,6 +39,6 @@
     <div hx-get="<?= API . 'comments' . '&post_id='. $uid ?>" class="my-4 space-y-4" hx-swap="innerHTML" hx-trigger="load">
     </div>
 
-    <div class="my-6" hx-get="<?= API . 'allowed-to-comment&post_id=' . $uid ?>" hx-trigger="load delay:300ms">
+    <div class="my-6" hx-get="<?= API . 'allowed-to-comment&post_id=' . $uid.'&post_path='.$path ?>" hx-trigger="load delay:300ms">
     </div>
 </section>
