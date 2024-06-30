@@ -53,9 +53,21 @@ dependencies:
   astro:
     specifier: ^2.10.8
     version: 2.10.8
+  gsap:
+    specifier: ^3.12.5
+    version: 3.12.5
+  lenis:
+    specifier: ^1.1.5
+    version: 1.1.5
   simple-image-editorjs:
     specifier: ^1.4.0
     version: 1.4.0
+  split-type:
+    specifier: ^0.3.4
+    version: 0.3.4
+  splitting:
+    specifier: ^1.1.0
+    version: 1.1.0
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.1
@@ -534,6 +546,10 @@ packages:
 
   /@codexteam/icons@0.0.6:
     resolution: {integrity: sha512-L7Q5PET8PjKcBT5wp7VR+FCjwCi5PUp7rd/XjsgQ0CI5FJz0DphyHGRILMuDUdCW2MQT9NHbVr4QP31vwAkS/A==}
+    dev: false
+
+  /@darkroom.engineering/tempus@0.0.46:
+    resolution: {integrity: sha512-s5vav3KMHYezvUCl4ee5epg0oimF6M8C9gAaKxFnFaTvX2q3ywFDryIv6XLd0mRFUt3S1uHDJqKaiEcs2ZVSvw==}
     dev: false
 
   /@editorjs/delimiter@1.4.0:
@@ -2106,6 +2122,10 @@ packages:
       strip-bom-string: 1.0.0
     dev: false
 
+  /gsap@3.12.5:
+    resolution: {integrity: sha512-srBfnk4n+Oe/ZnMIOXt3gT605BX9x5+rh/prT2F1SsNJsU1XuMiP0E2aptW481OnonOGACZWBqseH5Z7csHxhQ==}
+    dev: false
+
   /has-flag@3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
     engines: {node: '>=4'}
@@ -2448,6 +2468,20 @@ packages:
   /kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
+
+  /lenis@1.1.5:
+    resolution: {integrity: sha512-RNpGFoOVFGboCdJ7EUcMTUNZC7d/AJV1ad8eBTYBdL2TuwdWJ11Mb5jx4dLreHadH8Mg2o+3uVHQHTd4txasaw==}
+    peerDependencies:
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@darkroom.engineering/tempus': 0.0.46
+    dev: false
 
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
@@ -3767,6 +3801,14 @@ packages:
 
   /space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
+    dev: false
+
+  /split-type@0.3.4:
+    resolution: {integrity: sha512-otEk9vnD8qwfLsk3Lx0gz+qRkNIJCx0mlyL47ImP/DjMuV39d75Lpfwjn9fHteDRz0aoOblSzQjSNT9+Sswxcg==}
+    dev: false
+
+  /splitting@1.1.0:
+    resolution: {integrity: sha512-6Tj+4mvlSti4DUu1yl0PnkHIIoLchFYJHqz2DnwYkvEehXbjrR2epa4ds/xdto6ZdZsC+NP5IOOehi9VGjNlMQ==}
     dev: false
 
   /sprintf-js@1.0.3:

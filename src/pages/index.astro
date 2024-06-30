@@ -11,37 +11,52 @@ import Next from "@components/common/Next.astro";
 import "@fontsource/space-grotesk/400.css";
 import AuthBanner from "@components/auth/AuthBanner.astro";
 import MobileNavButton from "@components/common/MobileNavButton.astro";
+import StaggerText from "../components/common/stagger-text/StaggerText.astro";
 
 const nexts = [
     ["Patrician Publications.", "/blogs"],
     ["Our Spirituality.", "/our-spirituality"],
     ["Academics.", "/academics"],
     ["Sports.", "/sports"],
-    ["Societies.", "societies"],
+    ["Societies.", "societies"]
 ];
 ---
 
 <html lang="en">
-<CommonHead title="St. Patrick's College | SPC Media Unit | 175 years"/>
+<CommonHead title="St. Patrick's College | SPC Media Unit | 175 years" />
 
 <body class="cursor-default bg-spc-dark text-spc-light font-sans" x-data="{open:false}">
 <CommonHeader
-        now="Home"
-        title="Fide et Labore"
+    now="Home"
+    title="Fide et Labore"
 />
 
-<Hero/>
-<AboutText/>
-<PatricianToday/>
-<PatricianNorms/>
-<Next nexts={nexts}/>
-<Footer/>
-<AuthBanner/>
+<Hero />
+<AboutText />
+<section class="flex justify-around items-center">
+    <StaggerText>
+        <h1 class="text-[60px] md:text-[120px] xl:text-[240px] font-serif text-spc-gold font-bold content__title"
+            data-splitting data-stagger-text>Fide et Labore</h1>
+    </StaggerText>
+</section>
+<PatricianToday />
+<PatricianNorms />
+<Next nexts={nexts} />
+<!--
+<section class="flex justify-around mb-8">
+    <StaggerText>
+        <h1 class="text-[60px] md:text-[120px] xl:text-[240px] font-serif text-spc-gold font-bold content__title&#45;&#45;sides content__title"
+            data-splitting data-stagger-text-2>Fide et Labore</h1>
+    </StaggerText>
+</section>
+-->
+<Footer />
+<AuthBanner />
 <MobileNavButton />
 <script
-        is:inline
-        src="https://unpkg.com/htmx.org@1.9.11"
-        integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
-        crossorigin="anonymous"></script>
+    is:inline
+    src="https://unpkg.com/htmx.org@1.9.11"
+    integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+    crossorigin="anonymous"></script>
 </body>
 </html>
