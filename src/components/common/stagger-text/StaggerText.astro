@@ -1,0 +1,100 @@
+---
+
+---
+
+<style>
+    .content__title {
+        line-height: 0.8;
+        counter-increment: section;
+        text-align: center;
+        display: grid;
+        gap: 2rem;
+    }
+
+    .content__title--sides {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 100%;
+        text-align: left;
+        gap: 2rem;
+    }
+
+    .content__title--sides span:last-child {
+        justify-self: end;
+    }
+
+</style>
+
+<slot/>
+
+<script>
+    import Splitting from "splitting";
+    import { gsap } from "gsap";
+    import "splitting/dist/splitting.css";
+    import "splitting/dist/splitting-cells.css";
+
+    const efxTargets = [...document.querySelectorAll(".content__title[data-splitting][data-stagger-text]")];
+    const efxTarget2  = [...document.querySelectorAll('.content__title[data-splitting][data-stagger-text-2]')];
+
+    // split the text to chars/words
+    Splitting();
+
+    function scroll() {
+        efxTargets.forEach(title => {
+
+            const chars = title.querySelectorAll(".char");
+
+            gsap.fromTo(chars, {
+                    "will-change": "opacity, transform",
+                    opacity: 0,
+                    yPercent: 120,
+                    scaleY: 2.3,
+                    scaleX: 0.7,
+                    transformOrigin: "50% 0%"
+                },
+                {
+                    duration: 1,
+                    ease: "back.inOut(2)",
+                    opacity: 1,
+                    yPercent: 0,
+                    scaleY: 1,
+                    scaleX: 1,
+                    stagger: 0.03,
+                    scrollTrigger: {
+                        trigger: title,
+                        start: "center bottom+=50%",
+                        end: "bottom top+=40%",
+                        scrub: true
+                    }
+                });
+
+        });
+
+        efxTarget2.forEach(title => {
+
+            const chars = title.querySelectorAll('.char');
+
+            gsap.fromTo(chars,  {
+                    'will-change': 'transform',
+                    transformOrigin: '50% 0%',
+                    scaleY: 0
+                },
+                {
+                    ease: 'back',
+                    opacity: 1,
+                    scaleY: 1,
+                    yPercent: 0,
+                    stagger: 0.03,
+                    scrollTrigger: {
+                        trigger: title,
+                        start: 'center bottom-=5%',
+                        end: 'top top-=20%',
+                        scrub: true
+                    }
+                });
+
+        });
+    }
+
+    scroll();
+</script>

@@ -65,6 +65,9 @@ dependencies:
   split-type:
     specifier: ^0.3.4
     version: 0.3.4
+  splitting:
+    specifier: ^1.1.0
+    version: 1.1.0
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.1
@@ -3802,6 +3805,10 @@ packages:
 
   /split-type@0.3.4:
     resolution: {integrity: sha512-otEk9vnD8qwfLsk3Lx0gz+qRkNIJCx0mlyL47ImP/DjMuV39d75Lpfwjn9fHteDRz0aoOblSzQjSNT9+Sswxcg==}
+    dev: false
+
+  /splitting@1.1.0:
+    resolution: {integrity: sha512-6Tj+4mvlSti4DUu1yl0PnkHIIoLchFYJHqz2DnwYkvEehXbjrR2epa4ds/xdto6ZdZsC+NP5IOOehi9VGjNlMQ==}
     dev: false
 
   /sprintf-js@1.0.3:
