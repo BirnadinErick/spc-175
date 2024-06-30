@@ -1,19 +1,22 @@
 ---
 import SectionTitle from "@components/common/SectionTitle.astro";
+import ScrollRevelPara from "../common/ScrollRevelPara.astro";
 ---
 
 <section
-  class="px-6 md:px-12 my-20 md:flex md:justify-start md:space-x-2 xl:justify-between xl:align-top xl:px-96"
+    class="px-6 md:px-12 my-20 md:flex md:justify-start md:space-x-2 xl:justify-between xl:align-top xl:px-96"
 >
-  <SectionTitle title="Unleash the <br /> Luck of Learning." />
-  <p class="mt-6 md:mt-0 md:w-4/5 xl:w-3/5 xl:text-justify">
-    Since its inception in{" "}
-    <span class="text-white font-bold">1850</span>, St. Patrick's College has
-    remained a bastion of academic excellence and character development in the
-    vibrant city of Jaffna. With a storied history spanning over a century, the
-    school has been dedicated to shaping the minds and hearts of countless
-    generations. Grounded in tradition yet open to innovation, the college
-    prides itself on nurturing adaptable individuals who are poised to lead and
-    drive progress in an ever-changing world.
-  </p>
+    <SectionTitle title="Unleash the <br /> Luck of Learning." />
+
+    <ScrollRevelPara klass="mt-6 md:mt-0 md:w-4/5 xl:w-3/5 xl:text-justify">
+        Since its inception in{" "}
+        <span class="text-white font-bold">1850</span>, St. Patrick's College has
+        remained a bastion of academic excellence and character development in the
+        vibrant city of Jaffna. With a storied history spanning over a century, the
+        school has been dedicated to shaping the minds and hearts of countless
+        generations. Grounded in tradition yet open to innovation, the college
+        prides itself on nurturing adaptable individuals who are poised to lead and
+        drive progress in an ever-changing world.
+    </ScrollRevelPara>
 </section>
+

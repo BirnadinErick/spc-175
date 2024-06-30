@@ -1,0 +1,89 @@
+---
+import { Astro } from "astro/env";
+const {klass} = Astro.props;
+---
+<p id="scrollEfxTarget" class={klass}>
+    <slot />
+</p>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import Lenis from "lenis";
+    import TextSplitter from "./scroll-reveal-text/textSplit";
+
+    class BlurScrollEffect {
+        constructor(textElement) {
+            // Check if the provided element is valid.
+            if (!textElement || !(textElement instanceof HTMLElement)) {
+                throw new Error("Invalid text element provided.");
+            }
+
+            this.textElement = textElement;
+
+            // Set up the effect for the provided text element.
+            this.initializeEffect();
+        }
+
+        // Sets up the initial text effect on the provided element.
+        initializeEffect() {
+            // Callback to re-trigger animations on resize.
+            const textResizeCallback = () => this.scroll();
+
+            // Split text for animation and store the reference.
+            this.splitter = new TextSplitter(this.textElement, {
+                resizeCallback: textResizeCallback,
+                splitTypeTypes: "words, chars"
+            });
+
+            // Trigger the initial scroll effect.
+            this.scroll();
+        }
+
+        // Animates text based on the scroll position.
+        scroll() {
+            const chars = this.splitter.getChars();
+            gsap.fromTo(chars, {
+                scaleY: 0.1,
+                scaleX: 1.8,
+                filter: "blur(10px) brightness(50%)",
+                willChange: "filter, transform"
+            }, {
+                ease: "none",
+                scaleY: 1,
+                scaleX: 1,
+                filter: "blur(0px) brightness(100%)",
+                stagger: 0.05,
+                scrollTrigger: {
+                    trigger: this.textElement,
+                    start: "top bottom-=15%",
+                    end: "bottom center+=15%",
+                    scrub: true
+                }
+            });
+        }
+    }
+
+    function initSmoothScrolling() {
+        // Initialize Lenis for smooth scroll effects. Lerp value controls the smoothness.
+        const lenis = new Lenis({ lerp: 0.2 });
+
+        // Sync ScrollTrigger with Lenis' scroll updates.
+        lenis.on("scroll", ScrollTrigger.update);
+
+        // Ensure GSAP animations are in sync with Lenis' scroll frame updates.
+        gsap.ticker.add(time => {
+            lenis.raf(time * 1000); // Convert GSAP's time to milliseconds for Lenis.
+        });
+
+        // Turn off GSAP's default lag smoothing to avoid conflicts with Lenis.
+        gsap.ticker.lagSmoothing(0);
+    }
+
+    initSmoothScrolling();
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const scrollEfxTarget = document.querySelector("#scrollEfxTarget");
+    new BlurScrollEffect(scrollEfxTarget);
+</script>
