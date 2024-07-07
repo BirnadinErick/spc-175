@@ -144,7 +144,7 @@ function save_post()
     $compressed_data = bzcompress($data, 9);
 
     try {
-        $ok = $contents->update_content($path, $uid, $user_id, $compressed_data);
+        $ok = $contents->update_content($path, $user_id, $compressed_data);
 
         if ($ok != 0) {
             // TODO: specify why

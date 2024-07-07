@@ -13,7 +13,7 @@ class ContentsModel extends BaseModel
         return $stmt->execute([$path, $uid, $updated_by, $data, $meta, date('Y.m.d', time())]);
     }
 
-    function update_content($path, $uid, $updated_by, $data): int
+    function update_content($path, $updated_by, $data): int
     {
         try {
             // for now let's do this instead of using JOIN to check existence to
@@ -25,9 +25,9 @@ class ContentsModel extends BaseModel
 
             if ($recordExists) {
                 debug("content found, updating...", __FILE__);
-                $updateSql = 'UPDATE contents SET uid = ?, updated_by = ?, data = ?, updated_at = time("now") WHERE path = ?';
+                $updateSql = 'UPDATE contents SET updated_by = ?, data = ?, updated_at = curdate() WHERE path = ?';
                 $updateStmt = $this->pdo->prepare($updateSql);
-                $updateStmt->execute([$uid, $updated_by, $data, $path]);
+                $updateStmt->execute([$updated_by, $data, $path]);
 
                 return 0;
             } else {
