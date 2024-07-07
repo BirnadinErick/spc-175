@@ -1,5 +1,6 @@
 <?php
 // logging setup
+
 error_reporting(E_ALL);
 ini_set("display_errors", 0);
 ini_set("log_errors", "On");
@@ -56,12 +57,18 @@ define("MODELS", $_SERVER["DOCUMENT_ROOT"] . "/api/v1/models/");
 if (DEBUG) {
     define("SERVER", "http://localhost:2007");
     define("API", "http://localhost:2004/api/v1/index.php?p=");
+    define("ENV", ".dev");
 } else {
     define("SERVER", "https://www.spcjaffna-beta.org");
     define("API", "https://www.spcjaffna-beta.org/api/v1/index.php?p=");
+    define("ENV", ".prod");
 }
 
 require __DIR__ . '/vendor/autoload.php';
+
+// env var initialization
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, ENV);
+$dotenv->load();
 
 include_once CONTROLLERS . "signin.php";
 include_once CONTROLLERS . "login.php";
