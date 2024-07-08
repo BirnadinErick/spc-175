@@ -97,6 +97,7 @@ $routes = [
     "read-blog-html" => "read_blog_html",
     "read-blog-feat" => "read_blog_feat",
     "read-blog-list" => "read_blog_list",
+    "read-blogs-latest" => "read_blogs_latest",
 ];
 $request_uri = $_GET["p"];
 

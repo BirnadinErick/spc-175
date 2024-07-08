@@ -133,9 +133,30 @@ class ContentsModel extends BaseModel
         return $blogs[0];
     }
 
+    public function get_latest_blogs() {
+        $sql = "SELECT updated_at, path, meta FROM contents WHERE meta != '' AND meta IS NOT NULL ORDER BY updated_at DESC LIMIT 10";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $output = [];
+        foreach ($blogs as $b) {
+            $meta = $b['meta'];
+            $meta = json_decode($meta, true);
+            $output[] = [
+                "cover" => $meta['cover'],
+                "title"=>$meta['title'],
+                "href"=>$b['path'],
+                "date"=>$b["updated_at"]
+            ];
+        }
+
+        return $output;
+    }
+
     public function get_blogs()
     {
-        $sql = 'SELECT updated_at, path, meta FROM contents ORDER BY updated_at DESC LIMIT 100';
+        $sql = "SELECT updated_at, path, meta FROM contents WHERE meta != '' AND meta IS NOT NULL ORDER BY updated_at DESC LIMIT 100";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -145,7 +166,7 @@ class ContentsModel extends BaseModel
             $meta = $b['meta'];
             $meta = json_decode($meta, true);
             $b['meta'] = $meta;
-            debug(var_export($b, true), __FILE__);
+//            debug(var_export($b, true), __FILE__);
             $output .= Helpers::renderNative(VIEWS . 'blog-list-single.php', [
                 'path' => $b['path'],
                 'cover' => $b['meta']['cover'],

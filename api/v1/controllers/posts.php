@@ -441,3 +441,21 @@ function read_blog_list()
     $blogs = $c->get_blogs();
 
 }
+
+function read_blogs_latest() {
+    if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+        http_response_code(400);
+        echo("Our Engineers screwed up something, sorry. Please refresh the page");
+        exit(1);
+    }
+
+    $c = new ContentsModel();
+    $blogs = $c->get_latest_blogs();
+
+    $response = '';
+    foreach ($blogs as $b) {
+        $response .= Helpers::renderNative(VIEWS.'home-blogs-list.php', $b);
+    }
+
+    echo $response;
+}
