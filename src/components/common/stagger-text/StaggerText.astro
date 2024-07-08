@@ -30,6 +30,7 @@
 <script>
     import Splitting from "splitting";
     import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
     import "splitting/dist/splitting.css";
     import "splitting/dist/splitting-cells.css";
 
@@ -96,5 +97,6 @@
         });
     }
 
+    gsap.registerPlugin(ScrollTrigger);
     scroll();
 </script>

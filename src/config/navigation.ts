@@ -10,7 +10,6 @@ export const NEW_NAVS = [
             { title: "Motto, Vision & Mission", link: "motto-vision-mission" },
             { title: "Coat of Arms", link: "coat-of-arms" },
             { title: "College Anthem", link: "college-anthem" },
-            { title: "College Houses", link: "college-houses" },
             { title: "Rectors", link: "rectors" }
         ]
     },
@@ -19,7 +18,7 @@ export const NEW_NAVS = [
         link: "administration",
         children: [
             { title: "Managing Committee", link: "managing-committee" },
-            { title: "Rectors", link: "rectors" },
+            { title: "Rector", link: "rector" },
             { title: "Vice Rector", link: "vice-rector" },
             { title: "Deputy Principals", link: "deputy-principals" },
             { title: "Staff", link: "staff" }
@@ -29,7 +28,6 @@ export const NEW_NAVS = [
         title: "Academics",
         link: "academics",
         children: [
-            { title: "Overview", link: "overview" },
             { title: "Achievements", link: "achievements" },
             { title: "News", link: "news" }
         ]
@@ -53,5 +51,13 @@ export const NEW_NAVS = [
     { title: "Blogs", link: "blogs", children: [] },
     { title: "Projects", link: "projects", children: [] },
     { title: "Facilities", link: "facilities", children: [] },
-    { title: "Gallery", link: "gallery", children: [] }
+    { title: "Gallery", link: "gallery", children: [] },
+    {
+        title: "Alumni",
+        link: "alumni",
+        children: [
+            { title: "UK", link: "uk" },
+            { title: "Australia", link: "australia" }
+        ]
+    }
 ];
