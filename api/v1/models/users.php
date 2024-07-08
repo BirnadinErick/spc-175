@@ -120,4 +120,12 @@ class UsersModel extends BaseModel
 
         return ($user_roles & $ref_roles) === $ref_roles;
     }
+
+    public function get_decorated_name(string $email): string
+    {
+        $stmt = $this->pdo->prepare('SELECT first_name, last_name FROM users WHERE email = ?');
+        $stmt->execute([$email]);
+        $data = $stmt->fetch();
+        return ucfirst($data['first_name']) . ' ' . ucfirst($data['last_name'])[0] . '.';
+    }
 }
