@@ -10,7 +10,7 @@ class ContentsModel extends BaseModel
     {
         $sql = 'INSERT INTO contents (path, uid, updated_by, data, meta, updated_at) VALUES (?, ?, ?, ?, ?, ?)';
         $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([$path, $uid, $updated_by, $data, $meta, date('Y-m-d', time())]);
+        return $stmt->execute([$path, $uid, $updated_by, $data, $meta, date('Y-m-d')]);
     }
 
     function update_content($path, $updated_by, $data): int
@@ -27,7 +27,7 @@ class ContentsModel extends BaseModel
                 debug("content found, updating...", __FILE__);
                 $updateSql = 'UPDATE contents SET updated_by = ?, data = ?, updated_at = ? WHERE path = ?';
                 $updateStmt = $this->pdo->prepare($updateSql);
-                $date = date('YYYY-m-d');
+                $date = date('Y-m-d');
                 $updateStmt->execute([$updated_by, $data, $date, $path]);
 
                 return 0;
