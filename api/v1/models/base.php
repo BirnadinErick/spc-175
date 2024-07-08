@@ -19,7 +19,7 @@ class BaseModel
         $host = $_ENV['DB_HOST'];
         $db = $_ENV['DB_NAME'];
 
-        $this->dsn .= "host=$host;dbname=$db";
+        $this->dsn .= "host=$host;dbname=$db;charset=utf8mb4";
         $this->username = $_ENV['DB_USER'];
         $this->password = $_ENV['DB_PASS'];
 
