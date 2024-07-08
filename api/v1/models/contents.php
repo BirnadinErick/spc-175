@@ -100,7 +100,7 @@ class ContentsModel extends BaseModel
         which is `feat` and which is not. We play God here!*/
 
         debug("getting feat", __FILE__);
-        $sql = 'SELECT updated_at, path, meta FROM contents ORDER BY updated_at DESC LIMIT 10';
+        $sql = 'SELECT updated_at, path, meta FROM contents ORDER BY updated_at DESC, id DESC LIMIT 10';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);

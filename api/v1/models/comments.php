@@ -11,8 +11,8 @@ class CommentsModel extends BaseModel
         $sql =
             "INSERT INTO " .
             $this->tableName .
-            " (text, user_id, parent_id, is_reply, upvotes) 
-        VALUES (:text, :user_id, :parent_id, :is_reply, :upvotes)";
+            " (text, user_id, parent_id, is_reply, upvotes, date_created) 
+        VALUES (:text, :user_id, :parent_id, :is_reply, :upvotes, :date_created)";
 
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -22,6 +22,7 @@ class CommentsModel extends BaseModel
             // since this is a comment, features of a reply is set to NULL
             $stmt->bindValue(":is_reply", 0);
             $stmt->bindValue(":upvotes", 0);
+            $stmt->bindValue(":date_created", date('Y-m-d'));
             $stmt->execute();
 
             debug(
