@@ -1,0 +1,9 @@
+---
+import { get_api_route } from "../../config/global";
+import Loader from "../common/Loader.astro";
+---
+
+<div hx-get={get_api_route("projects")} hx-trigger="load delay:200ms" hx-swap="innerHTML"
+     class="my-4 space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-4">
+    <Loader />
+</div>
