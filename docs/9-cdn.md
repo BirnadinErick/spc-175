@@ -29,9 +29,6 @@ Throughout dashboards of the app, images are requested in either `dataURI` (*bas
 5. Commit the changes![](Pasted%20image%2020240626113850.png)![](Pasted%20image%2020240626114056.png)![](Pasted%20image%2020240626114146.png)
 6. Send a pull request![](Pasted%20image%2020240626114205.png)
 
-Thenafter, the admins/editors will notify you of the merge, you can carry on use fields in the app that require `CDNURL`. For an example, in new Blog entry
+Now that the images are in the public repo, go to any editor page. An image widget is provided for you. Type in the filename of the image. Select from the dropdow menu and click on `Create Endpoint` button.
 
-First, copy the URL of the link from CDN Repo `Code` Tab. Then paste that URL in the field you desire to add the photos to.
-![](Pasted%20image%2020240626114428.png)![](Pasted%20image%2020240626114637.png)
-
-That's it!
+The image will be opened in a new tab/window. Copy the URL from the browser address bar or copy the image and paste it directly into the editor.
