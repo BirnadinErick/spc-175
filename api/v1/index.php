@@ -1,5 +1,5 @@
 <?php
-// logging setup
+
 
 error_reporting(E_ALL);
 ini_set("display_errors", 0);
@@ -7,34 +7,23 @@ ini_set("log_errors", "On");
 
 define("DEBUG", true);
 
-function error_handler($errno, $errstr, $errfile, $errll)
+function error_handler(int $errno, string $errstr, string $errfile, int $errll)
 {
     $time = time();
     $msg = "$time $errno [$errfile::$errll] | $errstr";
     error_log($msg . PHP_EOL, 3, "error_log.txt");
-    /*    file_put_contents(
-            $_SERVER["DOCUMENT_ROOT"] . "/error_log.txt",
-            $msg,
-            FILE_APPEND
-        );*/
 
     if (DEBUG) {
         $msg = "[$errfile] $errstr";
         error_log($msg . PHP_EOL, 3, "debug_log.txt");
     }
 }
-
 set_error_handler("error_handler");
 
-function debug($str, $file)
+function debug(string $str, string $file)
 {
     $msg = "[$file] $str";
     error_log($msg . PHP_EOL, 3, "debug_log.txt");
-    /*    file_put_contents(
-            $_SERVER["DOCUMENT_ROOT"] . "/debug_log.txt",
-            $msg,
-            FILE_APPEND
-        );*/
 }
 
 /* IAM Roles Def
@@ -53,6 +42,7 @@ define('SUPADMIN_ROLE', 1 << 3); // write permission on users !!CAREFUL
 define("CONTROLLERS", $_SERVER["DOCUMENT_ROOT"] . "/api/v1/controllers/");
 define("VIEWS", $_SERVER["DOCUMENT_ROOT"] . "/api/v1/views/");
 define("MODELS", $_SERVER["DOCUMENT_ROOT"] . "/api/v1/models/");
+define("APP", $_SERVER["DOCUMENT_ROOT"] . "/api/v1/");
 
 if (DEBUG) {
     define("SERVER", "http://localhost:2007");
@@ -79,11 +69,17 @@ include_once CONTROLLERS . "allowed-to-comment.php";
 include_once CONTROLLERS . "projects.php";
 include_once CONTROLLERS . "posts.php";
 
+require_once CONTROLLERS . "Auth.php";
+
+use tinyfuse\controllers\Auth;
+
+$auth = new Auth();
+
 $routes = [
     "signin" => "signin",
     "login" => "login",
-    "logout" => "logout",
-    "auth-state" => "auth_state",
+    "logout" => [$auth, "login"],
+    "auth-state" => [$auth, "auth_state"],
     "comments" => "comments",
     "allowed-to-comment" => "allowed_to_comment",
     "projects" => "projects",
@@ -104,7 +100,7 @@ $request_uri = $_GET["p"];
 if (array_key_exists($request_uri, $routes)) {
     $handler = $routes[$request_uri];
 
-    debug("routed to $handler by $request_uri", __FILE__);
+    debug("ROUTER: $handler[1]", __FILE__);
 
     if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
         header("Access-Control-Allow-Credentials: true");
@@ -113,13 +109,16 @@ if (array_key_exists($request_uri, $routes)) {
         header("Access-Control-Allow-Origin: *");
 
         http_response_code(200);
-
-        debug("preflight detected", __FILE__);
         die(0);
     }
 
-    $handler();
-    http_response_code(200);
+    // only during migration phase
+    if (gettype($handler) === "string") {
+        $handler();
+    } else {
+        [$controller, $method] = $handler;
+        $controller->$method();
+    }
 } else {
     http_response_code(404);
     echo json_encode(["error" => "Route not found"]);

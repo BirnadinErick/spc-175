@@ -1,6 +1,5 @@
 <?php
 
-require_once MODELS . 'users.php';
 function auth_state()
 {
     session_start();
