@@ -4,10 +4,7 @@ require_once MODELS . "users.php";
 
 function signin()
 {
-    debug("sigin flow init", __FILE__);
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        debug("attempt new user...", __FILE__);
 
         // TODO: sanitize before passing on
         $data = [
@@ -28,10 +25,9 @@ function signin()
         $ok = $users->addNewUser($data);
 
         if ($ok === false) {
-            debug("failed to create user", __FILE__);
             http_response_code(400);
             readfile(VIEWS . "signin-400.php");
-            die();
+            die(1);
         }
 
         session_start();
@@ -42,7 +38,6 @@ function signin()
         die(0);
     } else {
         http_response_code(400);
-        echo "Error: This script accepts only POST requests.";
         die(1);
     }
 }

@@ -1,0 +1,33 @@
+---
+import { get_api_route } from "../../config/global";
+import TextInput from "../common/TextInput.astro";
+---
+
+<form hx-post={get_api_route("projects")} hx-swap="outerHTML">
+    <TextInput type="text" id="project_title" label="Project Title" />
+
+    <div class="mb-8">
+        <label class="block mb-1" for="desc">Description</label>
+        <div
+            class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+        >
+                    <textarea
+                        class="text-white bg-spc-dark w-full focus:ring-0 focus:outline-0"
+                        name="desc"
+                        id="desc"
+                    />
+        </div>
+    </div>
+
+    <TextInput type="date" id="deadline" label="Estimated Project Deadline" />
+
+    <TextInput type="number" id="amount" label="Projected Money Value in EUR" />
+
+    <div class="flex justify-end space-x-6 items-center">
+        <button
+            class="font-bold px-4 py-2 bg-white text-spc-green"
+            type="submit">Submit for evaluation
+        </button
+        >
+    </div>
+</form>

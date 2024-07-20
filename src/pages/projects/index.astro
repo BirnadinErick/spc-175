@@ -2,79 +2,50 @@
 import CommonHead from "@components/common/CommonHead.astro";
 import CommonHeader from "@components/common/CommonHeader.astro";
 import Footer from "@components/footer/Footer.astro";
-import Next from "@components/common/Next.astro";
 import SectionTitle from "@components/common/SectionTitle.astro";
 import BackButton from "@components/patrician-publications/BackButton.astro";
+import MobileNavButton from "@components/common/MobileNavButton.astro";
+import HTMX from "@components/common/HTMX.astro";
+import ProjectsList from "@components/projects/ProjectsList.astro";
+import NewProjectButton from "@components/projects/NewProjectButton.astro";
+
+import { PROJECTS_BODY_TEXT } from "@config/markups";
 
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
-import MobileNavButton from "../../components/common/MobileNavButton.astro";
-import { get_api_route } from "../../config/global";
-
-const nexts = [
-    ["Patrician Publications.", "/blogs"],
-    ["Our Spirituality.", "/our-spirituality"],
-    ["Academics.", "/academics"],
-    ["Sports.", "/sports"],
-    ["Socities.", "socities"]
-];
-const introText = `Home of any aiding project to your Alma Mater! Below you will
-find suggested, approved and running aids to the College. You may
-explore the site and do your part as well.
-<br/>
-<br/>
-Anyone can initiate, but be authorized. Create an account to get 
-authorized. You may initiate an aid by clicking on “Initiate New”
-button.`;
 ---
 
+<style>
+    section {
+        @apply px-6 md:px-12 xl:px-96;
+    }
+</style>
+
 <html lang="en">
-<CommonHead title="SPC Aids | SPC Media Unit | 175 years" />
+<CommonHead title="Projects | SPC Media Unit | 175 years" />
 
 <body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
 <CommonHeader title="Digital<br/> Patrician" />
-<section class="px-6 md:px-12 xl:px-96">
+
+<section>
     <BackButton />
 </section>
-<section class="px-6  md:px-12 xl:px-96 my-4">
+
+<section class="mt-4">
     <SectionTitle title="Aid the SPC." />
-    <p class="mt-6 text-white/75" set:html={introText} />
+    <p class="my-6 text-white/75" set:html={PROJECTS_BODY_TEXT} />
 </section>
-<section class="px-6 my-6 md:px-12 xl:px-96">
-    <main>
-        <button
-            class="font-bold px-4 py-2 bg-white rounded-sm text-spc-green flex justify-start items-center"
-            type="submit"
-        >
-                    <span class="pr-2"
-                    ><svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6"
-                    >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 4.5v15m7.5-7.5h-15"></path>
-                        </svg>
-                    </span>
-            <span>Initiate New</span>
-        </button>
-        <div hx-get={get_api_route("projects")} hx-trigger="load" hx-swap="innerHTML" class="my-4 space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-4">
-        </div>
+
+<section>
+    <main class="space-y-8 mb-12">
+        <NewProjectButton />
+
+        <ProjectsList />
     </main>
 </section>
 
-<Next nexts={nexts} />
 <Footer />
 <MobileNavButton />
-<script
-    is:inline
-    src="https://unpkg.com/htmx.org@1.9.11"
-    integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
-    crossorigin="anonymous"></script>
+<HTMX />
 </body>
 </html>

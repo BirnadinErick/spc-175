@@ -3,8 +3,6 @@
 function allowed_to_comment()
 {
     session_start();
-    debug("checking whether user allowed to comment", __FILE__);
-    debug("recieved arrays are: " . var_export(getallheaders(), true), __FILE__);
 
     $post_id = $_GET['post_id'];
     $path = $_GET['post_path'];

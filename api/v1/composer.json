@@ -1,4 +1,7 @@
 {
+    "autoload": {
+        "tinyfuse\\" : "."
+    },
     "require": {
         "bumpcore/editor.php": "^1.1",
         "vlucas/phpdotenv": "^5.6"
