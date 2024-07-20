@@ -41,3 +41,4 @@ app/
 *.zip
 
 **/vendor
+lymp/
