@@ -32,6 +32,7 @@ upstream-config.xml
 sftp_backup*/
 
 *.sqlite
+*.sql
 *_log.*
 app/
 
