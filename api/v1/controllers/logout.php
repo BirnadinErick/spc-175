@@ -4,7 +4,6 @@ function logout()
 {
     debug("attempt to log out...", __FILE__);
     session_start();
-    debug("session is: " . var_export($_SESSION, true), __FILE__);
 
     unset($_SESSION["email"]);
 
