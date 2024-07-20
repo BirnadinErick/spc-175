@@ -1,0 +1,28 @@
+---
+import TextInput from "../common/TextInput.astro";
+
+import { get_api_route } from "../../config/global";
+---
+
+<form hx-post={get_api_route("login")} hx-swap="outerHTML">
+    <TextInput type="email" id="email" label="Email Address" />
+
+    <TextInput type="password" id="password" label="Password" />
+
+    <div class="flex justify-end space-x-6 items-center">
+<!--
+        <button
+            type="button"
+            onclick="window.location = '/auth/password-reset'"
+            class="text-spc-gold"
+        >
+            Forgot Password?
+        </button>
+-->
+        <button
+            class="font-bold px-4 py-2 bg-white text-spc-green"
+            type="submit">Log In
+        </button
+        >
+    </div>
+</form>

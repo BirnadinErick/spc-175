@@ -2,6 +2,8 @@
 import CommonHead from "../../components/common/CommonHead.astro";
 import Loader from "../../components/common/Loader.astro";
 import { NEW_NAVS } from "../../config/navigation";
+import Image from "../../components/patrician-publications/Image.astro";
+import ImageWidget from "../../components/editor/ImageWidget.astro";
 
 let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.children.map(c => `/${i.link}/${c.link}`)).flat();
 ---
@@ -45,6 +47,8 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
     >
     </article>
 </section>
+
+<ImageWidget />
 </body>
 </html>
 

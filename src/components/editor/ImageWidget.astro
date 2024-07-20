@@ -1,0 +1,44 @@
+<section class="bg-spc-dark fixed bottom-2 ml-4 z-50 p-4 text-spc-light rounded-sm w-fit">
+    <h3 class="font-bold">Image Upload Widget</h3>
+
+    <div class="mt-4 space-x-2">
+        <label for="image">Image Filename</label>
+        <input class="bg-spc-light text-spc-dark" type="text" id="image" name="image" placeholder="e.g. academics.webp"
+               list="imageFiles">
+        <datalist id="imageFiles">
+        </datalist>
+    </div>
+
+    <a id="endpoint" href="/" target="_blank" class="block text-center px-4 py-2 bg-spc-bg-mid mt-3 w-full rounded-sm">Create Endpoint</a>
+</section>
+
+
+<script>
+    const fileNameInput = document.querySelector("#image");
+    const endPointA = document.querySelector("#endpoint");
+    const datalist = document.querySelector("#imageFiles");
+
+    const response = await fetch("https://api.github.com/repos/BirnadinErick/spc-cdn/contents/", {
+        headers: {
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28"
+        },
+        method: "GET"
+    });
+    const json = await response.json();
+    const images = json.filter(j => j.path.endsWith("webp") || j.path.endsWith("png") || j.path.endsWith("jpg") || j.path.endsWith("jpeg"));
+
+    datalist.innerHTML = images.map(i => i.name).map(i => `<option value="${i}"> </option>`);
+
+    async function createEndpoint(e) {
+        const file = e.target.value;
+
+        endPointA.setAttribute("href", `https://cdn.jsdelivr.net/gh/BirnadinErick/spc-cdn@master/${file}`);
+
+        setTimeout(() => {
+            fileNameInput.value = "";
+        }, 3000);
+    }
+
+    fileNameInput.addEventListener("input", createEndpoint);
+</script>

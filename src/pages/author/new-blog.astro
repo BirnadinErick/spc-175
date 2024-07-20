@@ -1,0 +1,164 @@
+---
+import CommonHead from "../../components/common/CommonHead.astro";
+import CommonHeader from "../../components/common/CommonHeader.astro";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
+import Footer from "../../components/footer/Footer.astro";
+import ImageWidget from "../../components/editor/ImageWidget.astro";
+---
+
+<style>
+    .ce-toolbar__plus {
+        @apply text-white;
+    }
+
+    section {
+        @apply px-96;
+    }
+
+    label {
+        @apply block
+    }
+
+    input, textarea {
+        @apply w-1/3
+    }
+
+    .input-grp {
+        @apply my-4 space-y-2;
+    }
+</style>
+
+
+<html>
+<CommonHead title="New Blog Entry" />
+
+<body class="text-spc-dark" x-data="{open:false}">
+
+<div class="bg-spc-dark pt-4">
+    <CommonHeader title="New Blog Entry" />
+</div>
+
+<section>
+
+    <form id="blog-form">
+        <h2 class="text-2xl font-mono">Metadata</h2>
+        <div class="input-grp">
+            <label for="title">Title</label>
+            <input id="title" class="text-gray-500 border-gray-500 cursor-not-allowed" type="text" disabled>
+        </div>
+
+        <div class="input-grp">
+            <label for="tags">Tags list</label>
+            <textarea id="tags" placeholder="enter comma separated tags to be included"></textarea>
+        </div>
+
+        <div class="input-grp">
+            <label for="cover">Cover Image from CDN:</label>
+            <input id="cover" type="url">
+        </div>
+
+        <div class="input-grp">
+            <button class="px-4 py-2 bg-spc-dark text-white rounded-sm" type="submit">Save Entry</button>
+        </div>
+    </form>
+</section>
+
+<section class="border-t-2 border-spc-dark mt-8 pt-8 ">
+    <div id="editorjs" class="prose-sm prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg"></div>
+</section>
+
+<ImageWidget />
+<Footer />
+<MobileNavButton />
+</body>
+</html>
+
+
+<script>
+    import EditorJS from "@editorjs/editorjs";
+    import Header from "@editorjs/header";
+    import SimpleImage from "@editorjs/simple-image";
+    import ImageGallery from "@rodrigoodhin/editorjs-image-gallery";
+    import Embed from "@editorjs/embed";
+    import List from "@editorjs/list";
+    import Delimiter from "@editorjs/delimiter";
+    import { get_api_route } from "../../config/global";
+
+    const queryStr = window.location.search;
+    const searchParams = new URLSearchParams(queryStr);
+    let title = searchParams.get("title");
+
+    const titleElem = document.querySelector("#title");
+    const tagsElem = document.querySelector("#tags");
+    const coverElem = document.querySelector("#cover");
+    const formElem = document.querySelector("#blog-form");
+
+    titleElem.value = title;
+
+    function editorReady() {
+        console.debug("editor ready to use");
+    }
+
+    const editor = new EditorJS({
+        onReady: editorReady,
+        tools: {
+            header: Header,
+            image: SimpleImage,
+            imageGallery: ImageGallery,
+            list: List,
+            delimiter: Delimiter,
+            embed: {
+                class: Embed,
+                config: {
+                    services: {
+                        youtube: true
+                    }
+                }
+            }
+        },
+        data: {
+            "time": 1550476186479,
+            "blocks": [{
+                "type": "paragraph",
+                "data": {
+                    "text": "Delete this text and start writing! Please don't add title as heading again. Blog title will be appended later on. Only write the body here."
+                }
+            }],
+            "version": "2.8.1"
+        }
+    });
+
+    async function saveEntry(e) {
+        e.preventDefault();
+
+        const data = await editor.save();
+
+        const formBody = new FormData();
+        formBody.append("title", title);
+        formBody.append("tags", tagsElem.value);
+        formBody.append("cover", coverElem.value);
+        formBody.append("data", JSON.stringify(data));
+
+        try {
+            const res = await fetch(get_api_route("create-blog"), {
+                method: "POST",
+                body: formBody
+            });
+
+            if (res.status != 201) {
+                throw new Error("post not created: " + res.status);
+            }
+
+
+            const slug = await res.text();
+            console.debug(slug)
+            window.location = slug;
+        } catch (e) {
+            console.debug("failed to POST");
+            console.error(e);
+            throw new Error("saveEditor failed in POST");
+        }
+    }
+
+    formElem.addEventListener("submit", saveEntry);
+</script>

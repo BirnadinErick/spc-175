@@ -1,0 +1,23 @@
+---
+import { NEW_NAVS } from "../../config/navigation";
+
+let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.children.map(c => `/${i.link}/${c.link}`)).flat();
+---
+
+<section class="z-50 bg-spc-dark fixed top-2 ml-4 p-4 text-spc-light rounded-sm w-fit">
+    <h1 class="font-bold">Create New Content</h1>
+    <div class="mt-2 space-y-1">
+        <label class="hidden" for="path">Path:</label>
+        <input class="w-full text-spc-dark bg-spc-light" id="path" type="text"
+               autofocus placeholder="Path of the content" list="pathsManifest">
+        <p class="text-sm text-gray-400 talic">Please make sure the path already exists in the manifest!</p>
+        <datalist id="pathsManifest">
+            {navsWithContent.map(n => <option value={n}></option>)}
+        </datalist>
+    </div>
+
+    <button class="px-4 py-2 mt-2 rounded-sm bg-spc-bg-mid w-full " id="saveEditorBtn">
+        Save
+    </button>
+    <p id="save-progress" class="animate-pulse text-spc-light"></p>
+</section>
