@@ -112,7 +112,7 @@ class UsersModel extends BaseModel
      */
     public function authenticateUser(string $email, string $password): Constants
     {
-        $sql = 'SELECT * FROM users WHERE email = :email';
+        $sql = 'SELECT password FROM users WHERE email = :email AND isactive = 1';
 
         try {
             $stmt = $this->pdo->prepare($sql);

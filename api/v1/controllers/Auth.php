@@ -165,12 +165,9 @@ class Auth
 
     public function activate_user(): void
     {
-        debug("attempt to activate user", __FILE__);
         $magiclink = base64_decode($_GET['code']);
         $magiclink = openssl_decrypt($magiclink, $this->method, $this->key, $this->options, $this->iv);
-        debug(var_export($magiclink, true),__FILE__);
         $magiclink = json_decode($magiclink);
-//        debug(var_export($magiclink, true),__FILE__);
 
         $users = new UsersModel();
         if ($magiclink->code !== $users->getMagicCode($magiclink->email)) {
