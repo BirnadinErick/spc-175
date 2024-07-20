@@ -2,10 +2,11 @@
 
 namespace tinyfuse\models;
 
-require_once APP."lib/BaseModel.php";
+require_once APP . "lib/BaseModel.php";
 
 use PDO;
 use PDOException;
+use PHPMailer\PHPMailer\Exception;
 use tinyfuse\lib\BaseModel;
 use tinyfuse\lib\Constants;
 
@@ -139,7 +140,7 @@ class UsersModel extends BaseModel
     {
         $columns = implode(", ", array_keys($data));
         $placeholders = implode(", ", array_fill(0, count($data), "?"));
-        $sql = 'INSERT INTO users ($columns) VALUES ($placeholders)';
+        $sql = "INSERT INTO users ($columns) VALUES ($placeholders)";
 
         $data["password"] = $this::hash_password($data["password"]);
 
@@ -155,6 +156,55 @@ class UsersModel extends BaseModel
             return true;
         } catch (PDOException $e) {
             debug("failed new user! $e", __FILE__);
+            return false;
+        }
+    }
+
+    public function addMagicCode(string $email, string $code): bool
+    {
+        $sql = "INSERT INTO magiclinks(email, code, created_at) VALUES (:email, :code, :timestamp)";
+        $created_at = date('Y-m-d H:i:s');
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":code", $code);
+            $stmt->bindParam(":timestamp", $created_at);
+
+            return $stmt->execute();
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
+
+    public function getMagicCode(string $email): string|null
+    {
+        debug("getting magic code", __FILE__);
+//        debug(var_export($email, true), __FILE__);
+        try {
+            $stmt = $this->pdo->prepare("SELECT code FROM magiclinks WHERE email = :email");
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
+            $result = $stmt->fetch();
+
+//            debug(var_export($result, true), __FILE__);
+            return $result['code'];
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return null;
+        }
+    }
+
+    public function activateUser(string $email): bool
+    {
+        try {
+            $stmt = $this->pdo->prepare("UPDATE users SET isactive = 1 WHERE email = :email");
+            $stmt->bindParam(":email", $email);
+
+            return $stmt->execute();
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
             return false;
         }
     }

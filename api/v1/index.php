@@ -1,6 +1,5 @@
 <?php
 
-
 error_reporting(E_ALL);
 ini_set("display_errors", 0);
 ini_set("log_errors", "On");
@@ -70,15 +69,17 @@ include_once CONTROLLERS . "projects.php";
 include_once CONTROLLERS . "posts.php";
 
 require_once CONTROLLERS . "Auth.php";
+require_once APP."lib/Malachi.php";
 
 use tinyfuse\controllers\Auth;
 
 $auth = new Auth();
 
 $routes = [
-    "signin" => "signin",
-    "login" => "login",
-    "logout" => [$auth, "login"],
+    "signin" => [$auth, "signin"],
+    "login" => [$auth, "login"],
+    "logout" => "logout",
+    "activate-user"=> [$auth, "activate_user"],
     "auth-state" => [$auth, "auth_state"],
     "comments" => "comments",
     "allowed-to-comment" => "allowed_to_comment",
@@ -100,7 +101,7 @@ $request_uri = $_GET["p"];
 if (array_key_exists($request_uri, $routes)) {
     $handler = $routes[$request_uri];
 
-    debug("ROUTER: $handler[1]", __FILE__);
+//    debug("ROUTER: $handler[1]", __FILE__);
 
     if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
         header("Access-Control-Allow-Credentials: true");
