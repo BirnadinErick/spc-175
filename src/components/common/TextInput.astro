@@ -1,0 +1,20 @@
+---
+const { label, id, type, placeholder} = Astro.props;
+---
+
+<div class="mb-4">
+    <label class="block mb-1" for={id}>{label}</label>
+    <div
+        class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
+    >
+        <input
+            class="text-white bg-spc-dark w-full focus:ring-0"
+            type={type}
+            name={id}
+            id={id}
+            spellcheck="true"
+            required
+            placeholder={placeholder  ? placeholder : ""}
+        />
+    </div>
+</div>

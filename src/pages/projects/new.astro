@@ -1,0 +1,48 @@
+---
+import CommonHead from "@components/common/CommonHead.astro";
+import CommonHeader from "@components/common/CommonHeader.astro";
+import Footer from "@components/footer/Footer.astro";
+import SectionTitle from "@components/common/SectionTitle.astro";
+import BackButton from "@components/patrician-publications/BackButton.astro";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
+
+import {get_api_route} from "@config/global";
+
+import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/700.css";
+import "@components/common/swup.css";
+import HTMX from "../../components/common/HTMX.astro";
+import NewProjectForm from "../../components/projects/NewProjectForm.astro";
+---
+
+<style>
+    section {
+        @apply px-6 my-8 md:px-12 lg:px-24 xl:px-[30%];
+    }
+</style>
+
+<html lang="en">
+<CommonHead title="Projects | SPC Media Unit | 175 years"/>
+
+<body x-data="{open : false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+    <CommonHeader title="Digital <br/>Patrician"/>
+
+    <section class="">
+        <BackButton/>
+    </section>
+
+    <section>
+        <SectionTitle title="Initiate new project."/>
+    </section>
+
+    <section>
+        <NewProjectForm />
+    </section>
+
+    <Footer/>
+    <MobileNavButton/>
+
+    <HTMX />
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+---
+import CommonHead from "@components/common/CommonHead.astro";
+import CommonHeader from "@components/common/CommonHeader.astro";
+import Footer from "@components/footer/Footer.astro";
+import SectionTitle from "@components/common/SectionTitle.astro";
+import BackButton from "@components/patrician-publications/BackButton.astro";
+import MobileNavButton from "@components/common/MobileNavButton.astro";
+import HTMX from "@components/common/HTMX.astro";
+import ProjectsList from "@components/projects/ProjectsList.astro";
+import NewProjectButton from "@components/projects/NewProjectButton.astro";
+
+import { PROJECTS_BODY_TEXT } from "@config/markups";
+
+import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/700.css";
+import "@components/common/swup.css";
+---
+
+<style>
+    section {
+        @apply px-6 md:px-12 xl:px-96;
+    }
+</style>
+
+<html lang="en">
+<CommonHead title="Projects | SPC Media Unit | 175 years" />
+
+<body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+<CommonHeader title="Digital<br/> Patrician" />
+
+
+<main>
+    <section>
+        <BackButton />
+    </section>
+
+    <section class="mt-4">
+        <SectionTitle title="Aid the SPC." />
+        <p class="my-6 text-white/75" set:html={PROJECTS_BODY_TEXT} />
+    </section>
+
+    <section>
+        <main class="space-y-8 mb-12">
+            <NewProjectButton />
+
+            <ProjectsList />
+        </main>
+    </section>
+</main>
+
+<Footer />
+<MobileNavButton />
+<HTMX />
+</body>
+</html>

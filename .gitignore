@@ -16,6 +16,8 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+**/.dev
+**/.prod
 
 # macOS-specific files
 .DS_Store
@@ -30,9 +32,13 @@ upstream-config.xml
 sftp_backup*/
 
 *.sqlite
+*.sql
 *_log.*
 app/
 
 **/.idea/
 
 *.zip
+
+**/vendor
+lymp/

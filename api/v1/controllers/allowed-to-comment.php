@@ -3,10 +3,9 @@
 function allowed_to_comment()
 {
     session_start();
-    debug("checking whether user allowed to comment", __FILE__);
-    debug("recieved arrays are: " . var_export(getallheaders(), true), __FILE__);
 
     $post_id = $_GET['post_id'];
+    $path = $_GET['post_path'];
 
     if (!isset($_SESSION['email'])) { ?>
         <p class="text-spc-light/50">
@@ -20,6 +19,7 @@ function allowed_to_comment()
                       name="text"
                       placeholder="Let the world know what you think!" rows="5"></textarea>
             <input type="hidden" name="post_id" value="<?= $post_id ?>">
+            <input type="hidden" name="post_path" value="<?= $path?>">
             <button class="flex justify-around items-center space-x-2 bg-spc-bg-mid text-spc-light text-sm px-4 py-1 lg:text-lg rounded-sm"
                     type="submit">
                 <span>Comment</span>

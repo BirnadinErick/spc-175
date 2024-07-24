@@ -30,6 +30,10 @@ cp -r api/ app/
 echo "Copying route middleware..."
 cp .htaccess app/
 
+# remove vendor folder
+rm -r app/api/v1/vendor
+
+
 # Read connection data from XML file
 xml_file="upstream-config.xml"
 echo "Reading server manifest..."
@@ -42,6 +46,9 @@ put -r app/*
 exit
 EOF
 
+# run composer
+ssh u115512932@access996536472.webspace-data.io "cd api/v1 && /usr/bin/php8.2-cli ~/composer.phar update"
+
 rm fend-build.log
 
 # set the DEBUG flag back to true 
@@ -49,5 +56,6 @@ echo "setting DEBUG flag true..."
 sed -i 's/const DEBUG = false;/const DEBUG = true;/' "./src/config/global.ts"
 sed -i 's/define("DEBUG", false);/define("DEBUG", true);/' "./api/v1/index.php"
 
+rm -rf app
 echo "Project sync."
 

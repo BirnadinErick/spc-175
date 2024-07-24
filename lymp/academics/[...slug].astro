@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/PageLayout.astro";
+import { get_api_route } from "../../config/global";
+import Loader from "../../components/common/Loader.astro";
+
+export async function getStaticPaths() {
+    const blogEntries = await getCollection("academics");
+    return blogEntries.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const {slug}= Astro.params;
+const { Content } = await entry.render();
+
+
+---
+
+<PageLayout frontmatter={{title:"Academics"}}>
+    <div
+        hx-get={get_api_route("read-post-html") + "&path="+slug}
+        hx-swap="innerHTML"
+        hx-trigger="load"
+    >
+        <div>
+            <Loader />
+        </div>
+    </div>
+</PageLayout>

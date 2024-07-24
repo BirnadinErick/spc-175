@@ -9,15 +9,14 @@ function comments()
     $comments = new CommentsModel();
 
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
-        $cs = $comments->getComments(intval($_GET["post_id"]));
+        $cs = $comments->getComments($_GET["post_id"]);
 
-        foreach ($cs as $c) { ?>
-          <div>
-          <div> <b><?= $c['first_name'] . " " . $c['last_name'][0] . "." ?></b> says </div>
-                  <p class="text-spc-white/70 pl-2 italic"> <?= $c['text'] ?></p>
-          </div>
-<?php }
-        return;
+        foreach ($cs as $c): ?>
+            <div>
+                <div><b><?= $c['first_name'] . " " . $c['last_name'][0] . "." ?></b> says</div>
+                <p class="text-spc-white/70 pl-2 italic"> <?= $c['text'] ?></p>
+            </div>
+        <?php endforeach;;
     } else {
         session_start();
         $users = new UsersModel();
@@ -26,17 +25,18 @@ function comments()
             "creating comment in session: " . var_export($_SESSION, true),
             __FILE__
         );
-        debug("cookies: " . var_export($_COOKIE, true), __FILE__);
+//        debug("cookies: " . var_export($_COOKIE, true), __FILE__);
 
         $user_id = $users->get_user_id($_SESSION["email"]);
         // TODO!: sanitize later
         $post_id = $_POST["post_id"];
+        $path = $_POST["post_path"];
         $text = $_POST["text"];
 
         debug("creating comment for $post_id: \n$text", __FILE__);
-        $ok = $comments->addComment(intval($post_id), $text, $user_id);
+        $ok = $comments->addComment($post_id, $text, $user_id);
 
-        header("Location: ". SERVER . "/patrician-publications/$post_id#comments");
+        header("Location: " . SERVER . "$path#comments");
         if ($ok) {
             http_response_code(303);
         } else {

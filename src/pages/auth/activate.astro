@@ -1,0 +1,56 @@
+---
+import CommonHeader from "../../components/common/CommonHeader.astro";
+import Footer from "../../components/footer/Footer.astro";
+import CommonHead from "../../components/common/CommonHead.astro";
+import SectionTitle from "../../components/common/SectionTitle.astro";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
+import LoginForm from "../../components/auth/LoginForm.astro";
+import HTMX from "../../components/common/HTMX.astro";
+import BackButton from "../../components/patrician-publications/BackButton.astro";
+import { get_api_route } from "../../config/global";
+
+import "@components/common/swup.css";
+---
+
+<style>
+    section {
+        @apply px-6 my-8 md:px-12 lg:px-24 xl:px-[30%];
+    }
+</style>
+
+<html lang="en">
+<CommonHead title="Log In | SPC Media Unit | 175 years"/>
+
+<body x-data="{open : false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+<CommonHeader title="Digital <br/>Patrician"/>
+
+<section>
+    <BackButton/>
+</section>
+
+<section>
+    <SectionTitle title="Authenticate You."/>
+</section>
+
+<section>
+<div
+    hx-get={get_api_route("activate-user")}
+    hx-trigger="load delay:100ms"
+    hx-swap="outerHTML"
+></div>
+</section>
+
+<Footer/>
+<MobileNavButton/>
+
+<HTMX />
+</body>
+</html>
+
+<script>
+    document.body.addEventListener('htmx:configRequest', function(e) {
+        const queryStr = window.location.search;
+        const searchParams = new URLSearchParams(queryStr);
+        e.detail.parameters['code'] = searchParams.get("c");
+    });
+</script>

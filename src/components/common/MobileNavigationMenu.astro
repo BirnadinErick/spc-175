@@ -48,6 +48,7 @@ const {manifest}:{manifest: typeof NEW_NAVS;} = Astro.props;
                             {nav.children?.map(child =>
                                     <li>
                                         <a href={'/' + nav.link + '/' + child.link}
+                                           x-on:click="open = false"
                                            class="flex justify-between items-center group">
                                             {child.title}
                                         </a>
@@ -57,6 +58,7 @@ const {manifest}:{manifest: typeof NEW_NAVS;} = Astro.props;
                     </div>) : (
                     <a href={'/' + nav.link}
                        class="text-lg font-bold mb-2 flex justify-start space-x-2 w-full items-center"
+                       x-on:click="open = false"
                     >
                         <span>{nav.title}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">

@@ -3,6 +3,8 @@ import PrimaryCTA from "@components/common/PrimaryCTA.astro";
 import SecondaryCTA from "@components/common/SecondaryCTA.astro";
 import SectionTitle from "@components/common/SectionTitle.astro";
 import PatricianTodayCard from "./PatricianTodayCard.astro";
+import { get_api_route } from "../../config/global";
+import Loader from "../common/Loader.astro";
 
 const dummyImg =
   "https://unsplash.com/photos/o4mP43oPGHk/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjkyMTY0MTgzfA&force=true&w=1920";
@@ -11,20 +13,21 @@ const dummyImg =
 <section class="px-6 my-20 md:px-12 xl:px-96">
   <SectionTitle title="Patrician Today." />
   <div
-    class="flex flex-no-wrap overflow-x-auto no-scrollbar scrolling-touch items-start my-6"
+    class="htmxenable flex flex-no-wrap overflow-x-auto no-scrollbar scrolling-touch items-start my-6"
+    hx-get={get_api_route("read-blogs-latest")}
+    hx-trigger="every 300ms"
   >
-    <PatricianTodayCard img={dummyImg} href="/patrician-publications/101" />
-    <PatricianTodayCard img={dummyImg} />
-    <PatricianTodayCard img={dummyImg} />
-    <PatricianTodayCard img={dummyImg} />
+    <Loader />
   </div>
 
   <div class="mt-8 space-y-4">
-    <PrimaryCTA text="intrigued? read more" url="/patrician-publications" />
+    <PrimaryCTA text="intrigued? read more" url="/blogs" />
+<!--
     <SecondaryCTA
       text="learn about editorial team, SPC Media Unit."
-      url="/clubs-and-societies/spc-media-unit"
+      url="#"
     />
+-->
   </div>
 </section>
 

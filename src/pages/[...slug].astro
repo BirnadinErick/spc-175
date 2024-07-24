@@ -1,0 +1,44 @@
+---
+import PageLayout from "layouts/PageLayout.astro";
+import { NEW_NAVS } from "config/navigation";
+import { get_api_route } from "../config/global";
+
+export async function getStaticPaths() {
+    const maps = NEW_NAVS.map(i => i.children.map(j => ({
+        parentLink: i.link,
+        parentTitle: i.title, ...j
+    }))).flat().map(l => ({
+        params: { slug: l.parentLink + "/" + l.link },
+        props: {
+            meta: { title: l.parentTitle + "  /  " + l.title }
+        }
+    }));
+
+    let results = [];
+    for (let i = 0; i < maps.length; i++) {
+        let m = maps[i];
+        const res = await fetch(get_api_route("read-post-html") + "&path=/" + m.params.slug);
+        // const res = await fetch("https://www.spcjaffna-beta.org/api/v1/index.php?p=read-post-html&path=/"+m.params.slug);
+        results[i] = {
+            params: m.params,
+            props: {
+                ...m.props,
+                content: await res.text()
+            }
+        };
+    }
+    return results;
+}
+
+const { meta, content } = Astro.props;
+const { slug } = Astro.params;
+---
+
+<PageLayout meta={meta}>
+    <article
+        class=" md:px-12 xl:px-96 mb-20 mt-8 prose-sm prose-headings:px-6 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg text-spc-light/75"
+        set:html={content}
+    >
+    </article>
+</PageLayout>
+
