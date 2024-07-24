@@ -6,7 +6,7 @@ export const NEW_NAVS = [
         children: [
             { title: "History of the College", link: "history-of-the-college" },
             { title: "Our Spirituality", link: "our-spirituality" },
-            { title: "Founders", link: "founders" },
+            { title: "Founder", link: "founders" },
             { title: "Motto, Vision & Mission", link: "motto-vision-mission" },
             { title: "Coat of Arms", link: "coat-of-arms" },
             { title: "College Anthem", link: "college-anthem" },
@@ -50,8 +50,10 @@ export const NEW_NAVS = [
     },
     { title: "Blogs", link: "blogs", children: [] },
     { title: "Projects", link: "projects", children: [] },
+/*
     { title: "Facilities", link: "facilities", children: [] },
     { title: "Gallery", link: "gallery", children: [] },
+*/
     {
         title: "Alumni",
         link: "alumni",
