@@ -1,0 +1,15 @@
+html {
+    --swup-overlay-theme-duration: .5s;
+    --swup-overlay-theme-delay: .2s;
+    --swup-overlay-theme-scale: 1.1;
+    --swup-overlay-theme-skew: 0deg;
+}
+
+.swup-transition-overlay {
+    background: linear-gradient(0deg, #FFCD00, #5ABF64, #115740);
+}
+
+.swup-progress-bar {
+    height: 5px;
+    background-color: #FFCD00;
+}

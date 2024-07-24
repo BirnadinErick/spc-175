@@ -7,9 +7,17 @@
 
 
 <script>
-    document.body.addEventListener('htmx:beforeSwap', function (evt) {
+    document.body.addEventListener("htmx:beforeSwap", function(evt) {
         if (evt.detail.xhr.status === 400) {
             evt.detail.shouldSwap = true;
         }
+    });
+
+    document.addEventListener("swup:enable", () => {
+        window.swup.hooks.on("page:view", () => {
+            // const list = document.querySelectorAll(".htmxenable");
+            // list.forEach(l=> window.htmx.process(l));
+            document.querySelectorAll(".htmxenable").forEach(i => window.htmx.process(i));
+        });
     });
 </script>

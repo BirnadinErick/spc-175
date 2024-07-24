@@ -13,19 +13,21 @@ const dummyImg =
 <section class="px-6 my-20 md:px-12 xl:px-96">
   <SectionTitle title="Patrician Today." />
   <div
-    class="flex flex-no-wrap overflow-x-auto no-scrollbar scrolling-touch items-start my-6"
+    class="htmxenable flex flex-no-wrap overflow-x-auto no-scrollbar scrolling-touch items-start my-6"
     hx-get={get_api_route("read-blogs-latest")}
-    hx-trigger="load delay:700ms"
+    hx-trigger="every 300ms"
   >
     <Loader />
   </div>
 
   <div class="mt-8 space-y-4">
-    <PrimaryCTA text="intrigued? read more" url="/patrician-publications" />
+    <PrimaryCTA text="intrigued? read more" url="/blogs" />
+<!--
     <SecondaryCTA
       text="learn about editorial team, SPC Media Unit."
-      url="/clubs-and-societies/spc-media-unit"
+      url="#"
     />
+-->
   </div>
 </section>
 
