@@ -5,6 +5,7 @@ import { NEW_NAVS } from "../../config/navigation";
 import Image from "../../components/patrician-publications/Image.astro";
 import ImageWidget from "../../components/editor/ImageWidget.astro";
 
+import "@components/common/swup.css";
 let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.children.map(c => `/${i.link}/${c.link}`)).flat();
 ---
 <style>

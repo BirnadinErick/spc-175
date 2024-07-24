@@ -13,6 +13,7 @@ import { PROJECTS_BODY_TEXT } from "@config/markups";
 
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
+import "@components/common/swup.css";
 ---
 
 <style>
@@ -27,22 +28,25 @@ import "@fontsource/space-grotesk/700.css";
 <body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
 <CommonHeader title="Digital<br/> Patrician" />
 
-<section>
-    <BackButton />
-</section>
 
-<section class="mt-4">
-    <SectionTitle title="Aid the SPC." />
-    <p class="my-6 text-white/75" set:html={PROJECTS_BODY_TEXT} />
-</section>
+<main>
+    <section>
+        <BackButton />
+    </section>
 
-<section>
-    <main class="space-y-8 mb-12">
-        <NewProjectButton />
+    <section class="mt-4">
+        <SectionTitle title="Aid the SPC." />
+        <p class="my-6 text-white/75" set:html={PROJECTS_BODY_TEXT} />
+    </section>
 
-        <ProjectsList />
-    </main>
-</section>
+    <section>
+        <main class="space-y-8 mb-12">
+            <NewProjectButton />
+
+            <ProjectsList />
+        </main>
+    </section>
+</main>
 
 <Footer />
 <MobileNavButton />

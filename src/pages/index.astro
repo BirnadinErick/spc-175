@@ -12,17 +12,19 @@ import StaggerText from "../components/common/stagger-text/StaggerText.astro";
 import HTMX from "../components/common/HTMX.astro";
 
 import "@fontsource/space-grotesk/400.css";
+import "@components/common/swup.css";
 ---
 
 <html lang="en">
 <CommonHead title="St. Patrick's College | SPC Media Unit | 175 years" />
 
 <body class="cursor-default bg-spc-dark text-spc-light font-sans" x-data="{open:false}">
-    <CommonHeader
-        now="Home"
-        title="Fide et Labore"
-    />
+<CommonHeader
+    now="Home"
+    title="Fide et Labore"
+/>
 
+<main>
     <Hero />
 
     <AboutText />
@@ -40,12 +42,15 @@ import "@fontsource/space-grotesk/400.css";
 
     <PatricianNorms />
 
-    <Footer />
+</main>
 
-    <AuthBanner />
+<Footer />
 
-    <MobileNavButton />
+<AuthBanner />
 
-    <HTMX/>
+<MobileNavButton />
+
+<HTMX />
+
 </body>
 </html>
