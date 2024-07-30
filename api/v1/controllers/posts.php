@@ -399,15 +399,10 @@ function available_contents()
 {
     $c = new ContentsModel();
     $cs = $c->get_contents();
-//    debug(var_export($cs, true), __FILE__)
-    ?>
-    <label class="lbl" for="path">Select a path to edit the content:</label>
-    <select id="path" class="" style="color:black">
-        <?php foreach ($cs as $i): ?>
-            <option class="" value="<?= $i['path'] ?>"><?= $i['path'] ?></option>
-        <?php endforeach; ?>
-    </select>
-<?php }
+    echo Helpers::renderNative(VIEWS.'available-contents.php', [
+        "cs"=>$cs
+    ]);
+}
 
 function read_blog_feat()
 {

@@ -1,0 +1,25 @@
+---
+import { get_api_route } from "../../config/global";
+---
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-spc-dark dark:text-spc-light">
+        <thead class="text-spc-light leading-3 uppercase bg-spc-bg-mid border-b border-b-spc-dark">
+        <tr>
+            <th scope="col" class="px-6 py-3">
+                Content Path
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Last Modified on
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Actions
+            </th>
+        </tr>
+        </thead>
+        <tbody class="htmxenable" hx-get={get_api_route("available-contents")} hx-trigger="load" hx-swap="innerHTML">
+        <tr>
+            <td class="text-spc-light" colspan="3">Loading the data, please wait.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

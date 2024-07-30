@@ -83,7 +83,7 @@ class ContentsModel extends BaseModel
 
     public function get_contents()
     {
-        $sql = 'SELECT DISTINCT path FROM contents';
+        $sql = 'SELECT DISTINCT path, updated_at as time  FROM contents';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
