@@ -16,23 +16,25 @@ import "@components/common/swup.css";
 </style>
 
 <PageLayout meta={{ title: "Author Dashboard | SPC Media Unit" }}>
-    <div class="bg-spc-light px-4 py-2 rounded-sm" hx-get={get_api_route("available-contents")} hx-swap="outerHTML"
-         hx-trigger="load">
-        <Loader />
-    </div>
-
-    <div class="space-x-2 my-4">
-        <button class="btn" onclick="editContent();">Edit</button>
-        <button class="btn" onclick="createContent();">Create</button>
-        <button class="btn cursor-none text-black/80 bg-spc-bg-mid">Delete</button>
-    </div>
-
-    <div class="space-y-2 my-8 border-t border-spc-sea pt-8">
-        <div class="space-y-2">
-            <label class="lbl" for="title">Create a new blog entry:</label>
-            <input class="w-1/3 text-black" type="text" id="title" placeholder="z.B. Release of The Patrician 2003" spellcheck="true">
+    <div class="px-96">
+        <div class="htmxenable bg-spc-light px-4 py-2 rounded-sm" hx-get={get_api_route("available-contents")} hx-swap="outerHTML"
+            hx-trigger="load">
+            <Loader />
         </div>
-        <button class="btn" onclick="createBlogEntry();">Create new blog entry</button>
+
+        <div class="space-x-2 my-4">
+            <button class="btn" onclick="editContent();">Edit</button>
+            <button class="btn" onclick="createContent();">Create</button>
+            <button class="btn cursor-none text-black/80 bg-spc-bg-mid">Delete</button>
+        </div>
+
+        <div class="space-y-2 my-8 border-t border-spc-sea pt-8">
+            <div class="space-y-2">
+                <label class="lbl" for="title">Create a new blog entry:</label>
+                <input class="w-1/3 text-black" type="text" id="title" placeholder="z.B. Release of The Patrician 2003" spellcheck="true">
+            </div>
+            <button class="btn" onclick="createBlogEntry();">Create new blog entry</button>
+        </div>
     </div>
 </PageLayout>
 
