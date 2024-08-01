@@ -1,0 +1,20 @@
+---
+import PageLayout from "layouts/PageLayout.astro";
+import { get_api_route } from "../config/global";
+
+const res = await fetch(get_api_route("read-post-html") + "&path=/gallery");
+const content = await res.text();
+const meta = {
+    content,
+    title: 'Gallery'
+};
+---
+
+<PageLayout meta={meta}>
+    <article
+        class=" md:px-12 xl:px-96 mb-20 mt-8 prose-sm prose-headings:px-6 prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg text-spc-light/75"
+        set:html={content}
+    >
+    </article>
+</PageLayout>
+

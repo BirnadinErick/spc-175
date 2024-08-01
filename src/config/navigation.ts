@@ -50,10 +50,8 @@ export const NEW_NAVS = [
     },
     { title: "Blogs", link: "blogs", children: [] },
     { title: "Projects", link: "projects", children: [] },
-/*
     { title: "Facilities", link: "facilities", children: [] },
     { title: "Gallery", link: "gallery", children: [] },
-*/
     {
         title: "Alumni",
         link: "alumni",
