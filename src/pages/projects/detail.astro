@@ -25,7 +25,7 @@ import "@components/common/swup.css";
     </section>
 
     <section class="px-6 md:px-12 xl:px-96 my-6 htmxenable"
-                hx-get={get_api_route('project-detail')} hx-swap="innerHTML" hx-trigger="load">
+             hx-get={get_api_route("project-detail")} hx-swap="innerHTML" hx-trigger="load">
         <Loader />
     </section>
 
@@ -33,23 +33,9 @@ import "@components/common/swup.css";
     <section class="px-6 md:px-12 xl:px-96 my-12 ">
         <h3 class="text-spc-light font-bold text-xl">Discussion Forum</h3>
 
-        <div class="my-4 space-y-4">
-            <div>
-                <p class="text-white/20">Birnadin E. says</p>
-                <p class="text-white my-1">
-                    Home of any aids (pun indented) to your Alma Mater! Below you will Home of any aids (pun indented)
-                    to your Alma Mater! Below you will Home of any aids (pun indented) to your Alma Mater! Below you
-                    will Home of any aids (pun indented) to your Alma Mater! Below you will
-                </p>
-            </div>
-        </div>
-
-        <div class="space-y-2 py-4">
-            <textarea id="comment" class="bg-spc-bg-mid text-spc-light w-full" rows="5" name="comment" autofocus
-                      spellcheck="true" />
-            <button hx-include="#comment" hx-post={get_api_route("project-comment")}
-                    class="px-4 font-bold py-1 bg-spc-bg-mid block rounded-sm">Comment.
-            </button>
+        <div class="htmxenable" hx-get={get_api_route("project-comment")}
+             hx-swap="outerHTML" hx-trigger="load delay:200ms">
+            <Loader />
         </div>
     </section>
 
