@@ -1,0 +1,69 @@
+---
+import HTMX from "../../components/common/HTMX.astro";
+import Footer from "../../components/footer/Footer.astro";
+import CommonHead from "../../components/common/CommonHead.astro";
+import CommonHeader from "../../components/common/CommonHeader.astro";
+import BackButton from "../../components/patrician-publications/BackButton.astro";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
+import { get_api_route } from "../../config/global";
+import Loader from "../../components/common/Loader.astro";
+
+import "@components/common/swup.css";
+---
+
+<html lang="en">
+<CommonHead
+    title="SPC Aiding Projects | SPC Media Unit"
+/>
+
+<body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+<CommonHeader title="SPC Aiding Projects" />
+
+<main>
+    <section class="px-6 md:px-12 xl:px-96 ">
+        <BackButton />
+    </section>
+
+    <section class="px-6 md:px-12 xl:px-96 my-6 htmxenable"
+                hx-get={get_api_route('project-detail')} hx-swap="innerHTML" hx-trigger="load">
+        <Loader />
+    </section>
+
+
+    <section class="px-6 md:px-12 xl:px-96 my-12 ">
+        <h3 class="text-spc-light font-bold text-xl">Discussion Forum</h3>
+
+        <div class="my-4 space-y-4">
+            <div>
+                <p class="text-white/20">Birnadin E. says</p>
+                <p class="text-white my-1">
+                    Home of any aids (pun indented) to your Alma Mater! Below you will Home of any aids (pun indented)
+                    to your Alma Mater! Below you will Home of any aids (pun indented) to your Alma Mater! Below you
+                    will Home of any aids (pun indented) to your Alma Mater! Below you will
+                </p>
+            </div>
+        </div>
+
+        <div class="space-y-2 py-4">
+            <textarea id="comment" class="bg-spc-bg-mid text-spc-light w-full" rows="5" name="comment" autofocus
+                      spellcheck="true" />
+            <button hx-include="#comment" hx-post={get_api_route("project-comment")}
+                    class="px-4 font-bold py-1 bg-spc-bg-mid block rounded-sm">Comment.
+            </button>
+        </div>
+    </section>
+
+</main>
+<Footer />
+<MobileNavButton />
+<HTMX />
+
+<script is:inline>
+    document.body.addEventListener("htmx:configRequest", function(e) {
+        const queryStr = window.location.search;
+        const searchParams = new URLSearchParams(queryStr);
+        e.detail.parameters["project_id"] = searchParams.get("pid");
+    });
+</script>
+</body>
+</html>

@@ -69,11 +69,14 @@ include_once CONTROLLERS . "projects.php";
 include_once CONTROLLERS . "posts.php";
 
 require_once CONTROLLERS . "Auth.php";
+require_once CONTROLLERS . "Projects.php";
 require_once APP."lib/Malachi.php";
 
 use tinyfuse\controllers\Auth;
+use tinyfuse\controllers\Projects;
 
 $auth = new Auth();
+$projects = new Projects();
 
 $routes = [
     "signin" => [$auth, "signin"],
@@ -84,6 +87,7 @@ $routes = [
     "comments" => "comments",
     "allowed-to-comment" => "allowed_to_comment",
     "projects" => "projects",
+    "project-comment" => [$projects, "comment"],
     "save-post" => "save_post",
     "read-post" => "read_post",
     "read-post-html" => "read_post_html",
@@ -95,6 +99,7 @@ $routes = [
     "read-blog-feat" => "read_blog_feat",
     "read-blog-list" => "read_blog_list",
     "read-blogs-latest" => "read_blogs_latest",
+    "project-detail" => [$projects, "detail"]
 ];
 $request_uri = $_GET["p"];
 
