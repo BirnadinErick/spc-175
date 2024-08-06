@@ -24,26 +24,27 @@ import "@components/common/swup.css";
 </style>
 
 <html lang="en">
-<CommonHead title="Log In | SPC Media Unit | 175 years"/>
+<CommonHead title="Log In | SPC Media Unit | 175 years" />
 
 <body x-data="{open : false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
-    <CommonHeader title="Digital <br/>Patrician"/>
+<CommonHeader title="Digital <br/>Patrician" />
 
+<main>
     <section>
-        <BackButton/>
+        <BackButton />
     </section>
 
     <section>
-        <SectionTitle title="Authenticate You."/>
+        <SectionTitle title="Authenticate You." />
     </section>
 
     <section>
         <LoginForm />
     </section>
+</main>
+<Footer />
+<MobileNavButton />
 
-    <Footer/>
-    <MobileNavButton/>
-
-    <HTMX />
+<HTMX />
 </body>
 </html>

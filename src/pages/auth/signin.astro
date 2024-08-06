@@ -13,30 +13,34 @@ import "@fontsource/space-grotesk/700.css";
 import "@components/common/swup.css";
 ---
 <style>
-  section {
-    @apply px-6 my-8 md:px-12 lg:px-24 xl:px-[30%];
-  }
+    section {
+        @apply px-6 my-8 md:px-12 lg:px-24 xl:px-[30%];
+    }
 </style>
 
 <html lang="en">
-  <CommonHead title="Log In | SPC Media Unit | 175 years" />
+<CommonHead title="Log In | SPC Media Unit | 175 years" />
 
-  <body x-data="{open : false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
-    <CommonHeader title="Digital <br/>Patrician" />
+<body x-data="{open : false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+<CommonHeader title="Digital <br/>Patrician" />
+
+<main>
     <section>
-      <BackButton />
+        <BackButton />
     </section>
 
     <section>
-      <SectionTitle title="Create an Account." />
+        <SectionTitle title="Create an Account." />
     </section>
 
     <section>
-      <SignInForm />
+        <SignInForm />
     </section>
-    <Footer />
+</main>
 
-    <MobileNavButton />
-    <HTMX />
-  </body>
+<Footer />
+
+<MobileNavButton />
+<HTMX />
+</body>
 </html>
