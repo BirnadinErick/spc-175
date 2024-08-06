@@ -1,26 +1,27 @@
 <?php if (gettype($cs) == "integer"): ?>
-<p class="my-4">
-    No comments yet. Be the first to add your opinion
-</p>
-<?php else:
-    foreach ($cs as $c): ?>
-        <div class="my-4 space-y-4">
-            <div>
-                <p class="text-white/20"><?= $c['fname'] . ' ' . $c['lname'] ?> says</p>
-                <p class="text-white my-1">
+    <p class="my-4">
+        No comments yet. Be the first to add your opinion
+    </p>
+<?php else: ?>
+    <div id="comments">
+        <?php foreach ($cs as $c): ?>
+            <div class="my-4 border-l-2 pl-2 border-l-gray-500">
+                <p class="text-gray-400"><?= $c['fname'] . ' ' . $c['lname'] ?> says</p>
+                <p style="padding-left: 15px;">
                     <?= $c['comment'] ?>
                 </p>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 <?php endif; ?>
 
 <?php if ($isAuth === true) : ?>
-    <div class="space-y-2 py-4">
+    <div class="space-y-2 py-4 htmxenable">
     <textarea id="comment" class="bg-spc-bg-mid text-spc-light w-full" rows="5" name="comment" autofocus
               spellcheck="true"></textarea>
         <button hx-include="#comment" hx-post="<?= API . 'project-comment' ?>"
-                class="px-4 font-bold py-1 bg-spc-bg-mid block rounded-sm">Comment.
+                hx-swap="none" hx-select-oob="#comments:beforeend"
+                class="px-4 font-bold py-1 bg-spc-bg-mid block rounded-sm htmxenabl">Comment.
         </button>
     </div>
 <?php else: ?>
