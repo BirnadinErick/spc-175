@@ -44,7 +44,7 @@ import "@components/common/swup.css";
 <MobileNavButton />
 <HTMX />
 
-<script is:inline>
+<script>
     document.body.addEventListener("htmx:configRequest", function(e) {
         const queryStr = window.location.search;
         const searchParams = new URLSearchParams(queryStr);
