@@ -19,7 +19,12 @@ class Projects
     private function getProjectIdFromURL(): string|null
     {
         //get pid from URL Header and retrieve the content
-        $h = getallheaders()['HX-Current-URL'];
+        debug(var_export(getallheaders(), true), __FILE__);
+        if (getallheaders()['Hx-Current-Url']) {
+            $h = getallheaders()['Hx-Current-Url'];
+        } else {
+            $h = getallheaders()['HX-Current-URL'];
+        }
         $qs = parse_url($h, PHP_URL_QUERY);
         parse_str($qs, $qs);
 

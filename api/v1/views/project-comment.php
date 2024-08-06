@@ -1,10 +1,6 @@
-<?php if (gettype($cs) == "integer"): ?>
-    <p class="my-4">
-        No comments yet. Be the first to add your opinion
-    </p>
-<?php else: ?>
-    <div id="comments">
-        <?php foreach ($cs as $c): ?>
+<div id="comments">
+    <?php if (gettype($cs) !== "integer"):
+        foreach ($cs as $c): ?>
             <div class="my-4 border-l-2 pl-2 border-l-gray-500">
                 <p class="text-gray-400"><?= $c['fname'] . ' ' . $c['lname'] ?> says</p>
                 <p style="padding-left: 15px;">
@@ -12,8 +8,8 @@
                 </p>
             </div>
         <?php endforeach; ?>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
+</div>
 
 <?php if ($isAuth === true) : ?>
     <div class="space-y-2 py-4 htmxenable">
