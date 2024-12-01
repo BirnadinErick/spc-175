@@ -9,7 +9,8 @@ import PatricianNorms from "@components/home/PatricianNorms.astro";
 import MobileNavButton from "@components/common/MobileNavButton.astro";
 import StaggerText from "../components/common/stagger-text/StaggerText.astro";
 import HTMX from "../components/common/HTMX.astro";
-
+import PatricianHistoryVideo from "@components/home/PatricianHistoryVideo.astro"
+import CountDown from "@components/home/CountDown.astro";
 import "@fontsource/space-grotesk/400.css";
 import "@components/common/swup.css";
 ---
@@ -25,17 +26,14 @@ import "@components/common/swup.css";
 
 <main>
     <Hero />
+    <CountDown/>
+    <div class="hidden md:block">
+        <PatricianHistoryVideo/>
+    </div>
+    
+    
 
     <AboutText />
-
-    <section class="flex justify-around items-center">
-        <StaggerText>
-            <h1 class="text-[42px] sm:text-[60px] md:text-[80px] lg:text[100px] xl:text-[180px] 2xl:text-[240px] font-serif text-spc-gold font-bold content__title"
-                data-splitting data-stagger-text>
-                Fide et Labore
-            </h1>
-        </StaggerText>
-    </section>
 
     <PatricianToday />
 
@@ -43,10 +41,27 @@ import "@components/common/swup.css";
 
 </main>
 
-<MobileNavButton />
+<MobileNavButton/>
 
 <Footer />
 
+
 <HTMX />
 </body>
+<style>
+    .animate-text {
+  animation: fadeInUp 1s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+    </style>
 </html>

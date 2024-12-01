@@ -5,42 +5,84 @@ import "@fontsource/space-grotesk/400.css";
 
 import PrimaryCTA from "@components/common/PrimaryCTA.astro";
 import SecondaryCTA from "@components/common/SecondaryCTA.astro";
-import { get_app_route } from "../../config/global";
+import WordRotateDemo from "@components/common/WordRotateDemo.astro";
+import ShamrockBatch from "@components/common/ShamrockBatch.astro";
 ---
 
-<section
-  class="font-serif font-bold leading-none text-spc-light/80 bg-spc-dark px-6 mb-12 md:hidden"
->
-  <h2 class="text-4xl">celebrating</h2>
-  <h1 class="font-mono text-[128px] text-spc-gold font-bold">175</h1>
-  <h2 class="text-4xl">
-    years of <span class="text-white">fide et labore.</span>
-  </h2>
+<section class="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24">
+  <div class="absolute inset-0 opacity-10"></div>
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Mobile and Tablet -->
+    <div class="md:hidden">
+      <div class="leading-none text-spc-light/80 px-6 mb-12">
+        <h2 class="text-4xl font-serif font-bold">Celebrating</h2>
+        <h1 class="font-mono text-[128px] text-spc-gold font-bold">175</h1>
+        <h2 class="text-4xl font-serif font-bold">Years of <span class="text-white font-serif font-bold">Fide et Labore</span></h2>
+        <div class="mt-8 space-y-10 pb-8">
+          <PrimaryCTA text="How we feast it." url="/" />
+        </div>
+      </div>
+      <div class="w-full relative">
+        <div class="aspect-video rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
+          <video class="w-full h-full object-cover" muted autoplay loop playsinline>
+            <source src="/alma-mater.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="absolute -bottom-6 -right-6 flex items-center justify-center transform rotate-12 shadow-lg">
+          <span><ShamrockBatch /></span>
+        </div>
+      </div>
+    </div>
 
-  <div class="mt-8 space-y-4">
-    <PrimaryCTA text="how we feast it." url={get_app_route("175-timeline")} />
-    <SecondaryCTA text="learn about our 175 years" url="/alma-mater/history-of-the-college" />
-  </div>
-</section>
+    <!-- Desktop -->
+    <div class="hidden md:block">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-spc-light mb-5 text-center relative animate-float">
+          Celebrating
+          <span class="text-8xl font-bold text-green-800 tracking-wider transition-transform transform hover:scale-110">175</span> 
+          Years of 
+          <span class="relative inline-block">
+            <span class="text-spc-gold font-extrabold">Fide et Labore</span>
+            <div class="scribble"></div>
+          </span>
+        </h1>
 
-<section class="hidden md:block md:px-12 xl:px-96">
-  <div
-    class="space-y-2 xl:space-y-0 xl:flex justify-between align-bottom xl:relative"
-  >
-    <h1
-      class="w-4/5 leading-[90%] font-serif text-[48px] lg:text-[76px] bg-gradient-to-b from-spc-sea to-spc-gold inline-block text-transparent bg-clip-text"
-    >
-      St. Patrick's College celebrates 175 years of Fide et Labore
-    </h1>
+        <p class="mb-8 text-lg font-normal text-spc-light/70 lg:text-xl sm:px-16 xl:px-48">
+          "A 175-year legacy of faith and labor, paving the way for future leaders through quality education, rich tradition, and enduring integrity that shapes character."
+        </p>
 
-    <div class="mt-8 lg:mt-12 space-y-4 xl:absolute xl:bottom-0 xl:right-0">
-      <PrimaryCTA text="how we feast it." url="/175-timeline" />
+        <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+          <PrimaryCTA text="How we feast it." url="/" />
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="hidden md:block my-16 md:px-12 xl:px-36 rounded-md">
-  <video muted autoplay width="100%" height="auto" loop>
-    <source src="/alma-mater.mp4" type="video/mp4" />
-  </video>
-</section>
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  @keyframes scribble {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  .scribble {
+    height: 4px;
+    background: linear-gradient(to right, #4A8E3B, #FFC107);
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    animation: scribble 2s ease forwards;
+    opacity: 0.8;
+  }
+</style>

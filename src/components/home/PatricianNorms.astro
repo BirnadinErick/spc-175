@@ -1,11 +1,13 @@
 ---
+import "@fontsource/space-mono/700.css";
+import "@fontsource/space-grotesk/700.css";
+import "@fontsource/space-grotesk/400.css";
 import PrimaryCTA from "@components/common/PrimaryCTA.astro";
 import SecondaryCTA from "@components/common/SecondaryCTA.astro";
-import SectionTitle from "@components/common/SectionTitle.astro";
 import PatricianNorm from "./PatricianNorm.astro";
 
 const norms = [
-  ["Moto", "Fide et Labore."],
+  ["Motto", "Fide et Labore."],
   [
     "Mission",
     "Total commitment and optimum use of the resources to obtain the best quality in everyone.",
@@ -19,16 +21,32 @@ const norms = [
 ];
 ---
 
-<section class="px-6 my-20 md:px-12 xl:px-96">
-  <SectionTitle title="Patrician Norms." />
-  <div
-    class="mt-6 space-y-3 md:space-y-0 md:grid md:grid-cols-2 md:gap-4 last:row-span-2"
-  >
-    {norms.map((n) => <PatricianNorm norm={n[0]} desc={n[1]} />)}
-  </div>
-
-  <div class="mt-8 space-y-4">
-    <PrimaryCTA text="learn more on alma mater" url="/alma-mater/history-of-the-college" />
-    <SecondaryCTA text="get to know the staff" url="/administration/staff" />
+<section class="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24">
+  <div class="absolute inset-0 opacity-10"></div>
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="flex flex-col lg:flex-row items-center justify-between">
+      <div class="text-center lg:text-left mb-10 lg:mb-0 lg:w-1/2">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-spc-light/90 mb-2">Embracing</h2>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-mono font-bold text-spc-gold mb-2">
+          Patrician
+        </h1>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-spc-light/90">
+          Norms
+        </h2>
+        <p class="mt-4 text-base sm:text-lg text-spc-light/70 max-w-lg mx-auto lg:mx-0">
+          "Guiding principles that shape our educational journey and foster excellence in every Patrician."
+        </p>
+        <div class="mt-8 space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center lg:justify-start">
+          <PrimaryCTA text="Learn more on alma mater" url="/" />
+        </div>
+      </div>
+      <div class="w-full lg:w-1/2 mt-10 lg:mt-0">
+        <div class="bg-spc-dark/50 rounded-lg p-6 shadow-lg sm:p-8">
+          <div class="grid grid-cols- gap-4">
+            {norms.map((n) => <PatricianNorm norm={n[0]} desc={n[1]} />)}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

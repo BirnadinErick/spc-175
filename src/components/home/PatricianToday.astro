@@ -5,30 +5,36 @@ import SectionTitle from "@components/common/SectionTitle.astro";
 import PatricianTodayCard from "./PatricianTodayCard.astro";
 import { get_api_route } from "../../config/global";
 import Loader from "../common/Loader.astro";
-
-const dummyImg =
-  "https://unsplash.com/photos/o4mP43oPGHk/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjkyMTY0MTgzfA&force=true&w=1920";
 ---
 
-<section class="px-6 my-20 md:px-12 xl:px-96">
-  <SectionTitle title="Patrician Today." />
-  <div
-    class="htmxenable flex flex-no-wrap overflow-x-auto no-scrollbar scrolling-touch items-start my-6"
-    hx-get={get_api_route("read-blogs-latest")}
-    hx-trigger="every 300ms"
-    hx-swap="outerHTML"
-  >
-    <Loader />
-  </div>
-
-  <div class="mt-8 space-y-4">
-    <PrimaryCTA text="intrigued? read more" url="/blogs" />
-<!--
-    <SecondaryCTA
-      text="learn about editorial team, SPC Media Unit."
-      url="#"
-    />
--->
+<section class="relative overflow-hidden my-20 bg-spc-dark">
+  <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="flex flex-col md:flex-row items-center justify-between">
+      <div class="text-center md:text-left mb-10 md:mb-0 md:w-1/2">
+        <SectionTitle title="Patrician Today." />
+        <p class="mt-4 text-lg text-spc-light/70 max-w-lg mx-auto md:mx-0">
+          "Keeping you updated with the latest news and events from St. Patrick's College."
+        </p>
+      </div>
+      <div class="w-full md:w-1/2">
+        <div
+          class="htmxenable bg-spc-dark/40 rounded-lg p-6 shadow-lg overflow-x-auto no-scrollbar scrolling-touch"
+          hx-get={get_api_route("read-blogs-latest")}
+          hx-trigger="load, every 5m"
+          hx-swap="outerHTML"
+        >
+          <Loader />
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 space-y-4 text-center md:text-left">
+      <PrimaryCTA text="Intrigued? Read More" url="/blogs" />
+      <SecondaryCTA
+        text="Learn About Editorial Team, SPC Media Unit"
+        url="/editorial-team"
+      />
+    </div>
   </div>
 </section>
 

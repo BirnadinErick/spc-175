@@ -3,18 +3,17 @@ import logoOriginal from "~/assets/logo-original.png";
 import logo from "~/assets/logo.png";
 import { Image } from "astro:assets";
 
-const { dim }: { dim: number } = Astro.props;
+const { dim }: { dim?: number } = Astro.props; // Dim is an optional prop
 ---
 
-{
-  dim && (
-    <Image
-      src={logoOriginal}
-      alt="SPC Logo"
-      quality={100}
-      height={dim}
-      width={dim}
-    />
-  )
-}
-{!dim && <Image src={logo} alt="SPC Logo" quality={100} />}
+{dim ? (
+  <Image
+    src={logoOriginal}
+    alt="SPC Logo"
+    quality={100}
+    height={dim}
+    width={dim}
+  />
+) : (
+  <Image src={logo} alt="SPC Logo" quality={100} />
+)}

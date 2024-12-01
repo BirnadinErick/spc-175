@@ -1,0 +1,58 @@
+---
+// WordRotate.astro
+export interface Props {
+  class?: string;
+  words: string[];
+}
+
+const { class: className, words } = Astro.props;
+---
+
+<div class={`word-rotate ${className}`} data-word-rotate>
+  {words.map((word, index) => (
+    <span class={`word ${index === 0 ? 'active' : ''}`}>{word}</span>
+  ))}
+</div>
+
+<style>
+  .word-rotate {
+    position: relative;
+    display: inline-block;
+  }
+
+  .word {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .word.active {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  function rotateWords() {
+    const containers = document.querySelectorAll('[data-word-rotate]');
+    containers.forEach((container) => {
+      const words = container.querySelectorAll('.word');
+      let currentIndex = 0;
+
+      function rotate() {
+        words[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % words.length;
+        words[currentIndex].classList.add('active');
+      }
+
+      setInterval(rotate, 2000); // Change word every 2 seconds
+    });
+  }
+
+  // Run the rotation when the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', rotateWords);
+
+  // If using Astro's view transitions, also run on page changes
+  document.addEventListener('astro:page-load', rotateWords);
+</script>

@@ -1,0 +1,94 @@
+---
+---
+
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10"></div>
+  <div class="container mx-auto px-4 relative z-10">
+    
+
+    <div class="flex flex-wrap justify-center gap-8" id="countdown">
+      <div class="countdown-item">
+        <div class="text-5xl md:text-6xl lg:text-7xl font-bold text-spc-sea" id="days">00</div>
+        <div class="text-xl text-spc-light">Days</div>
+      </div>
+      <div class="countdown-item">
+        <div class="text-5xl md:text-6xl lg:text-7xl font-bold text-spc-sea" id="hours">00</div>
+        <div class="text-xl text-spc-light">Hours</div>
+      </div>
+      <div class="countdown-item">
+        <div class="text-5xl md:text-6xl lg:text-7xl font-bold text-spc-sea" id="minutes">00</div>
+        <div class="text-xl text-spc-light">Minutes</div>
+      </div>
+      <div class="countdown-item">
+        <div class="text-5xl md:text-6xl lg:text-7xl font-bold text-spc-sea" id="seconds">00</div>
+        <div class="text-xl text-spc-light">Seconds</div>
+      </div>
+    </div>
+    <h1 class="text-xl md:text-xl lg:text-3xl font-bold text-center text-white mb-10 pt-10" id="countdown-title">
+      Countdown to Our 175th Anniversary
+    </h1> <!-- Added an id to the h1 for easy selection -->
+  </div>
+</section>
+
+<style>
+  .countdown-item {
+    @apply bg-black bg-opacity-30 rounded-lg p-6 shadow-lg;
+    @apply flex flex-col items-center justify-center;
+    @apply w-36 h-36 md:w-44 md:h-44;
+    @apply transform transition-all duration-300 ease-in-out;
+  }
+
+  .countdown-item:hover {
+    @apply scale-110 bg-opacity-70;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+</style>
+
+<script>
+  const countdownElement = document.getElementById('countdown');
+  const daysElement = document.getElementById('days');
+  const hoursElement = document.getElementById('hours');
+  const minutesElement = document.getElementById('minutes');
+  const secondsElement = document.getElementById('seconds');
+  const anniversaryMessageElement = document.getElementById('countdown-title'); // Select the h1 element using id
+
+  const anniversaryDate = new Date('2025-03-17T00:00:00').getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = anniversaryDate - now;
+
+    if (distance < 0) {
+      clearInterval(countdownInterval);
+      if (countdownElement) {
+        countdownElement.innerHTML = "<h2 class='text-6xl font-bold text-spc-sea pb-32 text-center'>Happy 175th Anniversary!</h2>";
+      }
+      if (anniversaryMessageElement) {
+        anniversaryMessageElement.style.display = 'none'; // Hide the h1 element
+      }
+    } else {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (daysElement) daysElement.textContent = days.toString().padStart(2, '0');
+      if (hoursElement) hoursElement.textContent = hours.toString().padStart(2, '0');
+      if (minutesElement) minutesElement.textContent = minutes.toString().padStart(2, '0');
+      if (secondsElement) secondsElement.textContent = seconds.toString().padStart(2, '0');
+    }
+  }
+
+  const countdownInterval = setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Animation
+  const countdownItems = document.querySelectorAll('.countdown-item');
+  countdownItems.forEach((item, index) => {
+    item.style.animation = `pulse 2s ease-in-out ${index * 0.2}s infinite`;
+  });
+</script>
