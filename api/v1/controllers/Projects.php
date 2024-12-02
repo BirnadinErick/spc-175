@@ -94,6 +94,12 @@ class Projects
         exit(0);
     }
 
+    public function list()
+    {
+       echo "hello";
+       exit(0);
+    }
+
     public function detail(): void
     {
         //get projectid

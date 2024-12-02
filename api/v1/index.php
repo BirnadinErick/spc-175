@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 0);
 ini_set("log_errors", "On");
 
-define("DEBUG", false);
+define("DEBUG", true);
 
 function error_handler(int $errno, string $errstr, string $errfile, int $errll)
 {
@@ -65,7 +65,7 @@ include_once CONTROLLERS . "logout.php";
 include_once CONTROLLERS . "auth-state.php";
 include_once CONTROLLERS . "comments.php";
 include_once CONTROLLERS . "allowed-to-comment.php";
-include_once CONTROLLERS . "projects.php";
+// include_once CONTROLLERS . "projects.php";
 include_once CONTROLLERS . "posts.php";
 
 require_once CONTROLLERS . "Auth.php";
@@ -87,7 +87,7 @@ $routes = [
     "mobile-auth-state" => [$auth, "mobile_auth_state"],
     "comments" => "comments",
     "allowed-to-comment" => "allowed_to_comment",
-    "projects" => "projects",
+    "projects" => [$projects, "list"],
     "project-comment" => [$projects, "comment"],
     "save-post" => "save_post",
     "read-post" => "read_post",

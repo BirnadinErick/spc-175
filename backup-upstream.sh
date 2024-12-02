@@ -18,7 +18,7 @@ read_xml "$xml_file"
 
 # Connect to SFTP server and download all documents
 echo "Downloading documents from server..."
-sftp $username@$server <<EOF
+sftp -o PubKeyAuthentication=no $username@$server <<EOF
 get -r ./* "$backup_dir"
 exit
 EOF

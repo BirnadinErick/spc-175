@@ -41,13 +41,13 @@ read_xml "$xml_file"
 
 # Transfer files via sftp
 echo "Transferring files to server..."
-sftp $username@$server <<EOF
+sftp -o PubKeyAuthentication=no $username@$server <<EOF
 put -r app/*
 exit
 EOF
 
 # run composer
-ssh u115512932@access996536472.webspace-data.io "cd api/v1 && /usr/bin/php8.2-cli ~/composer.phar update"
+ssh u115512932@access996536472.webspace-data.io -o PubKeyAuthentication=no "cd api/v1 && /usr/bin/php8.2-cli ~/composer.phar update"
 
 rm fend-build.log
 
