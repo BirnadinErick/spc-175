@@ -10,6 +10,7 @@ use BumpCore\EditorPhp\Helpers;
 use CommentsModel;
 use Faker\Extension\Helper;
 use JetBrains\PhpStorm\NoReturn;
+use NumberFormatter;
 use ProjectsModel;
 use tinyfuse\lib\Constants;
 use tinyfuse\models\UsersModel;
@@ -71,21 +72,21 @@ class Projects
 
         //add comment to database
         $cid = $comments->addComment($pid, $comment, $uid);
-        if (gettype($cid) == "boolean"){
+        if (gettype($cid) == "boolean") {
             debug("failed to record comment for project $pid from user $uid", __FILE__);
             http_response_code((int)Constants::InternalError);
             exit(1);
         }
         //relate project with comment
         $r = $comments->addProjectComment($pid, $cid);
-        if ($r === false){
+        if ($r === false) {
             debug("failed to relate comment $cid with project $pid", __FILE__);
             http_response_code((int)Constants::InternalError);
             exit(1);
         }
 
         // http_response_code((int)Constants::Created);
-        echo Helpers::renderNative(VIEWS.'project-new-comment-fragment.php', ['c'=>[
+        echo Helpers::renderNative(VIEWS . 'project-new-comment-fragment.php', ['c' => [
             'fname' => $user->get_decorated_name($_SESSION['email']),
             'lname' => '',
             'comment' => $comment
@@ -96,8 +97,15 @@ class Projects
 
     public function list()
     {
-       echo "hello";
-       exit(0);
+        $projects = new ProjectsModel();
+        $results = $projects->getProjects();
+        $currency_fmt = numfmt_create('de_DE', NumberFormatter::CURRENCY);
+
+        echo Helpers::renderNative(VIEWS . 'projects-list.php', [
+            'results' => $results,
+            'currency_fmt' => $currency_fmt
+        ]);
+        exit(0);
     }
 
     public function detail(): void
