@@ -49,6 +49,7 @@ class Malachi
             return true;
         } catch (Exception $e) {
             debug("Marachi failed.", __FILE__);
+            debug($e->getMessage(), __FILE__);
             return false;
         }
     }

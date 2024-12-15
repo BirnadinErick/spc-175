@@ -3,7 +3,7 @@ import Countries from "./Countries.astro";
 import { get_api_route } from "../../config/global";
 ---
 
-<form hx-post={get_api_route("signin")} hx-swap="outerHTML">
+<form hx-post={get_api_route("signin")} hx-swap="outerHTML" class="htmxenable">
     <div class="mb-4">
         <label class="block mb-1" for="fname">First name</label>
         <div
