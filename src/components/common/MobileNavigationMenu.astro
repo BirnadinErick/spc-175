@@ -71,6 +71,47 @@ const {manifest}:{manifest: typeof NEW_NAVS;} = Astro.props;
                     </a>
             )
         )}
+        <div
+            x-data="{ expanded: false }"
+        >
+            <button
+                class="text-lg font-bold mb-2 flex justify-between space-x-8 w-full items-center"
+                @click="expanded = ! expanded"
+            >
+                <span>Alumni</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewbox="0 0 24 24"
+                    stroke-width="3.5"
+                    stroke="currentcolor"
+                    class="size-4 transform transition-transform duration-500 ease-out"
+                    :class="expanded ? 'rotate-90' : 'rotate-0'">
+                    >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                    />
+                </svg>
+            </button>
+            <ul x-show="expanded" x-collapse class="pl-2 space-y-2">
+                <li>
+                    <a href="http://www.spcaustralia.com/"
+                       x-on:click="open = false" target="_blank"
+                       class="flex justify-between items-center group">
+                        Australia
+                    </a>
+                </li>
+                    <li>
+                        <a href="https://patrician.org.uk/"
+                           x-on:click="open = false" target="_blank"
+                           class="flex justify-between items-center group">
+                            UK
+                        </a>
+                    </li>
+            </ul>
+        </div>
         <div id="navbar-auth-mobile" hx-get={get_api_route("mobile-auth-state")} hx-swap="innerHTML" hx-trigger="load delay:200ms"
             class="htmxenable">
             <Loader />

@@ -107,16 +107,19 @@ $request_uri = $_GET["p"];
 if (array_key_exists($request_uri, $routes)) {
     $handler = $routes[$request_uri];
 
-//    debug("ROUTER: $handler[1]", __FILE__);
+    $allowedOrigins = ['https://spcjaffna-beta.org', 'https://www.spcjaffna-beta.org'];
+    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-    if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+    if (in_array($origin, $allowedOrigins)) {
+        header("Access-Control-Allow-Origin: $origin");
         header("Access-Control-Allow-Credentials: true");
         header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-        header("Access-Control-Allow-Headers: *");
-        header("Access-Control-Allow-Origin: *");
-
+        header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+        header("Access-Control-Max-Age: 3600"); // 1 hr
+    }
+    if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
         http_response_code(200);
-        die(0);
+        exit(0);
     }
 
     // only during migration phase
