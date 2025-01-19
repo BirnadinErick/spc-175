@@ -23,18 +23,25 @@
 >
     <div class="py-1" role="none">
         <!--general profile actions-->
-        <a href="<?= SERVER . '/iam/me' ?>"
-           class="font-bold block px-4 py-2 text-sm hover:bg-spc-gold hover:text-black transition-colors duration-200 ease-in-out"
-           role="menuitem" tabindex="-1">Edit Profile</a>
-        <a href="<?= SERVER . '/projects/mine' ?>"
-           class="font-bold block px-4 py-2 text-sm hover:bg-spc-gold hover:text-black transition-colors duration-200 ease-in-out"
-           role="menuitem" tabindex="-1">My Projects</a>
-        <a href="<?= SERVER . '/iam/log' ?>"
-           class="font-bold block px-4 py-2 text-sm hover:bg-spc-gold hover:text-black transition-colors duration-200 ease-in-out"
-           role="menuitem" tabindex="-1">My Activity</a>
+<!--        <a href="--><?php //= SERVER . '/iam/me' ?><!--"-->
+<!--           class="font-bold block px-4 py-2 text-sm hover:bg-spc-gold hover:text-black transition-colors duration-200 ease-in-out"-->
+<!--           role="menuitem" tabindex="-1">Edit Profile</a>-->
+<!--        <a href="--><?php //= SERVER . '/projects/mine' ?><!--"-->
+<!--           class="font-bold block px-4 py-2 text-sm hover:bg-spc-gold hover:text-black transition-colors duration-200 ease-in-out"-->
+<!--           role="menuitem" tabindex="-1">My Projects</a>-->
+<!--        <a href="--><?php //= SERVER . '/iam/log' ?><!--"-->
+<!--           class="font-bold block px-4 py-2 text-sm hover:bg-spc-gold hover:text-black transition-colors duration-200 ease-in-out"-->
+<!--           role="menuitem" tabindex="-1">My Activity</a>-->
 
         <hr />
         <!--special profile actions-->
+        <?php if ($is_user_padmin): ?>
+            <a href="<?= SERVER . '/projects/admin' ?>"
+               class="font-bold block px-4 py-2 text-sm hover:bg-spc-gold hover:text-black transition-colors duration-200 ease-in-out"
+               role="menuitem" tabindex="-1">
+                Manage Projects
+            </a>
+        <?php endif; ?>
         <?php if ($is_user_editor): ?>
             <a href="<?= SERVER . '/author' ?>"
                class="font-bold block px-4 py-2 text-sm hover:bg-spc-gold hover:text-black transition-colors duration-200 ease-in-out"

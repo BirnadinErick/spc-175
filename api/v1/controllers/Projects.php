@@ -126,4 +126,68 @@ class Projects
         echo Helpers::renderNative(VIEWS . 'project-detail.php', ['p' => $p]);
     }
 
+    function available_projects()
+    {
+        $c = new ProjectsModel();
+        $cs = $c->getProjects();
+        echo Helpers::renderNative(VIEWS.'available-projects.php', [
+            "cs"=>$cs
+        ]);
+    }
+
+    public function projects_edit(): void
+    {
+        session_start();
+        if (!isset($_SESSION["email"])) {
+            debug("annonymous project edit attempt", __FILE__);
+            http_response_code(401);
+            exit(1);
+        }
+
+        $users = new UsersModel();
+        $projects = new ProjectsModel();
+        if (!$users->check_roles_exist(PROJADMIN_ROLE, $_SESSION["email"])) {
+            debug("unauthorized projects edit attempt", __FILE__);
+            http_response_code(401);
+            exit(1);
+        }
+
+        $headers = getallheaders();
+        $url = $headers['HX-Current-URL'];
+        $parsed_url = parse_url($url);
+        $qstr = $parsed_url['query'] ?? "";
+        $q=[];
+        parse_str($qstr, $q);
+        $id = $q['path'];
+        debug("current id:". $id, __FILE__);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+            $proj = $projects->getProject($id);
+            debug(var_export($proj, true), __FILE__);
+            echo Helpers::renderNative(VIEWS . 'edit-project.php' , ['proj'=>$proj]);
+            exit(0);
+        }
+
+        $formData = [
+            'project_title' => $_POST['project_title'] ?? null,
+            'desc'          => $_POST['desc'] ?? null,
+            'deadline'      => $_POST['deadline'] ?? null,
+            'amount'        => $_POST['amount'] ?? null,
+            'status'        => $_POST['status'] ?? null,
+            'id'=> $id,
+        ];
+        debug(var_export($formData, true), __FILE__);
+        $res = $projects->editProject($formData);
+        if (!$res) {
+            debug("project edit failed", __FILE__);
+            echo 'Something went wrong, please hard refresh and try again';
+            exit(1);
+        }
+
+        http_response_code(307);
+        echo 'Saved changes.';
+        exit(0);
+
+    }
 }

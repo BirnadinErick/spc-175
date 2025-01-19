@@ -43,8 +43,9 @@ class Auth
         $user_name = $user->get_decorated_name($_SESSION["email"]);
         $is_user_editor = $user->check_roles_exist(EDITOR_ROLE, $_SESSION["email"]);
         $is_user_sadmin = $user->check_roles_exist(SUPADMIN_ROLE, $_SESSION["email"]);
+        $is_user_padmin = $user->check_roles_exist(PROJADMIN_ROLE, $_SESSION["email"]);
 
-        echo Helpers::renderNative(VIEWS . "auth-ok-navbar.php", ["is_user_editor" => $is_user_editor, "is_user_sadmin" => $is_user_sadmin, "user_name" => $user_name]);
+        echo Helpers::renderNative(VIEWS . "auth-ok-navbar.php", ["is_user_editor" => $is_user_editor, "is_user_sadmin" => $is_user_sadmin, "user_name" => $user_name, "is_user_padmin"=>$is_user_padmin]);
         session_write_close();
         exit(0);
     }
