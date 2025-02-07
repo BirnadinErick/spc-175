@@ -7,8 +7,8 @@ ini_set("log_errors", "On");
 define("DEBUG", true);
 
 // flags
-const FLAGS_AUTH = false;
-const LOG_DEBUG = true;
+const FLAGS_AUTH = true;
+const LOG_DEBUG_FS = true;
 
 function error_handler(int $errno, string $errstr, string $errfile, int $errll)
 {
@@ -16,8 +16,8 @@ function error_handler(int $errno, string $errstr, string $errfile, int $errll)
     $msg = "$time $errno [$errfile::$errll] | $errstr";
     error_log($msg . PHP_EOL, 3, "error_log.txt");
 
-    if (DEBUG) {
-        $msg = "[$errfile] $errstr";
+    if (LOG_DEBUG_FS) {
+        $msg = "ERR[$errfile] $errstr";
         error_log($msg . PHP_EOL, 3, "debug_log.txt");
     }
 }
@@ -26,7 +26,7 @@ set_error_handler("error_handler");
 
 function debug(string $str, string $file)
 {
-    if (!LOG_DEBUG) {
+    if (!LOG_DEBUG_FS) {
         return;
     }
 
