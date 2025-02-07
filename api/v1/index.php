@@ -144,6 +144,7 @@ $routes = [
     "read-content-raw" => [$contents, "read_content_raw"],
     "update-content" => [$contents, "update_content"],
     "delete-content" => [$contents, "delete_content"],
+    // "migrate-contentv2" => [$contents, "migrate"],
 
     "save-blog" => "save_blog",
     "create-blog" => "create_blog",

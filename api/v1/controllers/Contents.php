@@ -9,7 +9,6 @@ require_once MODELS . 'ContentsV2Model.php';
 
 use BumpCore\EditorPhp\Helpers;
 use ContentsModel;
-use PHPMailer\PHPMailer\Exception;
 use tinyfuse\lib\contentengine\ContentEngine;
 use tinyfuse\models\ContentsV2Model;
 use tinyfuse\models\UsersModel;
@@ -50,7 +49,7 @@ class Contents
             exit(1);
         }
 
-        $content = $this->contents_v2->get_rendered_content("posts" . $path . ".html");
+        $content = $this->contents_v2->get_rendered_content($path);
         if ($content === null) {
             debug("content not found" . var_export($content, true), __FILE__);
             echo Helpers::renderNative(VIEWS . '404.html', []);
@@ -60,7 +59,7 @@ class Contents
         echo $content;
     }
 
-    public function read_content_raw():void
+    public function read_content_raw(): void
     {
         ensure_request_method("GET");
 
@@ -78,7 +77,7 @@ class Contents
             exit(1);
         }
 
-        if (!isset($_GET['path'])){
+        if (!isset($_GET['path'])) {
             debug("read_raw: no path in request", __FILE__);
             http_response_code(HTTP_STATUS_BAD_REQUEST);
             exit(1);
@@ -118,8 +117,8 @@ class Contents
         }
 
         if (!isset($_GET['path'])) {
-           http_response_code(HTTP_STATUS_BAD_REQUEST);
-           exit(1);
+            http_response_code(HTTP_STATUS_BAD_REQUEST);
+            exit(1);
         }
 
         $path = $_GET['path'];
@@ -131,43 +130,52 @@ class Contents
             exit(1);
         }
     }
-   public function update_content(): void
-   {
-       ensure_request_method("POST");
 
-       session_start();
-       if (!isset($_SESSION["email"])) {
-           debug("annonymous post save attempt", __FILE__);
-           http_response_code(401);
-           exit(1);
-       }
+    public function update_content(): void
+    {
+        ensure_request_method("POST");
 
-       if (!$this->users->check_roles_exist(EDITOR_ROLE, $_SESSION["email"])) {
-           debug("unauthorized post save attempt", __FILE__);
-           http_response_code(HTTP_STATUS_UNAUTHORIZED);
-           exit(1);
-       }
-       $email = $_SESSION['email'];
-       $user_id = $this->users->get_user_id($email);
+        session_start();
+        if (!isset($_SESSION["email"])) {
+            debug("annonymous post save attempt", __FILE__);
+            http_response_code(401);
+            exit(1);
+        }
 
-       if (!isset($_POST['path']) || !isset($_POST['data'])){
-           debug("read_raw: no path in request", __FILE__);
-           http_response_code(HTTP_STATUS_BAD_REQUEST);
-           exit(1);
-       }
+        if (!$this->users->check_roles_exist(EDITOR_ROLE, $_SESSION["email"])) {
+            debug("unauthorized post save attempt", __FILE__);
+            http_response_code(HTTP_STATUS_UNAUTHORIZED);
+            exit(1);
+        }
+        $email = $_SESSION['email'];
+        $user_id = $this->users->get_user_id($email);
 
-       $data_raw = $_POST['data'];
-       $path = $_POST['path'];
-       $ok = $this->contents_v2->update($path, $user_id, $data_raw, $this->engine->render($data_raw));
-       if (!$ok) {
-           debug("updateing content: $path failed!", __FILE__);
-           http_response_code(HTTP_STATUS_SERVER_ERROR);
-           exit(1);
-       }
+        if (!isset($_POST['path']) || !isset($_POST['data'])) {
+            debug("read_raw: no path in request", __FILE__);
+            http_response_code(HTTP_STATUS_BAD_REQUEST);
+            exit(1);
+        }
 
-       session_write_close();
-       http_response_code(HTTP_STATUS_SAVED);
-       exit(0);
-   }
+        $data_raw = $_POST['data'];
+        $path = $_POST['path'];
+        $ok = $this->contents_v2->update($path, $user_id, $data_raw, $this->engine->render($data_raw));
+        if (!$ok) {
+            debug("updateing content: $path failed!", __FILE__);
+            http_response_code(HTTP_STATUS_SERVER_ERROR);
+            exit(1);
+        }
 
+        session_write_close();
+        http_response_code(HTTP_STATUS_SAVED);
+        exit(0);
+    }
+
+    public function migrate(): void
+    {
+        if ($this->contents_v2->migrate_metadata()){
+            echo "done!";
+        }else {
+            echo "failed";
+        }
+    }
 }
