@@ -87,9 +87,9 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
         }
 
         try {
-            const URL = get_api_route("read-post") + "&path=" + path;
+            const URL = get_api_route("read-content-raw") + "&path=" + path;
             const req = await fetch(URL, {
-                method: "POST",
+                method: "GET",
                 credentials: "include"
             });
 
@@ -169,9 +169,10 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
         formBody.append("data", JSON.stringify(data));
 
         try {
-            const res = await fetch(get_api_route("save-post"), {
+            const res = await fetch(get_api_route("update-content"), {
                 method: "POST",
-                body: formBody
+                body: formBody,
+                credentials: "include"
             });
 
             if (res.status != 204) {
@@ -179,6 +180,11 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
             }
 
             console.info("new data saved");
+            saveEditorBtn.outerHTML = "Saved! Redirecting to dashboard...";
+
+            setTimeout(()=> {
+                window.location = "/author"
+            }, 2000);
         } catch (e) {
             console.debug("failed to POST");
             console.error(e);

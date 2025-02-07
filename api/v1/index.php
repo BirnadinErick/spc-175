@@ -9,6 +9,14 @@ define("DEBUG", true);
 // flags
 const FLAGS_AUTH = true;
 const LOG_DEBUG_FS = true;
+const MALACHI = false;
+
+// status codes
+const HTTP_STATUS_BAD_REQUEST = 400;
+const HTTP_STATUS_UNAUTHORIZED = 401;
+const HTTP_STATUS_NOT_FOUND = 404;
+const HTTP_STATUS_SAVED = 204;
+const HTTP_STATUS_SERVER_ERROR = 500;
 
 function error_handler(int $errno, string $errstr, string $errfile, int $errll)
 {
@@ -32,6 +40,11 @@ function debug(string $str, string $file)
 
     $msg = "[$file] $str";
     error_log($msg . PHP_EOL, 3, "debug_log.txt");
+}
+
+function current_time():string
+{
+    return date('Y-m-d');
 }
 
 /* IAM Roles Def
@@ -62,6 +75,17 @@ if (DEBUG) {
     define("ENV", ".prod");
 }
 
+// utils
+
+function ensure_request_method(string $method_to_check = "GET"): void
+{
+    if ($_SERVER["REQUEST_METHOD"] !== $method_to_check) {
+        http_response_code(400);
+        echo("Our Engineers screwed up something, sorry. Please refresh the page");
+        exit(1);
+    }
+}
+
 require __DIR__ . '/vendor/autoload.php';
 
 // env var initialization
@@ -82,6 +106,7 @@ require_once CONTROLLERS . "Projects.php";
 require_once CONTROLLERS . "Contents.php";
 
 require_once APP . "lib/Malachi.php";
+require_once APP . "lib/contentengine/ContentEngine.php";
 
 use tinyfuse\controllers\Auth;
 use tinyfuse\controllers\Contents;
@@ -114,6 +139,11 @@ $routes = [
     "read-post-raw" => "read_post_raw",
     "create-post" => "create_post",
     "available-contents" => "available_contents",
+
+    /* contents v2 */
+    "read-content-raw" => [$contents, "read_content_raw"],
+    "update-content" => [$contents, "update_content"],
+    "delete-content" => [$contents, "delete_content"],
 
     "save-blog" => "save_blog",
     "create-blog" => "create_blog",
