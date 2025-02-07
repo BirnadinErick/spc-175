@@ -2,11 +2,6 @@
 
 class BaseModel
 {
-    /*    protected string $dsn = 'mysql:';
-        protected string $username = "spc";
-        protected string $password = "spcmediaunit2023";
-    */
-
     protected string $dsn = 'mysql:';
     protected string $username = '';
     protected string $password = '';

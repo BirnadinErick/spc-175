@@ -29,6 +29,10 @@ class Auth
 
     #[NoReturn] public function auth_state(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
         session_start();
         debug("auth_state handler invoke", __FILE__);
 
@@ -55,6 +59,10 @@ class Auth
      */
     public function login(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
         session_start();
         if (isset($_SESSION["email"])) {
             header("Location: " . SERVER . "/");
@@ -101,6 +109,10 @@ class Auth
 
     #[NoReturn] public function signin(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             http_response_code(400);
             exit(1);
@@ -169,6 +181,10 @@ class Auth
 
     public function activate_user(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
         $magiclink = base64_decode($_GET['code']);
         $magiclink = openssl_decrypt($magiclink, $this->method, $this->key, $this->options, $this->iv);
         $magiclink = json_decode($magiclink);
@@ -191,6 +207,10 @@ class Auth
 
     #[NoReturn] public function mobile_auth_state(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
        session_start();
 
        if (isset($_SESSION['email'])){

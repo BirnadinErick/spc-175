@@ -219,13 +219,86 @@ function read_post_html()
     }
 
     $contents = new ContentsModel();
-    $content = $contents->read_content($path);
-    if ($content === false) {
+    $content = $contents->read_content("posts" . $path . ".html");
+    if ($content === null) {
         debug("content not found" . var_export($content, true), __FILE__);
         echo Helpers::renderNative(VIEWS . '404.html', []);
         exit(1);
     }
-    $json = bzdecompress($content["data"]);
+
+    echo $content;
+}
+
+function read_post_raw()
+{
+    $paths = ["/co-curriculum/clubs", "/alma-mater/founders", "/administration/vice-rector", "/alma-mater/our-spirituality", "/alma-mater/coat-of-arms", "/alma-mater/college-anthem", "/students/college-sections", "/alma-mater/rectors", "/alma-mater/history-of-the-college", "/administration/deputy-principals", "/students/prefects", "/blogs/entry?p=new-website-release", "/administration/rector", "/academics/news", "/academics/achievements", "/alma-mater/motto-vision-mission", "/administration/staff", "/administration/managing-committee", "/facilities"];
+    $contents = new ContentsModel();
+
+    foreach ($paths as $p) {
+        $content = $contents->read_content_raw($p);
+        if ($content === false) {
+            debug("content not found, path: " . $p, __FILE__);
+            echo $p . "not available";
+            continue;
+        }
+
+        $json = bzdecompress($content["data"]);
+        EditorPhp::register([
+            "imageGallery" => CustomImageGallery::class,
+            "image" => CustomSimpleImage::class,
+            "delimiter" => CustomDelimiter::class,
+            "embed" => CustomYoutubeEmbed::class,
+        ]);
+        $render = EditorPhp::make($json)->render();
+
+        echo $render;
+        if (!$contents->writeToFS("posts" . $p . ".html", $render)) {
+            debug($p . "failed to write", __FILE__);
+        }
+    }
+    http_response_code(200);
+    exit(0);
+}
+
+function create_post_new()
+{
+    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+        http_response_code(400);
+        echo("Our Engineers screwed up something, sorry. Please refresh the page");
+        exit(1);
+    }
+
+
+    session_start();
+    if (!isset($_SESSION["email"])) {
+        debug("annonymous post save attempt", __FILE__);
+        http_response_code(401);
+        exit(1);
+    }
+
+    $users = new UsersModel();
+    $contents = new ContentsModel();
+
+    if (!$users->check_roles_exist(EDITOR_ROLE, $_SESSION["email"])) {
+        debug("unauthorized post save attempt", __FILE__);
+        http_response_code(401);
+        exit(1);
+    }
+
+    $path = $_POST["path"];
+    $data = $_POST["data"];
+    $uid = uniqid('spc_media_unit_', true);
+    $user_id = $users->get_user_id($_SESSION["email"]);
+    $compressed_data = bzcompress($data, 9);
+
+    try {
+        $contents->write_content($path, $uid, $user_id, $compressed_data);
+    } catch (Exception $ex) {
+        session_write_close();
+        debug("writing failed", __FILE__);
+        http_response_code(500);
+        exit(1);
+    }
 
     EditorPhp::register([
         "imageGallery" => CustomImageGallery::class,
@@ -233,11 +306,18 @@ function read_post_html()
         "delimiter" => CustomDelimiter::class,
         "embed" => CustomYoutubeEmbed::class,
     ]);
-    $render = EditorPhp::make($json)->render();
+    $render = EditorPhp::make($data)->render();
+    if (!$contents->writeToFS("posts" . $p . ".html", $render)) {
+        debug($p . "failed to write", __FILE__);
+        session_write_close();
+        http_response_code(500);
+        exit(1);
+    }
 
-    echo $render;
-    http_response_code(200);
+    session_write_close();
+    http_response_code(201);
     exit(0);
+
 }
 
 function create_post()
@@ -383,7 +463,7 @@ function read_blog_html()
     $tags = explode(',', $meta['tags']);
 
     echo Helpers::renderNative(VIEWS . 'skeleton-entry.php', [
-        'path'=>$path,
+        'path' => $path,
         'date' => $content['updated_at'],
         'uid' => $content['uid'],
         'title' => $meta['title'],
@@ -399,8 +479,8 @@ function available_contents()
 {
     $c = new ContentsModel();
     $cs = $c->get_contents();
-    echo Helpers::renderNative(VIEWS.'available-contents.php', [
-        "cs"=>$cs
+    echo Helpers::renderNative(VIEWS . 'available-contents.php', [
+        "cs" => $cs
     ]);
 }
 
@@ -437,7 +517,53 @@ function read_blog_list()
 
 }
 
-function read_blogs_latest() {
+function migrate()
+{
+    $contents = new ContentsModel();
+    $posts = $contents->get_contents();
+
+    foreach ($posts as $content) {
+        $json = bzdecompress($content["data"]);
+        EditorPhp::register([
+            "imageGallery" => CustomImageGallery::class,
+            "image" => CustomSimpleImage::class,
+            "delimiter" => CustomDelimiter::class,
+            "embed" => CustomYoutubeEmbed::class,
+        ]);
+        $render = EditorPhp::make($json)->render();
+
+        debug($content['path'], __FILE__);
+        $fname = sanitizeFilename($content['path']);
+        $fname_json = sanitizeFilename($content['path'], 'json');
+
+        echo "writing $fname...";
+        if (file_put_contents("posts_raw/json/" . $fname_json, $json) === false || file_put_contents("posts_raw/" . $fname, $render) === false) {
+            debug("writeFS failed: $fname", __FILE__);
+            echo "Something is wrong";
+            exit(0);
+        }
+        echo "<br/>";
+    }
+    echo "done.";
+}
+
+function sanitizeFilename(string $pathString, string $defaultExtension = 'html'): string
+{
+    $filename = preg_replace('/[\/\\\\:*?"<>|]/', '_', $pathString);
+    $filename = trim($filename, " .");
+
+    if (empty($filename)) {
+        $filename = 'default_filename';
+    }
+
+    if (!pathinfo($filename, PATHINFO_EXTENSION)) {
+        $filename .= ".$defaultExtension";
+    }
+    return substr($filename, 0, 255);
+}
+
+function read_blogs_latest()
+{
     if ($_SERVER["REQUEST_METHOD"] !== "GET") {
         http_response_code(400);
         echo("Our Engineers screwed up something, sorry. Please refresh the page");
@@ -449,7 +575,7 @@ function read_blogs_latest() {
 
     $response = '<div class="flex flex-no-wrap overflow-x-auto no-scrollbar scrolling-touch items-start my-6" >';
     foreach ($blogs as $b) {
-        $response .= Helpers::renderNative(VIEWS.'home-blogs-list.php', $b);
+        $response .= Helpers::renderNative(VIEWS . 'home-blogs-list.php', $b);
     }
     $response .= '</div>';
 

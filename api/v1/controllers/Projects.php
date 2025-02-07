@@ -34,6 +34,12 @@ class Projects
 
     #[NoReturn] public function comment(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(200);
+            echo "Feature not yet available.";
+            exit(0);
+        }
+
         //get projectid
         $pid = $this->getProjectIdFromURL();
         if (is_null($pid)) {
@@ -137,6 +143,10 @@ class Projects
 
     public function projects_edit(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
         session_start();
         if (!isset($_SESSION["email"])) {
             debug("annonymous project edit attempt", __FILE__);

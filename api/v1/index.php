@@ -6,6 +6,10 @@ ini_set("log_errors", "On");
 
 define("DEBUG", true);
 
+// flags
+const FLAGS_AUTH = false;
+const LOG_DEBUG = true;
+
 function error_handler(int $errno, string $errstr, string $errfile, int $errll)
 {
     $time = time();
@@ -17,10 +21,15 @@ function error_handler(int $errno, string $errstr, string $errfile, int $errll)
         error_log($msg . PHP_EOL, 3, "debug_log.txt");
     }
 }
+
 set_error_handler("error_handler");
 
 function debug(string $str, string $file)
 {
+    if (!LOG_DEBUG) {
+        return;
+    }
+
     $msg = "[$file] $str";
     error_log($msg . PHP_EOL, 3, "debug_log.txt");
 }
@@ -59,50 +68,61 @@ require __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, ENV);
 $dotenv->load();
 
+
 include_once CONTROLLERS . "signin.php";
 include_once CONTROLLERS . "login.php";
 include_once CONTROLLERS . "logout.php";
 include_once CONTROLLERS . "auth-state.php";
 include_once CONTROLLERS . "comments.php";
 include_once CONTROLLERS . "allowed-to-comment.php";
-// include_once CONTROLLERS . "projects.php";
 include_once CONTROLLERS . "posts.php";
 
 require_once CONTROLLERS . "Auth.php";
 require_once CONTROLLERS . "Projects.php";
-require_once APP."lib/Malachi.php";
+require_once CONTROLLERS . "Contents.php";
+
+require_once APP . "lib/Malachi.php";
 
 use tinyfuse\controllers\Auth;
+use tinyfuse\controllers\Contents;
 use tinyfuse\controllers\Projects;
 
 $auth = new Auth();
 $projects = new Projects();
+$contents = new Contents();
 
 $routes = [
     "signin" => [$auth, "signin"],
     "login" => [$auth, "login"],
     "logout" => "logout",
-    "activate-user"=> [$auth, "activate_user"],
+    "activate-user" => [$auth, "activate_user"],
     "auth-state" => [$auth, "auth_state"],
     "mobile-auth-state" => [$auth, "mobile_auth_state"],
+
     "comments" => "comments",
     "allowed-to-comment" => "allowed_to_comment",
+
     "projects" => [$projects, "list"],
     "project-comment" => [$projects, "comment"],
-    "save-post" => "save_post",
-    "read-post" => "read_post",
-    "read-post-html" => "read_post_html",
-    "create-post" => "create_post",
-    "available-contents" => "available_contents",
     "available-projects" => [$projects, "available_projects"],
     "projects-edit" => [$projects, "projects_edit"],
+    "project-detail" => [$projects, "detail"],
+
+    "save-post" => "save_post",
+    "read-post" => "read_post",
+    "read-post-html" => [$contents, "read_content_html"],
+    "read-post-raw" => "read_post_raw",
+    "create-post" => "create_post",
+    "available-contents" => "available_contents",
+
     "save-blog" => "save_blog",
     "create-blog" => "create_blog",
     "read-blog-html" => "read_blog_html",
     "read-blog-feat" => "read_blog_feat",
     "read-blog-list" => "read_blog_list",
     "read-blogs-latest" => "read_blogs_latest",
-    "project-detail" => [$projects, "detail"]
+
+    "migrate" => "migrate"
 ];
 $request_uri = $_GET["p"];
 

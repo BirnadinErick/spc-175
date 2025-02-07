@@ -72,7 +72,7 @@ class ContentsModel extends BaseModel
         return $text;
     }
 
-    function read_content(string $path)
+    function read_content_raw(string $path)
     {
         debug("ContentsModel received $path", __FILE__);
         $sql = 'SELECT * FROM contents WHERE path = ? OR path = ?';
@@ -81,9 +81,27 @@ class ContentsModel extends BaseModel
         return $stmt->fetch();
     }
 
+    function read_content(string $path): string|null
+    {
+        debug("read_content_html: $path", __FILE__);
+
+        if (!file_exists($path)) {
+            debug("read_content_html: $path 404", __FILE__);
+            return null;
+        }
+
+        $content = file_get_contents($path);
+        if ($content === false) {
+            debug("read_content_html: $path failed to read.", __FILE__);
+            return null;
+        }
+
+        return $content;
+    }
+
     public function get_contents()
     {
-        $sql = 'SELECT DISTINCT path, updated_at as time  FROM contents';
+        $sql = 'SELECT DISTINCT path, updated_at as time, data  FROM contents';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -133,7 +151,8 @@ class ContentsModel extends BaseModel
         return $blogs[0];
     }
 
-    public function get_latest_blogs() {
+    public function get_latest_blogs()
+    {
         $sql = "SELECT updated_at, path, meta FROM contents WHERE meta != '' AND meta IS NOT NULL ORDER BY updated_at DESC LIMIT 10";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
@@ -145,9 +164,9 @@ class ContentsModel extends BaseModel
             $meta = json_decode($meta, true);
             $output[] = [
                 "cover" => $meta['cover'],
-                "title"=>$meta['title'],
-                "href"=>$b['path'],
-                "date"=>$b["updated_at"]
+                "title" => $meta['title'],
+                "href" => $b['path'],
+                "date" => $b["updated_at"]
             ];
         }
 
@@ -178,5 +197,37 @@ class ContentsModel extends BaseModel
 
         echo $output;
         exit(0);
+    }
+
+    function writeToFS(string $filePath, string $content): bool
+    {
+        debug("writeFS: " . $filePath, __FILE__);
+        $dir = dirname($filePath);
+
+        if (!is_dir($dir)) {
+            if (!mkdir($dir, 0777, true) && !is_dir($dir)) {
+                debug("Failed to create directory: $dir", __FILE__);
+                return false;
+            }
+        }
+
+        if (file_put_contents($filePath, $content) === false) {
+            debug("writeFS failed.", __FILE__);
+            return false;
+        }
+
+        return true;
+    }
+
+    function migrate($json, $html, $path): void
+    {
+        try {
+                debug("saving $path", __FILE__);
+                $updateSql = 'UPDATE contents SET markup = ?, html = ? WHERE path = ?';
+                $updateStmt = $this->pdo->prepare($updateSql);
+                $updateStmt->execute([$json, str($html), $path]);
+        } catch (PDOException $e) {
+            debug($e->getMessage(), __FILE__);
+        }
     }
 }
