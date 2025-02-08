@@ -43,6 +43,42 @@ class BlogsModel extends BaseModel
         return $text;
     }
 
+    public function get_editable_contents(): array|false
+    {
+        try {
+            $sql = "SELECT title, slug, updated_at as time FROM $this->metatable ORDER BY id DESC;";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
+
+    public function delete(string $slug): bool
+    {
+        if (!$this->check_if_blog_exists($slug)) {
+            return false;
+        }
+
+        try {
+            $file_raw = "blogs/raw/" . $this->sanitizeFilename($slug, "json");
+            $file_html = "blogs/" . $this->sanitizeFilename($slug, "html");
+            $sql = "DELETE FROM $this->metatable WHERE slug=?;";
+            $stmt = $this->pdo->prepare($sql);
+
+            if (!$stmt->execute([$slug]) || !unlink($file_html) || !unlink($file_raw)) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
+
     private function check_if_blog_exists(string $slug): bool|int
     {
         try {
@@ -50,7 +86,6 @@ class BlogsModel extends BaseModel
             $checkStmt = $this->pdo->prepare($checkSql);
             $checkStmt->execute([$slug]);
             return $checkStmt->fetchColumn();
-
         } catch (Exception $e) {
             debug($e->getMessage(), __FILE__);
             return false;
@@ -119,6 +154,49 @@ class BlogsModel extends BaseModel
             } else {
                 return false;
             }
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
+
+    public function get_raw(string $slug): string|null
+    {
+        $file = 'blogs/raw/' . $this->sanitizeFilename($slug, 'json');
+        if (!file_exists($file)) {
+            debug("$file 404", __FILE__);
+            return null;
+        }
+
+        $content = file_get_contents($file);
+        if ($content === false) {
+            debug("get_raw: $slug failed to read.", __FILE__);
+            return null;
+        }
+
+        return $content;
+    }
+
+    public function update(string $slug, int $user_id, string $data_raw, string $data_rendered): bool
+    {
+        debug("updating $slug", __FILE__);
+        $meta_id = $this->check_if_blog_exists($slug);
+        if ($meta_id === false || $meta_id <= 0) {
+            debug("$slug 404 | id: $meta_id", __FILE__);
+            return false;
+        }
+
+        $ok_raw = $this->write_raw_FS($slug, $data_raw);
+        $ok_html = $this->write_html_FS($slug, $data_rendered);
+        if (!$ok_html || !$ok_raw) {
+            debug("failed to update: $slug", __FILE__);
+            return false;
+        }
+
+        try {
+            $sql = "UPDATE $this->metatable SET updated_by=?, updated_at=? WHERE id=?;";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([$user_id, current_time(), $meta_id]);
         } catch (Exception $e) {
             debug($e->getMessage(), __FILE__);
             return false;

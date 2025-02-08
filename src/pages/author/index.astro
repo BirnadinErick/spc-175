@@ -58,8 +58,18 @@ const { meta } = Astro.props;
             </a>
         </div>
 
+        <section class="mt-12">
+            <h1 class="font-bold text-xl leading-[95%]">Contents</h1>
+        </section>
         <div class="htmxenable my-4">
             <Table />
+        </div>
+
+        <section class="mt-12">
+            <h1 class="font-bold text-xl leading-[95%]">Blogs</h1>
+        </section>
+        <div class="htmxenable my-4">
+            <Table category="blogs" />
         </div>
     </div>
 
@@ -68,45 +78,6 @@ const { meta } = Astro.props;
 <MobileNavButton />
 
 <HTMX />
-<!--
-<script>
-
-    document.addEventListener("swup:enable", () => {
-        console.log("hooking1..");
-        window.swup.hooks.on("page:view", () => {
-            const titleElem = document.querySelector("#title");
-            console.log("hooking2..");
-            titleElem.addEventListener("change", (e) => {
-                console.log(e.value);
-            });
-
-            let path = "";
-            window.htmx.on("htmx:afterSwap", function(e) {
-                path = e.target[0].value;
-
-                const pathElem = document.querySelector("#path");
-                pathElem.addEventListener("input", (e) => {
-                    path = e.target.value;
-                });
-            });
-
-            document.querySelector("#editcontent")?.addEventListener("click", () => {
-                window.location = "/author/edit?path=" + path;
-            });
-
-            document.querySelector("#newcontent")?.addEventListener("click", () => {
-                window.location = "/author/new";
-            });
-
-            document.querySelector("#newblog")?.addEventListener("click", () => {
-                const titleElem = document.querySelector("#title");
-                window.location = "/author/new-blog?title=" + titleElem.value;
-            });
-        });
-    });
-
-</script>
--->
 </body>
 </html>
 

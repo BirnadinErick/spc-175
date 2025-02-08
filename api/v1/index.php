@@ -157,6 +157,10 @@ $routes = [
     "read-blog-feat" => "read_blog_feat",
     "read-blog-list" => "read_blog_list",
     "read-blogs-latest" => "read_blogs_latest",
+    "editable-blogs" => [$blogs, "editable_blogs"],
+    "delete-blog" => [$blogs, "delete_blog"],
+    "read-blog-raw" => [$blogs, "read_blog_raw"],
+    "update-blog" => [$blogs, "update_blog"],
 
     // "migrate" => "migrate"
 ];
