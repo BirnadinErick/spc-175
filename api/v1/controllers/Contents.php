@@ -178,4 +178,30 @@ class Contents
             echo "failed";
         }
     }
+
+    public function editable_contents(): void
+    {
+        ensure_request_method("GET");
+
+        session_start();
+        if (!isset($_SESSION["email"])) {
+            debug("annonymous post save attempt", __FILE__);
+            http_response_code(401);
+            exit(1);
+        }
+
+        if (!$this->users->check_roles_exist(EDITOR_ROLE, $_SESSION["email"])) {
+            debug("unauthorized post save attempt", __FILE__);
+            http_response_code(HTTP_STATUS_UNAUTHORIZED);
+            exit(1);
+        }
+
+        $cs = $this->contents_v2->get_editable_contents();
+        echo Helpers::renderNative(VIEWS . 'available-contents.php', [
+            "cs" => $cs
+        ]);
+
+        session_write_close();
+        exit(0);
+    }
 }

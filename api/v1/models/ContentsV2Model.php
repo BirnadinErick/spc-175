@@ -178,4 +178,19 @@ class ContentsV2Model extends BaseModel
 
         return true;
     }
+
+    public function get_editable_contents(): array | false
+    {
+        try {
+           $sql = "SELECT path, updated_at as time FROM $this->metatable ORDER BY path;";
+           $stmt = $this->pdo->prepare($sql);
+           $stmt->execute();
+           return $stmt->fetchAll();
+        }catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+
+        return false;
+    }
 }

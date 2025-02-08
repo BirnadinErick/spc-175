@@ -16,7 +16,7 @@ import { get_api_route } from "../../config/global";
             </th>
         </tr>
         </thead>
-        <tbody class="htmxenable" hx-get={get_api_route("available-contents")} hx-trigger="load" hx-swap="innerHTML">
+        <tbody class="htmxenable" hx-get={get_api_route("editable-contents")} hx-trigger="load" hx-swap="innerHTML">
         <tr>
             <td class="text-spc-light" colspan="3">Loading the data, please wait.</td>
         </tr>
