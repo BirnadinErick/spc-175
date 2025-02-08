@@ -16,7 +16,7 @@
     <div
         class="bg-gradient-to-br from-spc-sea to-spc-gold p-[3px] max-w-fit text-spc-light"
     >
-        <a href="<?= $path ?>">
+        <a href="/blog/entry?p=<?= $slug ?>">
             <div
                 class="bg-spc-dark p-2 md:px-4 md:py-2 flex justify-between items-center space-x-4 md:hover:text-spc-dark md:hover:bg-gradient-to-br md:hover:from-spc-sea md:hover:to-spc-gold md:hover:duration-700 md:hover:ease-out md:hover:animate-color"
             >

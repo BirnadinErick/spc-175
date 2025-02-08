@@ -11,6 +11,7 @@
                 <a href="/author/edit-blog?slug=<?= $c['slug'] ?>"
                    class="px-4 py-2 rounded-sm text-white bg-spc-dark">Edit</a>
                 <button hx-post="<?= API . 'delete-blog&slug='. $c['slug']  ?>" class="htmxenable px-4 py-2 rounded-sm text-white bg-spc-dark">Delete</button>
+                <button hx-post="<?= API . 'set-blog-feat&slug='. $c['slug']  ?>" class="htmxenable px-4 py-2 rounded-sm text-white bg-spc-dark">Set as Featured</button>
             </div>
         </td>
     </tr>

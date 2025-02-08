@@ -25,9 +25,11 @@ import "@components/common/swup.css";
 
 
 <main>
-    <PageTitle title="Patrician Publications / Blogs" />
+    <PageTitle title="Patrician Publications" />
+    <p class="text-xl font-bold text-spc-light px-8 md:px-12 xl:hidden"> Patrician Publications</p>
+    <p class="text-gray-300 text-sm px-8 xl:text-xl md:text-lg  md:px-12 xl:px-96"> brought to you by SPC Media Unit</p>
 
-    <Search />
+    <!--<Search />-->
     <section class="my-10 md:px-12 xl:px-96">
         <div class="htmxenable" hx-get={get_api_route("read-blog-feat")} hx-trigger="every 200ms" hx-swap="outerHTML">
             <Loader />

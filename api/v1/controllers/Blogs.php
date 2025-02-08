@@ -10,6 +10,7 @@ require_once MODELS . 'ContentsV2Model.php';
 
 use BumpCore\EditorPhp\Helpers;
 use tinyfuse\lib\contentengine\ContentEngine;
+use tinyfuse\lib\Settings;
 use tinyfuse\models\BlogsModel;
 use tinyfuse\models\UsersModel;
 
@@ -73,7 +74,7 @@ class Blogs
         exit(0);
     }
 
-    public function editable_blogs():void
+    public function editable_blogs(): void
     {
         ensure_request_method("GET");
 
@@ -132,7 +133,7 @@ class Blogs
         }
     }
 
-    public function update_blog():void
+    public function update_blog(): void
     {
         ensure_request_method("POST");
 
@@ -210,4 +211,52 @@ class Blogs
         exit(0);
     }
 
+    public function read_blog_feat(): void
+    {
+        ensure_request_method("GET");
+
+        $feat = $this->blogs->get_feat();
+        echo Helpers::renderNative(VIEWS . 'blog-feat.php', [
+            'cover' => $feat['cover'],
+            'title' => $feat['title'],
+            'date' => $feat['updated_at'],
+            'slug' => $feat['slug']
+        ]);
+        exit(0);
+    }
+
+    public function set_feat(): void
+    {
+        ensure_request_method("POST");
+
+        session_start();
+        if (!isset($_SESSION["email"])) {
+            debug("annonymous content raw read attempt", __FILE__);
+            http_response_code(401);
+            exit(1);
+        }
+
+
+        if (!$this->users->check_roles_exist(EDITOR_ROLE, $_SESSION["email"])) {
+            debug("unauthorized post save attempt", __FILE__);
+            http_response_code(HTTP_STATUS_UNAUTHORIZED);
+            exit(1);
+        }
+
+        if (!isset($_GET['slug'])) {
+            debug("read_raw: no path in request", __FILE__);
+            http_response_code(HTTP_STATUS_BAD_REQUEST);
+            exit(1);
+        }
+
+        $slug = $_GET['slug'];
+        if ($this->blogs->set_feat($slug)) {
+            debug("new $slug set as featured.", __FILE__);
+            echo "Done!";
+            exit(0);
+        } else {
+            echo "Failed!";
+            exit(1);
+        }
+    }
 }

@@ -43,7 +43,7 @@ function debug(string $str, string $file)
     error_log($msg . PHP_EOL, 3, "debug_log.txt");
 }
 
-function current_time():string
+function current_time(): string
 {
     return date('Y-m-d');
 }
@@ -110,6 +110,10 @@ require_once CONTROLLERS . "Blogs.php";
 require_once APP . "lib/Malachi.php";
 require_once APP . "lib/contentengine/ContentEngine.php";
 
+// settings & keys
+require_once APP . 'lib/Settings.php';
+const SETTINGS_BLOG_FEAT_KEY = "blogs_current_featured";
+
 use tinyfuse\controllers\Auth;
 use tinyfuse\controllers\Blogs;
 use tinyfuse\controllers\Contents;
@@ -152,15 +156,16 @@ $routes = [
     "editable-contents" => [$contents, "editable_contents"],
 
     "save-blog" => "save_blog",
-    "create-blog" => [$blogs, "create_blog"],
     "read-blog-html" => "read_blog_html",
-    "read-blog-feat" => "read_blog_feat",
     "read-blog-list" => "read_blog_list",
     "read-blogs-latest" => "read_blogs_latest",
+    "create-blog" => [$blogs, "create_blog"],
     "editable-blogs" => [$blogs, "editable_blogs"],
     "delete-blog" => [$blogs, "delete_blog"],
     "read-blog-raw" => [$blogs, "read_blog_raw"],
     "update-blog" => [$blogs, "update_blog"],
+    "read-blog-feat" => [$blogs, "read_blog_feat"],
+    "set-blog-feat" =>[$blogs, "set_feat"],
 
     // "migrate" => "migrate"
 ];

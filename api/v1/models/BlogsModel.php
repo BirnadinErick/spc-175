@@ -6,8 +6,10 @@ require_once APP . 'lib/BaseModel.php';
 require_once APP . 'lib/contentengine/ContentEngine.php';
 
 use Exception;
+use PDO;
 use tinyfuse\lib\BaseModel;
 use tinyfuse\lib\contentengine\ContentEngine;
+use tinyfuse\lib\Settings;
 
 class BlogsModel extends BaseModel
 {
@@ -201,5 +203,25 @@ class BlogsModel extends BaseModel
             debug($e->getMessage(), __FILE__);
             return false;
         }
+    }
+
+    public function get_feat(): array|false
+    {
+        $feat_slug = Settings::get(SETTINGS_BLOG_FEAT_KEY);
+        try {
+            $sql = "SELECT title, cover, updated_at, slug FROM blogs_meta WHERE slug = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$feat_slug]);
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
+
+    public function set_feat(string $slug): bool
+    {
+        return Settings::set(SETTINGS_BLOG_FEAT_KEY, $slug);
     }
 }
