@@ -71,8 +71,8 @@ if (DEBUG) {
     define("API", "http://localhost:2004/api/v1/index.php?p=");
     define("ENV", ".dev");
 } else {
-    define("SERVER", "https://www.spcjaffna-beta.org");
-    define("API", "https://www.spcjaffna-beta.org/api/v1/index.php?p=");
+    define("SERVER", "http://dev.spcjaffna.org");
+    define("API", "http://deev.spcjaffna.org/api/v1/index.php?p=");
     define("ENV", ".prod");
 }
 
