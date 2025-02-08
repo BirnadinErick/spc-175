@@ -16,6 +16,7 @@ const HTTP_STATUS_BAD_REQUEST = 400;
 const HTTP_STATUS_UNAUTHORIZED = 401;
 const HTTP_STATUS_NOT_FOUND = 404;
 const HTTP_STATUS_SAVED = 204;
+const HTTP_STATUS_CREATED = 201;
 const HTTP_STATUS_SERVER_ERROR = 500;
 
 function error_handler(int $errno, string $errstr, string $errfile, int $errll)
@@ -104,17 +105,20 @@ include_once CONTROLLERS . "posts.php";
 require_once CONTROLLERS . "Auth.php";
 require_once CONTROLLERS . "Projects.php";
 require_once CONTROLLERS . "Contents.php";
+require_once CONTROLLERS . "Blogs.php";
 
 require_once APP . "lib/Malachi.php";
 require_once APP . "lib/contentengine/ContentEngine.php";
 
 use tinyfuse\controllers\Auth;
+use tinyfuse\controllers\Blogs;
 use tinyfuse\controllers\Contents;
 use tinyfuse\controllers\Projects;
 
 $auth = new Auth();
 $projects = new Projects();
 $contents = new Contents();
+$blogs = new Blogs();
 
 $routes = [
     "signin" => [$auth, "signin"],
@@ -148,13 +152,13 @@ $routes = [
     "editable-contents" => [$contents, "editable_contents"],
 
     "save-blog" => "save_blog",
-    "create-blog" => "create_blog",
+    "create-blog" => [$blogs, "create_blog"],
     "read-blog-html" => "read_blog_html",
     "read-blog-feat" => "read_blog_feat",
     "read-blog-list" => "read_blog_list",
     "read-blogs-latest" => "read_blogs_latest",
 
-    "migrate" => "migrate"
+    // "migrate" => "migrate"
 ];
 $request_uri = $_GET["p"];
 
