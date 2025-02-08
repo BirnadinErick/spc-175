@@ -1,7 +1,7 @@
 <?php ?>
 
 <div class="relative cursor-pointer flex-none w-11/12 md:w-1/3 mr-4 md:pb-4">
-    <a href="<?= $href ?>">
+    <a href="/blogs/entry?p=<?= $href ?>">
         <img
             src="<?= $cover ?>"
             class="rounded-md"

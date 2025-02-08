@@ -224,4 +224,82 @@ class BlogsModel extends BaseModel
     {
         return Settings::set(SETTINGS_BLOG_FEAT_KEY, $slug);
     }
+
+    public function get_blogs(): false|array
+    {
+        try {
+            $sql = "SELECT updated_at, slug, tags, title, cover FROM $this->metatable ORDER BY id DESC LIMIT 100";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
+
+    public function read_content_html(string $slug): array|false
+    {
+        if (!$this->check_if_blog_exists($slug)) {
+            return false;
+        }
+
+        try {
+            $sql = "SELECT * FROM $this->metatable WHERE slug=?;";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$slug]);
+            $blog = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $render = $this->get_html($slug);
+            $blog['render'] = $render;
+
+            return $blog;
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
+
+    private function get_html(string $slug): string|null
+    {
+        $file = 'blogs/' . $this->sanitizeFilename($slug, 'html');
+        if (!file_exists($file)) {
+            debug("$file 404", __FILE__);
+            return null;
+        }
+
+        $content = file_get_contents($file);
+        if ($content === false) {
+            debug("get_html_blog: $slug failed to read.", __FILE__);
+            return null;
+        }
+
+        return $content;
+
+    }
+
+    public function get_latest(): array|false
+    {
+        try {
+            $sql = "SELECT * FROM $this->metatable ORDER BY id DESC LIMIT 10";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $output = [];
+            foreach ($blogs as $b) {
+                $output[] = [
+                    "cover" => $b['cover'],
+                    "title" => $b['title'],
+                    "href" => $b['slug'],
+                    "date" => $b["updated_at"]
+                ];
+            }
+
+            return $output;
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
 }

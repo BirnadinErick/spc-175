@@ -155,15 +155,14 @@ $routes = [
     // "migrate-contentv2" => [$contents, "migrate"],
     "editable-contents" => [$contents, "editable_contents"],
 
-    "save-blog" => "save_blog",
-    "read-blog-html" => "read_blog_html",
-    "read-blog-list" => "read_blog_list",
-    "read-blogs-latest" => "read_blogs_latest",
+    "read-blogs-latest" => [$blogs, "read_latest_blogs"],
+    "read-blog-html" => [$blogs, "read_blog_html"],
     "create-blog" => [$blogs, "create_blog"],
     "editable-blogs" => [$blogs, "editable_blogs"],
     "delete-blog" => [$blogs, "delete_blog"],
     "read-blog-raw" => [$blogs, "read_blog_raw"],
     "update-blog" => [$blogs, "update_blog"],
+    "read-blog-list" => [$blogs, "read_blog_list"],
     "read-blog-feat" => [$blogs, "read_blog_feat"],
     "set-blog-feat" =>[$blogs, "set_feat"],
 

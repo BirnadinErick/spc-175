@@ -7,7 +7,7 @@
             <?= $date ?>
         </p>
         <p>/</p>
-        <p>SPC Media Unit 2023</p>
+        <p>SPC Media Unit</p>
     </div>
 </section>
 
@@ -36,9 +36,9 @@
 <section id="comments" class="px-6 my-8 text-spc-light/80 text-sm lg:text-lg">
     <SectionTitle title="Comments..."></SectionTitle>
 
-    <div hx-get="<?= API . 'comments' . '&post_id='. $uid ?>" class="my-4 space-y-4" hx-swap="innerHTML" hx-trigger="load">
+    <div hx-get="<?= API . 'comments' . '&post_id='. $slug ?>" class="my-4 space-y-4" hx-swap="innerHTML" hx-trigger="load">
     </div>
 
-    <div class="my-6" hx-get="<?= API . 'allowed-to-comment&post_id=' . $uid.'&post_path='.$path ?>" hx-trigger="load delay:300ms">
+    <div class="my-6" hx-get="<?= API . 'allowed-to-comment&post_id=' . $slug.'&post_path='.$path ?>" hx-trigger="load delay:300ms">
     </div>
 </section>

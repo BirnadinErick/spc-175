@@ -259,4 +259,72 @@ class Blogs
             exit(1);
         }
     }
+
+    public function read_blog_list(): void
+    {
+        ensure_request_method("GET");
+
+        $blogs = $this->blogs->get_blogs();
+        $output = '';
+        foreach ($blogs as $b) {
+            $output .= Helpers::renderNative(VIEWS . 'blog-list-single.php', [
+                'slug' => $b['slug'],
+                'cover' => $b['cover'],
+                'title' => $b['title'],
+                'date' => $b['updated_at'],
+                'desc' => str_replace(',', ', ', $b['tags'])
+            ]);
+        }
+
+        echo $output;
+        exit(0);
+    }
+
+    public function read_blog_html(): void
+    {
+        ensure_request_method("GET");
+
+        if (isset($_GET["slug"])) {
+            $slug = $_GET["slug"];
+            debug("slug from _GET with slug: $slug", __FILE__);
+        } else {
+            debug(var_export($_GET, true), __FILE__);
+            echo "NOT FOUND";
+            http_response_code(404);
+            exit(1);
+        }
+
+        $content = $this->blogs->read_content_html($slug);
+        if ($content === false) {
+            debug("content not found", __FILE__);
+            echo Helpers::renderNative(VIEWS . '404.html', []);
+            http_response_code(404);
+            exit(1);
+        }
+
+        echo Helpers::renderNative(VIEWS . 'skeleton-entry.php', [
+            'slug' => $slug,
+            'date' => $content['updated_at'],
+            'title' => $content['title'],
+            'blog' => $content['render'],
+            'tags' => explode(',', $content['tags']),
+            'cover' => $content['cover']
+        ]);
+        http_response_code(200);
+        exit(0);
+    }
+
+    public function read_latest_blogs():void
+    {
+        ensure_request_method("GET");
+
+        $blogs = $this->blogs->get_latest();
+        $response = '<div class="flex flex-no-wrap overflow-x-auto no-scrollbar scrolling-touch items-start my-6" >';
+        foreach ($blogs as $b) {
+            $response .= Helpers::renderNative(VIEWS . 'home-blogs-list.php', $b);
+        }
+        $response .= '</div>';
+
+        echo $response;
+    }
 }
