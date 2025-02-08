@@ -101,6 +101,7 @@ include_once CONTROLLERS . "auth-state.php";
 include_once CONTROLLERS . "comments.php";
 include_once CONTROLLERS . "allowed-to-comment.php";
 include_once CONTROLLERS . "posts.php";
+include_once CONTROLLERS . "feedback.php";
 
 require_once CONTROLLERS . "Auth.php";
 require_once CONTROLLERS . "Projects.php";
@@ -165,6 +166,8 @@ $routes = [
     "read-blog-list" => [$blogs, "read_blog_list"],
     "read-blog-feat" => [$blogs, "read_blog_feat"],
     "set-blog-feat" =>[$blogs, "set_feat"],
+
+    "feedback"=> "feedback"
 
     // "migrate" => "migrate"
 ];
