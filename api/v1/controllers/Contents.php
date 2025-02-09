@@ -148,7 +148,7 @@ class Contents
             exit(1);
         }
         $email = $_SESSION['email'];
-        $user_id = $this->users->get_user_id($email);
+        $user_id = $this->users->get_user_id_old($email);
 
         if (!isset($_POST['path']) || !isset($_POST['data'])) {
             debug("read_raw: no path in request", __FILE__);

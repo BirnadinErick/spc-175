@@ -58,7 +58,7 @@ class Blogs
         $tags = trim($_POST['tags']);
         $cover = trim($_POST['cover']);
         $data = $_POST['data'];
-        $user_id = $this->users->get_user_id($email);
+        $user_id = $this->users->get_user_id_old($email);
 
         $slug = $this->blogs->new_blog($title, $data, $tags, $cover, $user_id);
         if (!$slug) {
@@ -150,7 +150,7 @@ class Blogs
             exit(1);
         }
         $email = $_SESSION['email'];
-        $user_id = $this->users->get_user_id($email);
+        $user_id = $this->users->get_user_id_old($email);
 
         if (!isset($_POST['slug']) || !isset($_POST['data'])) {
             debug("read_raw: bad request", __FILE__);

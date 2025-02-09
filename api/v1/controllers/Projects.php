@@ -8,28 +8,91 @@ require_once MODELS . 'comments.php';
 
 use BumpCore\EditorPhp\Helpers;
 use CommentsModel;
-use Faker\Extension\Helper;
 use JetBrains\PhpStorm\NoReturn;
 use NumberFormatter;
 use ProjectsModel;
 use tinyfuse\lib\Constants;
+use tinyfuse\models\ProjectsModelV2;
 use tinyfuse\models\UsersModel;
 
 class Projects
 {
+    private UsersModel $users;
+    private ProjectsModelV2 $projects;
+
+    public function __construct()
+    {
+        $this->users = new UsersModel();
+        $this->projects = new ProjectsModelV2();
+    }
+
     private function getProjectIdFromURL(): string|null
     {
         //get pid from URL Header and retrieve the content
         debug(var_export(getallheaders(), true), __FILE__);
-        if (getallheaders()['Hx-Current-Url']) {
-            $h = getallheaders()['Hx-Current-Url'];
-        } else {
-            $h = getallheaders()['HX-Current-URL'];
-        }
+        $h = getallheaders()['HX-Current-URL'];
         $qs = parse_url($h, PHP_URL_QUERY);
         parse_str($qs, $qs);
 
         return $qs['pid'] ?? null;
+    }
+
+    public function new_comment(): void
+    {
+        ensure_request_method("POST");
+        $user = check_authd();
+        $user = $this->users->get_user_id($user);
+        $project = $this->getProjectIdFromURL();
+        $comment = $_POST['comment'] ?? null;
+
+        if ($user === null || $project === null || $comment === null) {
+            debug(var_export(compact($user, $project, $comment), true), __FILE__);
+            http_response_code(HTTP_STATUS_SERVER_ERROR);
+            exit(1);
+        }
+
+        $ok = $this->projects->create_comment($project, $comment, $user);
+        if ($ok) {
+            echo Helpers::renderNative(VIEWS . 'project-new-comment-fragment.php', ['c' => [
+                'fname' => $this->users->get_decorated_name($user),
+                'lname' => '',
+                'comment' => $comment
+            ]]);
+            exit(0);
+        } else {
+            debug("failed to add new comment", __FILE__);
+            http_response_code(HTTP_STATUS_SERVER_ERROR);
+            exit(1);
+        }
+    }
+
+    public function get_comments(): void
+    {
+        ensure_request_method("GET");
+        if (gettype(check_authd()) === 'string') {
+            $isAuthd = true;
+        } else {
+            $isAuthd = false;
+        }
+
+        $project = $this->getProjectIdFromURL();
+        if ($project === null) {
+            http_response_code(HTTP_STATUS_BAD_REQUEST);
+            exit(1);
+        }
+
+        $project_comments = $this->projects->get_comments((int)$project);
+        if ($project_comments===false) {
+            debug("failed to retrieve comments", __FILE__);
+            http_response_code(HTTP_STATUS_SERVER_ERROR);
+            exit(1);
+        }
+
+        echo Helpers::renderNative(VIEWS . 'project-comment.php', [
+            'cs' => $project_comments,
+            'isAuth' => $isAuthd
+        ]);
+        exit(0);
     }
 
     #[NoReturn] public function comment(): void
@@ -73,7 +136,7 @@ class Projects
         //return rendered view to be appended
         $user = new UsersModel();
         $comments = new CommentsModel();
-        $uid = $user->get_user_id($_SESSION['email']);
+        $uid = $user->get_user_id_old($_SESSION['email']);
         $comment = $_POST['comment'];
 
         //add comment to database
@@ -93,7 +156,7 @@ class Projects
 
         // http_response_code((int)Constants::Created);
         echo Helpers::renderNative(VIEWS . 'project-new-comment-fragment.php', ['c' => [
-            'fname' => $user->get_decorated_name($_SESSION['email']),
+            'fname' => $user->get_decorated_name_old($_SESSION['email']),
             'lname' => '',
             'comment' => $comment
         ]]);
@@ -136,8 +199,8 @@ class Projects
     {
         $c = new ProjectsModel();
         $cs = $c->getProjects();
-        echo Helpers::renderNative(VIEWS.'available-projects.php', [
-            "cs"=>$cs
+        echo Helpers::renderNative(VIEWS . 'available-projects.php', [
+            "cs" => $cs
         ]);
     }
 
@@ -166,26 +229,26 @@ class Projects
         $url = $headers['HX-Current-URL'];
         $parsed_url = parse_url($url);
         $qstr = $parsed_url['query'] ?? "";
-        $q=[];
+        $q = [];
         parse_str($qstr, $q);
         $id = $q['path'];
-        debug("current id:". $id, __FILE__);
+        debug("current id:" . $id, __FILE__);
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
             $proj = $projects->getProject($id);
             debug(var_export($proj, true), __FILE__);
-            echo Helpers::renderNative(VIEWS . 'edit-project.php' , ['proj'=>$proj]);
+            echo Helpers::renderNative(VIEWS . 'edit-project.php', ['proj' => $proj]);
             exit(0);
         }
 
         $formData = [
             'project_title' => $_POST['project_title'] ?? null,
-            'desc'          => $_POST['desc'] ?? null,
-            'deadline'      => $_POST['deadline'] ?? null,
-            'amount'        => $_POST['amount'] ?? null,
-            'status'        => $_POST['status'] ?? null,
-            'id'=> $id,
+            'desc' => $_POST['desc'] ?? null,
+            'deadline' => $_POST['deadline'] ?? null,
+            'amount' => $_POST['amount'] ?? null,
+            'status' => $_POST['status'] ?? null,
+            'id' => $id,
         ];
         debug(var_export($formData, true), __FILE__);
         $res = $projects->editProject($formData);

@@ -44,7 +44,7 @@ class Auth
         $user = new UsersModel();
         header("Cache-Control: max-age=180");
 
-        $user_name = $user->get_decorated_name($_SESSION["email"]);
+        $user_name = $user->get_decorated_name_old($_SESSION["email"]);
         $is_user_editor = $user->check_roles_exist(EDITOR_ROLE, $_SESSION["email"]);
         $is_user_sadmin = $user->check_roles_exist(SUPADMIN_ROLE, $_SESSION["email"]);
         $is_user_padmin = $user->check_roles_exist(PROJADMIN_ROLE, $_SESSION["email"]);

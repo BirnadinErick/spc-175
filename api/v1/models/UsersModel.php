@@ -28,12 +28,39 @@ class UsersModel extends BaseModel
 
     /**
      * @param string $email
+     * @return int|null
+     *
+     * return integer can be checked with static properties
+     * like NotFound or InternalError
+     */
+    public function get_user_id(string $email): int|null
+    {
+        $sql = 'SELECT id FROM users WHERE email = :email';
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($result) {
+                return $result["id"] ?? null;
+            }
+        } catch (PDOException $e) {
+            debug($e->getMessage(), __FILE__);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $email
      * @return int|Constants
      *
      * return integer can be checked with static properties
      * like NotFound or InternalError
      */
-    public function get_user_id(string $email): int|Constants
+    public function get_user_id_old(string $email): int|Constants
     {
         $sql = 'SELECT id FROM users WHERE email = :email';
 
@@ -68,6 +95,7 @@ class UsersModel extends BaseModel
         return $stmt->fetchColumn();
     }
 
+
     /**
      * given email in datastore and reference role, returns whether
      * user record associated with the email has concerning reference
@@ -78,7 +106,7 @@ class UsersModel extends BaseModel
      */
     public function check_roles_exist(int $ref_roles, string $email): bool
     {
-        switch ($id = $this->get_user_id($email)) {
+        switch ($id = $this->get_user_id_old($email)) {
             case Constants::InternalError:
             case Constants::NotFound:
                 return false;
@@ -91,11 +119,27 @@ class UsersModel extends BaseModel
     /**
      * returns decorated name; i.e. capitalized first name and
      * initial of uppercase lastname with succeeding period.
+     * @param int $user_id
+     * @return string
+     * @example Birnadin Erick -> Birnadin E.
+     */
+    public function get_decorated_name(int $user_id): string
+    {
+        $stmt = $this->pdo->prepare('SELECT first_name, last_name FROM users WHERE id = ?');
+        $stmt->execute([$user_id]);
+        $data = $stmt->fetch();
+
+        return ucfirst($data['first_name']) . ' ' . ucfirst($data['last_name'])[0] . '.';
+    }
+
+    /**
+     * returns decorated name; i.e. capitalized first name and
+     * initial of uppercase lastname with succeeding period.
      * @param string $email
      * @return string
      * @example Birnadin Erick -> Birnadin E.
      */
-    public function get_decorated_name(string $email): string
+    public function get_decorated_name_old(string $email): string
     {
         $stmt = $this->pdo->prepare('SELECT first_name, last_name FROM users WHERE email = ?');
         $stmt->execute([$email]);

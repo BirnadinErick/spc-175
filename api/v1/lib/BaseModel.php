@@ -2,6 +2,7 @@
 
 namespace tinyfuse\lib;
 
+use Exception;
 use PDO;
 
 class BaseModel
@@ -14,7 +15,6 @@ class BaseModel
 
     function __construct()
     {
-//        $this->dsn = "sqlite:" . $_SERVER["DOCUMENT_ROOT"] . "/api/dev.sqlite";
         $host = $_ENV['DB_HOST'];
         $db = $_ENV['DB_NAME'];
 
@@ -26,5 +26,28 @@ class BaseModel
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    }
+
+    public function try_fetch_all(string $sql, array $values): array|false
+    {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
+
+    public function try_execute(string $sql, array $values): bool
+    {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute($values);
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
     }
 }
