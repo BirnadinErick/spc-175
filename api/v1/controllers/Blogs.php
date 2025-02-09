@@ -13,6 +13,7 @@ use tinyfuse\lib\contentengine\ContentEngine;
 use tinyfuse\lib\Settings;
 use tinyfuse\models\BlogsModel;
 use tinyfuse\models\UsersModel;
+use voku\helper\ASCII;
 
 
 class Blogs
@@ -314,7 +315,7 @@ class Blogs
         exit(0);
     }
 
-    public function read_latest_blogs():void
+    public function read_latest_blogs(): void
     {
         ensure_request_method("GET");
 
@@ -326,5 +327,64 @@ class Blogs
         $response .= '</div>';
 
         echo $response;
+    }
+
+    public function new_comment(): void
+    {
+        ensure_request_method("POST");
+
+        $user_email = check_authd();
+        $user = $this->users->get_user_id($user_email);
+
+        $slug = $_POST['slug'] ?? null;
+        $comment = $_POST['comment'] ?? null;
+
+        if ($user === null || $slug === null || $comment === null) {
+            http_response_code(HTTP_STATUS_BAD_REQUEST);
+            exit(1);
+        }
+
+        $ok = $this->blogs->create_comment($slug, $comment, $user);
+        if ($ok) {
+            echo Helpers::renderNative(VIEWS . 'blog-new-comment-fragment.php', ['c' => [
+                'fname' => $this->users->get_decorated_name($user),
+                'lname' => '',
+                'comment' => $comment
+            ]]);
+            exit(0);
+        } else {
+            debug("failed to add new comment", __FILE__);
+            http_response_code(HTTP_STATUS_SERVER_ERROR);
+            exit(1);
+        }
+    }
+
+    public function get_all_comments(): void
+    {
+        ensure_request_method("GET");
+        if (gettype(check_authd()) === 'string') {
+            $isAuthd = true;
+        } else {
+            $isAuthd = false;
+        }
+
+        $slug = $_GET['slug'] ?? null;
+        if ($slug === null) {
+            http_response_code(HTTP_STATUS_BAD_REQUEST);
+            exit(1);
+        }
+
+        $comments = $this->blogs->get_comments($slug);
+        if ($comments === false) {
+            http_response_code(HTTP_STATUS_SERVER_ERROR);
+            exit(1);
+        }
+
+        echo Helpers::renderNative(VIEWS . 'blog-comment.php', [
+            'cs' => $comments,
+            'isAuth' => $isAuthd,
+            'slug'=>$slug
+        ]);
+        exit(0);
     }
 }

@@ -14,6 +14,7 @@ use tinyfuse\lib\Settings;
 class BlogsModel extends BaseModel
 {
     private string $metatable = 'blogs_meta';
+    private string $commentstable = "blogcomments";
 
     // from https://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
     private function generate_slug($text): string
@@ -65,6 +66,13 @@ class BlogsModel extends BaseModel
         }
 
         try {
+            $sql = "DELETE FROM $this->commentstable WHERE slug=?";
+            $stmt = $this->pdo->prepare($sql);
+            $ok_comments = $stmt->execute([$slug]);
+            if (!$ok_comments) {
+                return false;
+            }
+
             $file_raw = "blogs/raw/" . $this->sanitizeFilename($slug, "json");
             $file_html = "blogs/" . $this->sanitizeFilename($slug, "html");
             $sql = "DELETE FROM $this->metatable WHERE slug=?;";
@@ -302,4 +310,28 @@ class BlogsModel extends BaseModel
             return false;
         }
     }
+
+    private function get_id_from_slug(string $slug): int|false
+    {
+        $sql = "SELECT id FROM $this->metatable WHERE slug = ?";
+        return $this->try_fetch_col($sql, [$slug]);
+    }
+
+    public function create_comment(string $slug, string $comment, int $user): bool
+    {
+        $blog_id = $this->get_id_from_slug($slug);
+        if ($blog_id === false) {
+            return false;
+        }
+
+        $sql = "INSERT INTO blogcomments (slug, user_id, comment, blog_id) VALUES(?, ?, ?, ?);";
+        return $this->try_execute($sql, [$slug, $user, $comment, $blog_id]);
+    }
+
+    public function get_comments(string $slug): array|false
+    {
+        $sql = "SELECT b.comment, b.created_at , u.first_name as fname , u.last_name as lname FROM blogcomments b JOIN users u ON b.user_id = u.id WHERE b.slug = ?;";
+        return $this->try_fetch_all($sql, [$slug]);
+    }
+
 }

@@ -50,4 +50,16 @@ class BaseModel
             return false;
         }
     }
+
+    public function try_fetch_col(string $sql, array $values): mixed
+    {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
+            return $stmt->fetchColumn();
+        } catch (Exception $e) {
+            debug($e->getMessage(), __FILE__);
+            return false;
+        }
+    }
 }

@@ -33,12 +33,11 @@
     <?php endforeach; ?>
 </section>
 
-<!--<section id="comments" class="px-6 my-8 text-spc-light/80 text-sm lg:text-lg">-->
-<!--    <SectionTitle title="Comments..."></SectionTitle>-->
-<!---->
-<!--    <div hx-get="--><?php //= API . 'comments' . '&post_id='. $slug ?><!--" class="my-4 space-y-4" hx-swap="innerHTML" hx-trigger="load">-->
-<!--    </div>-->
-<!---->
-<!--    <div class="my-6" hx-get="--><?php //= API . 'allowed-to-comment&post_id=' . $slug.'&post_path='.$path ?><!--" hx-trigger="load delay:300ms">-->
-<!--    </div>-->
-<!--</section>-->
+<section class="px-6 my-12 ">
+    <h3 class="text-spc-light font-bold text-xl">Comments so far.</h3>
+
+    <div class="htmxenable" hx-get="<?= API . 'get-blog-comments' . '&slug=' . $slug ?>"
+         hx-swap="outerHTML" hx-trigger="load delay:200ms">
+        Loading comments, please wait...
+    </div>
+</section>

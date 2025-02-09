@@ -190,7 +190,5 @@ class ContentsV2Model extends BaseModel
             debug($e->getMessage(), __FILE__);
             return false;
         }
-
-        return false;
     }
 }

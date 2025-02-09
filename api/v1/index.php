@@ -73,7 +73,7 @@ if (DEBUG) {
     define("ENV", ".dev");
 } else {
     define("SERVER", "http://dev.spcjaffna.org");
-    define("API", "http://deev.spcjaffna.org/api/v1/index.php?p=");
+    define("API", "http://dev.spcjaffna.org/api/v1/index.php?p=");
     define("ENV", ".prod");
 }
 
@@ -191,10 +191,10 @@ $routes = [
     "read-blog-list" => [$blogs, "read_blog_list"],
     "read-blog-feat" => [$blogs, "read_blog_feat"],
     "set-blog-feat" => [$blogs, "set_feat"],
+    "get-blog-comments" => [$blogs, "get_all_comments"],
+    "new-blog-comment"=>[$blogs, "new_comment"],
 
     "feedback" => "feedback"
-
-    // "migrate" => "migrate"
 ];
 $request_uri = $_GET["p"];
 

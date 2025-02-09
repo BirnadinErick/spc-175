@@ -172,9 +172,9 @@ class Contents
 
     public function migrate(): void
     {
-        if ($this->contents_v2->migrate_metadata()){
+        if ($this->contents_v2->migrate_metadata()) {
             echo "done!";
-        }else {
+        } else {
             echo "failed";
         }
     }
@@ -204,4 +204,5 @@ class Contents
         session_write_close();
         exit(0);
     }
+
 }
