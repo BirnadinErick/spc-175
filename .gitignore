@@ -45,3 +45,6 @@ lymp/
 
 **/*-google-*.json
 backup*/
+
+# ignore chromium user data dir
+chrome/
