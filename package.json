@@ -10,7 +10,7 @@
     "dev-b": "php -S localhost:2004",
     "log-d": "tail --lines 15 --follow api/v1/debug_log.txt",
     "log-e": "tail --lines 15 --follow api/v1/error_log.txt",
-    "dev-c": "cd ~/tmp/edge && microsoft-edge --disable-web-security --user-data-dir=. http://localhost:2007/",
+    "dev-c": "chromium-browser --disable-web-security --user-data-dir=. http://localhost:2007/",
     "build": "astro build",
     "preview": "astro preview --port 2007",
     "astro": "astro",
@@ -63,5 +63,15 @@
     "remark-images": "^4.0.0",
     "remark-unwrap-images": "^4.0.0",
     "typescript": "^5.4.4"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild",
+      "swup"
+    ],
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "swup"
+    ]
   }
 }
