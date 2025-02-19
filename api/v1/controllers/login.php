@@ -6,6 +6,11 @@ use tinyfuse\lib\Constants;
 
 function login()
 {
+    if (!FLAGS_AUTH) {
+        http_response_code(404);
+        exit(0);
+    }
+
     if (isset($_SESSION["email"])) {
         header("Location: " . SERVER . "/");
         http_response_code(303);

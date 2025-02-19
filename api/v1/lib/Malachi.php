@@ -38,6 +38,8 @@ class Malachi
 
     public function send_msg(string $sub, string $msg, string $to, bool $isHTML = false): bool
     {
+        if (!MALACHI) {return true;}
+
         $this->mail->Subject = $sub;
         $this->mail->Body = $msg;
         $this->mail->AltBody = 'Error Occured during Render.';

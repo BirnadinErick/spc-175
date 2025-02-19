@@ -21,31 +21,31 @@ import "@components/common/swup.css";
 />
 
 <body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
-    <CommonHeader title="Patrician<br/>Publications" />
+<CommonHeader title="Patrician<br/>Publications" />
 
-    <section class="md:px-12 xl:px-96">
-        <div class="px-6">
-            <BackButton />
-        </div>
+<section class="md:px-12 xl:px-96">
+    <div class="px-6">
+        <BackButton />
+    </div>
 
-        <div hx-get={get_api_route("read-blog-html")}
-             hx-trigger="load"
-             hx-swap="innerHTML">
-            <Loader />
-        </div>
-    </section>
+    <div hx-get={get_api_route("read-blog-html")}
+         hx-trigger="load"
+         hx-swap="innerHTML">
+        <Loader />
+    </div>
+</section>
 
-    <Footer />
-    <MobileNavButton />
+<Footer />
+<MobileNavButton />
 
-    <HTMX />
+<HTMX />
 
-    <script is:inline>
-        document.body.addEventListener("htmx:configRequest", function(e) {
-            const queryStr = window.location.search;
-            const searchParams = new URLSearchParams(queryStr);
-            e.detail.parameters["path"] = "/blogs/entry?p=" + searchParams.get("p");
-        });
-    </script>
+<script is:inline>
+    document.body.addEventListener("htmx:configRequest", function(e) {
+        const queryStr = window.location.search;
+        const searchParams = new URLSearchParams(queryStr);
+        e.detail.parameters["slug"] = searchParams.get("p");
+    });
+</script>
 </body>
 </html>

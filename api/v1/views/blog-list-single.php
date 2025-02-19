@@ -1,7 +1,7 @@
 <article
     class="my-8 hover:bg-[#393939]/40 py-4 md:px-4 transition-colors duration-300 ease-out"
 >
-    <a href="<?= $path ?>">
+    <a href="/blogs/entry?p=<?= $slug ?>">
         <img
             src="<?= $cover ?>"
             alt="<?= $title ?>"

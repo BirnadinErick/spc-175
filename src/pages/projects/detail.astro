@@ -29,11 +29,10 @@ import "@components/common/swup.css";
         <Loader />
     </section>
 
-
     <section class="px-6 md:px-12 xl:px-96 my-12 ">
         <h3 class="text-spc-light font-bold text-xl">Discussion Forum</h3>
 
-        <div class="htmxenable" hx-get={get_api_route("project-comment")}
+        <div class="htmxenable" hx-get={get_api_route("get-project-comment")}
              hx-swap="outerHTML" hx-trigger="load delay:200ms">
             <Loader />
         </div>

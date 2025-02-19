@@ -10,7 +10,6 @@
             <div class="flex justify-start space-x-3">
                 <a href="/author/edit?path=<?= $c['path'] ?>"
                    class="px-4 py-2 rounded-sm text-white bg-spc-dark">Edit</a>
-                <a href="#" class="px-4 py-2 rounded-sm text-white bg-spc-dark cursor-not-allowed">Delete</a>
             </div>
         </td>
     </tr>

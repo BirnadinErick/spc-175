@@ -1,0 +1,18 @@
+---
+import { get_api_route } from "../../config/global";
+import TextInput from "../common/TextInput.astro";
+---
+
+<form hx-post={get_api_route("projects-edit")} hx-swap="outerHTML">
+    <div class="htmxenable" hx-trigger="load" hx-swap="outerHTML" hx-get={get_api_route("projects-edit")}>
+        <span class="animate-pulse font-bold">Loading, please wait...</span>
+    </div>
+</form>
+
+<script >
+    document.body.addEventListener("htmx:beforeSwap", function(evt) {
+        if (evt.detail.xhr.status === 307) {
+            window.location = '/projects/admin';
+        }
+    });
+</script>

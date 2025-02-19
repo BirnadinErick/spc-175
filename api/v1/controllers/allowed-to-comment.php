@@ -2,6 +2,10 @@
 
 function allowed_to_comment()
 {
+    if (!FLAGS_AUTH) {
+        http_response_code(404);
+        exit(0);
+    }
     session_start();
 
     $post_id = $_GET['post_id'];

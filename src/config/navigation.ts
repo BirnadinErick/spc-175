@@ -52,12 +52,4 @@ export const NEW_NAVS = [
     { title: "Projects", link: "projects", children: [] },
     { title: "Facilities", link: "facilities", children: [] },
     { title: "Gallery", link: "gallery", children: [] },
-    {
-        title: "Alumni",
-        link: "alumni",
-        children: [
-            { title: "UK", link: "uk" },
-            { title: "Australia", link: "australia" }
-        ]
-    }
 ];

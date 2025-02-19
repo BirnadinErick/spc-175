@@ -29,6 +29,10 @@ class Auth
 
     #[NoReturn] public function auth_state(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
         session_start();
         debug("auth_state handler invoke", __FILE__);
 
@@ -40,11 +44,12 @@ class Auth
         $user = new UsersModel();
         header("Cache-Control: max-age=180");
 
-        $user_name = $user->get_decorated_name($_SESSION["email"]);
+        $user_name = $user->get_decorated_name_old($_SESSION["email"]);
         $is_user_editor = $user->check_roles_exist(EDITOR_ROLE, $_SESSION["email"]);
         $is_user_sadmin = $user->check_roles_exist(SUPADMIN_ROLE, $_SESSION["email"]);
+        $is_user_padmin = $user->check_roles_exist(PROJADMIN_ROLE, $_SESSION["email"]);
 
-        echo Helpers::renderNative(VIEWS . "auth-ok-navbar.php", ["is_user_editor" => $is_user_editor, "is_user_sadmin" => $is_user_sadmin, "user_name" => $user_name]);
+        echo Helpers::renderNative(VIEWS . "auth-ok-navbar.php", ["is_user_editor" => $is_user_editor, "is_user_sadmin" => $is_user_sadmin, "user_name" => $user_name, "is_user_padmin"=>$is_user_padmin]);
         session_write_close();
         exit(0);
     }
@@ -54,6 +59,10 @@ class Auth
      */
     public function login(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
         session_start();
         if (isset($_SESSION["email"])) {
             header("Location: " . SERVER . "/");
@@ -100,6 +109,10 @@ class Auth
 
     #[NoReturn] public function signin(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             http_response_code(400);
             exit(1);
@@ -168,6 +181,10 @@ class Auth
 
     public function activate_user(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
         $magiclink = base64_decode($_GET['code']);
         $magiclink = openssl_decrypt($magiclink, $this->method, $this->key, $this->options, $this->iv);
         $magiclink = json_decode($magiclink);
@@ -190,6 +207,10 @@ class Auth
 
     #[NoReturn] public function mobile_auth_state(): void
     {
+        if (!FLAGS_AUTH) {
+            http_response_code(404);
+            exit(0);
+        }
        session_start();
 
        if (isset($_SESSION['email'])){

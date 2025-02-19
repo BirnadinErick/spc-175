@@ -7,7 +7,7 @@
             <?= $date ?>
         </p>
         <p>/</p>
-        <p>SPC Media Unit 2023</p>
+        <p>SPC Media Unit</p>
     </div>
 </section>
 
@@ -33,12 +33,11 @@
     <?php endforeach; ?>
 </section>
 
-<section id="comments" class="px-6 my-8 text-spc-light/80 text-sm lg:text-lg">
-    <SectionTitle title="Comments..."></SectionTitle>
+<section class="px-6 my-12 ">
+    <h3 class="text-spc-light font-bold text-xl">Comments so far.</h3>
 
-    <div hx-get="<?= API . 'comments' . '&post_id='. $uid ?>" class="my-4 space-y-4" hx-swap="innerHTML" hx-trigger="load">
-    </div>
-
-    <div class="my-6" hx-get="<?= API . 'allowed-to-comment&post_id=' . $uid.'&post_path='.$path ?>" hx-trigger="load delay:300ms">
+    <div class="htmxenable" hx-get="<?= API . 'get-blog-comments' . '&slug=' . $slug ?>"
+         hx-swap="outerHTML" hx-trigger="load delay:200ms">
+        Loading comments, please wait...
     </div>
 </section>

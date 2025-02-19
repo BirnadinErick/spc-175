@@ -6,50 +6,61 @@ import Image from "../../components/patrician-publications/Image.astro";
 import ImageWidget from "../../components/editor/ImageWidget.astro";
 
 import "@components/common/swup.css";
-let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.children.map(c => `/${i.link}/${c.link}`)).flat();
+import "@fontsource/space-grotesk";
+import "@fontsource/space-mono";
+import CommonHeader from "../../components/common/CommonHeader.astro";
+import SectionTitle from "../../components/common/SectionTitle.astro";
+import Footer from "../../components/footer/Footer.astro";
 ---
+
 <style>
     .ce-toolbar__plus {
         @apply text-white;
     }
 </style>
 
-<html>
-<CommonHead title="Authoring Test" />
+<html lang="en">
+<CommonHead
+    title="Manage Content | SPC Media Unit"
+/>
 
-<body class="">
-<h1>Content Author Test Page</h1>
+<body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+<CommonHeader title="Edit Content | SPC Media Unit" />
 
-<div>
-    <label for="path">Path:</label>
-    <input class="w-content" id="path" type="text" autofocus placeholder="e.g. academics/<new-path>"
-           list="pathsManifest">
-    <p class="text-sm text-spc-dark/50 italic">Please make sure the path already exists in the manifest!</p>
-    <datalist id="pathsManifest">
-        {navsWithContent.map(n =>
-            <option value={n}></option>)}
-    </datalist>
-</div>
+<main>
+    <section class="px-6 md:px-12 xl:px-96 ">
+        <h1 class="font-bold text-2xl text-spc-gold font-sans">Content Author Page</h1>
 
-<button id="saveEditorBtn">
-    Save
-</button>
+        <div class="hidden">
+            <label for="path">Path:</label>
+            <input class="w-content" id="path" type="text" autofocus placeholder="e.g. academics/<new-path>">
+            <p class="text-sm text-spc-dark/50 italic">Please make sure the path already exists in the manifest!</p>
+        </div>
 
-<div id="loader" class="w-full hidden justify-around my-12">
-    <Loader />
-</div>
-<div id="welcomeBanner" class="flex justify-around my-12">
-    Please select a path to edit
-</div>
+        <button id="saveEditorBtn"
+                class="bg-spc-light my-2 text-spc-dark-green font-bold font-mono py-2 px-4 rounded-sm">
+            Save
+        </button>
+    </section>
 
-<section id="editor" class="hidden">
-    <article id="editorjs"
-             class="prose-sm prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg "
-    >
-    </article>
-</section>
+    <div id="loader" class="w-full hidden justify-around my-12">
+        <Loader />
+    </div>
+    <div id="welcomeBanner" class="flex justify-around my-12">
+        Please select a path to edit
+    </div>
 
-<ImageWidget />
+    <section id="editor" class="hidden">
+        <article id="editorjs"
+                 class="prose-sm prose-headings:font-bold prose-h1:text-3xl prose-h2:prose-xl prose-ul:list-disc prose-ol:list-decimal prose-ul:px-16 prose-p:px-6 xl:prose-p:px-24 md:prose-p:text-lg "
+        >
+        </article>
+    </section>
+
+    <ImageWidget />
+
+    <Footer/>
+</main>
 </body>
 </html>
 
@@ -87,9 +98,9 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
         }
 
         try {
-            const URL = get_api_route("read-post") + "&path=" + path;
+            const URL = get_api_route("read-content-raw") + "&path=" + path;
             const req = await fetch(URL, {
-                method: "POST",
+                method: "GET",
                 credentials: "include"
             });
 
@@ -169,9 +180,10 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
         formBody.append("data", JSON.stringify(data));
 
         try {
-            const res = await fetch(get_api_route("save-post"), {
+            const res = await fetch(get_api_route("update-content"), {
                 method: "POST",
-                body: formBody
+                body: formBody,
+                credentials: "include"
             });
 
             if (res.status != 204) {
@@ -179,6 +191,11 @@ let navsWithContent = NEW_NAVS.filter(i => i.children !== []).map(i => i.childre
             }
 
             console.info("new data saved");
+            saveEditorBtn.innerHTML = "Saved! Redirecting to dashboard...";
+
+            setTimeout(() => {
+                window.location = "/author";
+            }, 800);
         } catch (e) {
             console.debug("failed to POST");
             console.error(e);

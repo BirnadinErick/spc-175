@@ -42,7 +42,7 @@ class ProjectsModel extends BaseModel
     public function getProjects()
     {
         // TODO: Paginate
-        $sql = "SELECT id, title, status, amount, upvote, deadline FROM " . $this->tableName;
+        $sql = "SELECT id, title, status, amount, upvote, deadline, description FROM " . $this->tableName;
 
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -114,4 +114,41 @@ class ProjectsModel extends BaseModel
 
         return -1;
     }
+
+    public function editProject(array $formData): bool
+    {
+        $sql = "
+        UPDATE projects 
+        SET 
+            title = :title, 
+            description = :description, 
+            deadline = :deadline, 
+            amount = :amount, 
+            status = :status 
+        WHERE id = :id
+    ";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+
+            // Bind values
+            $stmt->bindValue(":title", $formData['project_title']);
+            $stmt->bindValue(":description", $formData['desc']);
+            $stmt->bindValue(":deadline", $formData['deadline']);
+            $stmt->bindValue(":amount", $formData['amount']);
+            $stmt->bindValue(":status", $formData['status']);
+            $stmt->bindValue(":id", $formData['id']);
+
+            // Execute the update
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Log the error to stdout for debugging
+            $stdout = fopen("php://stdout", "w");
+            fwrite($stdout, "Error saving project: " . $e->getMessage() . "\n");
+            fclose($stdout);
+
+            return false;
+        }
+    }
+
 }

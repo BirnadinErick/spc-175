@@ -44,4 +44,4 @@ app/
 lymp/
 
 **/*-google-*.json
-api/v1/controllers/Projects.php
+backup*/
