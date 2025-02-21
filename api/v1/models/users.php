@@ -1,5 +1,5 @@
 <?php
-require_once MODELS . "base.php";
+require_once MODELS . "base.php.bak";
 
 class UsersModel extends BaseModel
 {

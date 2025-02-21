@@ -4,7 +4,8 @@ dist/
 .astro/
 
 # dependencies
-node_modules/
+**/node_modules/
+**/.pnpm-store/
 
 # logs
 npm-debug.log*
@@ -48,3 +49,12 @@ backup*/
 
 # ignore chromium user data dir
 chrome/
+
+# transtion period
+final/
+bend/
+fend/
+app_deprecated/
+backup/
+
+**/*.bak

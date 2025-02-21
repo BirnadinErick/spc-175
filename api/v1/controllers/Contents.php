@@ -4,7 +4,7 @@ namespace tinyfuse\controllers;
 
 require_once MODELS . 'UsersModel.php';
 require_once MODELS . 'comments.php';
-require_once MODELS . 'contents.php';
+//require_once MODELS . 'contents.php.bak';
 require_once MODELS . 'ContentsV2Model.php';
 
 use BumpCore\EditorPhp\Helpers;
@@ -15,14 +15,12 @@ use tinyfuse\models\UsersModel;
 
 class Contents
 {
-    private ContentsModel $contents;
     private ContentsV2Model $contents_v2;
     private UsersModel $users;
     private ContentEngine $engine;
 
     public function __construct()
     {
-        $this->contents = new ContentsModel();
         $this->contents_v2 = new ContentsV2Model();
         $this->users = new UsersModel();
         $this->engine = new ContentEngine();
@@ -39,10 +37,10 @@ class Contents
         if (isset($_SERVER['HTTP_HX_CURRENT_URL'])) {
             $url = $_SERVER['HTTP_HX_CURRENT_URL'];
             $path = parse_url($url, PHP_URL_PATH);
-            debug("path from HX-Header with url: $url and path: $path", __FILE__);
+//            debug("path from HX-Header with url: $url and path: $path", __FILE__);
         } elseif (isset($_GET["path"])) {
             $path = $_GET["path"];
-            debug("path from _GET with path: $path", __FILE__);
+//            debug("path from _GET with path: $path", __FILE__);
         } else {
             echo "NOT FOUND";
             http_response_code(404);
@@ -197,7 +195,7 @@ class Contents
         }
 
         $cs = $this->contents_v2->get_editable_contents();
-        echo Helpers::renderNative(VIEWS . 'available-contents.php', [
+        echo Helpers::renderNative(VIEWS . 'available-contents.php.bak', [
             "cs" => $cs
         ]);
 

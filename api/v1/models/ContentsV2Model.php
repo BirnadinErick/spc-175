@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 use tinyfuse\lib\BaseModel;
 use tinyfuse\lib\contentengine\ContentEngine;
 
-require_once MODELS . "base.php";
+require_once MODELS . "base.php.bak";
 require_once APP . 'lib/contentengine/ContentEngine.php';
 
 class ContentsV2Model extends BaseModel
@@ -52,7 +52,7 @@ class ContentsV2Model extends BaseModel
 
     public function get_rendered_content(string $path): string|null
     {
-        debug("get_rendered_content: $path", __FILE__);
+//        debug("get_rendered_content: $path", __FILE__);
 
         $path = 'contents/' . $this->sanitizeFilename($path, "html");
         if (!file_exists($path)) {

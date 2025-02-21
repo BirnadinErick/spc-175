@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(E_ALL);
 ini_set("display_errors", 0);
 ini_set("log_errors", "On");
@@ -72,8 +71,8 @@ if (DEBUG) {
     define("API", "http://localhost:2004/api/v1/index.php?p=");
     define("ENV", ".dev");
 } else {
-    define("SERVER", "http://dev.spcjaffna.org");
-    define("API", "http://dev.spcjaffna.org/api/v1/index.php?p=");
+    define("SERVER", "https://dev.spcjaffna.org");
+    define("API", "https://dev.spcjaffna.org/api/v1/index.php?p=");
     define("ENV", ".prod");
 }
 

@@ -6,8 +6,8 @@ if (DEBUG) {
     API = "http://localhost:2004/api/v1/index.php";
     APP = "http://localhost:2007";
 } else {
-    API = "http://dev.spcjaffna.org/api/v1/index.php";
-    APP = "http://dev.spcjaffna.org";
+    API = "https://dev.spcjaffna.org/api/v1/index.php";
+    APP = "https://dev.spcjaffna.org";
 }
 
 function get_app_route(route: string) {

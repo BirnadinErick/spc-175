@@ -1,0 +1,9 @@
+FROM node:latest
+
+WORKDIR /app
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+RUN pnpm --version
+
+CMD ["pnpm", "--version"]

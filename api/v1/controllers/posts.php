@@ -8,7 +8,7 @@ use BumpCore\EditorPhp\EditorPhp;
 use BumpCore\EditorPhp\Helpers;
 
 require_once MODELS . "users.php";
-require_once MODELS . "contents.php";
+require_once MODELS . "contents.php.bak";
 
 class CustomYoutubeEmbed extends Embed
 {
@@ -479,7 +479,7 @@ function available_contents()
 {
     $c = new ContentsModel();
     $cs = $c->get_contents();
-    echo Helpers::renderNative(VIEWS . 'available-contents.php', [
+    echo Helpers::renderNative(VIEWS . 'available-contents.php.bak', [
         "cs" => $cs
     ]);
 }

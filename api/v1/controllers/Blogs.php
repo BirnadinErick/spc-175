@@ -5,7 +5,7 @@ namespace tinyfuse\controllers;
 require_once MODELS . 'UsersModel.php';
 require_once MODELS . 'BlogsModel.php';
 require_once MODELS . 'comments.php';
-require_once MODELS . 'contents.php';
+require_once MODELS . 'contents.php.bak';
 require_once MODELS . 'ContentsV2Model.php';
 
 use BumpCore\EditorPhp\Helpers;

@@ -1,10 +1,15 @@
 {
     "autoload": {
-        "tinyfuse\\" : "."
+        "psr-4": {
+            "tinyfuse\\" : "."
+        }
     },
     "require": {
-        "bumpcore/editor.php": "^1.1",
-        "vlucas/phpdotenv": "^5.6",
-        "phpmailer/phpmailer": "^6.9"
+        "php": "8.1.*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "bumpcore/editor.php": "1.1.*",
+        "vlucas/phpdotenv": "5.6.*",
+        "phpmailer/phpmailer": "6.9.*"
     }
 }

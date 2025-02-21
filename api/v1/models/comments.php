@@ -1,6 +1,6 @@
 <?php /** @noinspection ALL */
 
-require_once MODELS . "base.php";
+require_once MODELS . "base.php.bak";
 
 class CommentsModel extends BaseModel
 {

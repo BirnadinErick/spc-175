@@ -1,9 +1,9 @@
 {
   "name": "spc-175-birn-dot-cc",
   "type": "module",
-  "version": "0.7.0",
+  "version": "1.9.1",
   "author": {
-    "name": "BirnadinErick<me@birn.cc>"
+    "name": "BirnadinErick<hi@methebe.com>"
   },
   "scripts": {
     "dev-f": "astro dev --port 2007",

@@ -1,0 +1,40 @@
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "2007:80"
+    volumes:
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+
+  app:
+    build:
+      dockerfile: docker/Dockerfile-bend
+    volumes:
+      - /var/www/html/vendor
+      - ./app:/var/www/html/
+
+  frontend:
+    build:
+      dockerfile: docker/Dockerfile-fend
+    working_dir: /app
+    volumes:
+      - ./fend:/app
+    ports:
+      - "2004:2007"
+    command: sh -c "pnpm install && pnpm astro dev --port 2007 --host 0.0.0.0"
+
+  db:
+    image: mysql:8.0
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: spc
+      MYSQL_PASSWORD: spc2023
+      MYSQL_DATABASE: spc
+
+volumes:
+  dbdata:
