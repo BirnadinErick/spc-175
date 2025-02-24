@@ -1,0 +1,50 @@
+---
+import CommonHead from "../../src/components/common/CommonHead.astro";
+import CommonHeader from "../../src/components/common/CommonHeader.astro";
+import SectionTitle from "../../src/components/common/SectionTitle.astro";
+import Footer from "../../src/components/footer/Footer.astro";
+import BackButton from "../../src/components/patrician-publications/BackButton.astro";
+import MobileNavButton from "../../src/components/common/MobileNavButton.astro";
+import SignInForm from "../../src/components/auth/SignInForm.astro";
+import HTMX from "../../src/components/common/HTMX.astro";
+
+import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/700.css";
+import "../../src/components/common/swup.css";
+---
+<style>
+    section {
+        @apply px-6 my-8 md:px-12 lg:px-24 xl:px-[30%];
+    }
+</style>
+
+<html lang="en">
+<CommonHead title="Log In | SPC Media Unit | 175 years" />
+
+<body x-data="{open : false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+<CommonHeader title="Digital <br/>Patrician" />
+
+<main>
+    <section>
+        <BackButton />
+    </section>
+
+    <section>
+        <SectionTitle title="Create an Account." />
+
+        <div class="my-4">
+            <a href="/home/be/projs/spc-175/temp-vault/auth/login" class="underline underline-offset-4">Already Registered? Login Instead</a>
+        </div>
+    </section>
+
+    <section>
+        <SignInForm />
+    </section>
+</main>
+
+<Footer />
+
+<MobileNavButton />
+<HTMX />
+</body>
+</html>

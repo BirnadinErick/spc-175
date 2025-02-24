@@ -1,16 +1,16 @@
 ---
-import CommonHead from "@components/common/CommonHead.astro";
-import CommonHeader from "@components/common/CommonHeader.astro";
-import Footer from "@components/footer/Footer.astro";
-import BackButton from "@components/patrician-publications/BackButton.astro";
-import MobileNavButton from "@components/common/MobileNavButton.astro";
-import HTMX from "@components/common/HTMX.astro";
+import CommonHead from "../../../src/components/common/CommonHead.astro";
+import CommonHeader from "../../../src/components/common/CommonHeader.astro";
+import Footer from "../../../src/components/footer/Footer.astro";
+import BackButton from "../../../src/components/patrician-publications/BackButton.astro";
+import MobileNavButton from "../../../src/components/common/MobileNavButton.astro";
+import HTMX from "../../../src/components/common/HTMX.astro";
 
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
 import "@fontsource/space-mono/400.css";
-import "@components/common/swup.css";
-import Table from "../../components/author/Table.astro";
+import "../../../src/components/common/swup.css";
+import Table from "../../../src/components/padmin/Table.astro";
 
 const { meta } = Astro.props;
 ---
@@ -22,7 +22,7 @@ const { meta } = Astro.props;
 />
 
 <body x-data="{open:false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
-<CommonHeader title="Manage Content | SPC Media Unit" />
+<CommonHeader title="Manage Projects | SPC Media Unit" />
 
 <main>
     <section class="px-6 md:px-12 xl:px-96 ">
@@ -30,13 +30,13 @@ const { meta } = Astro.props;
     </section>
 
     <section class="px-6 mt-8 md:px-12 xl:px-96 ">
-        <h1 class="font-bold text-4xl leading-[95%]">Manage Content</h1>
+        <h1 class="font-bold text-4xl leading-[95%]">Manage Projects</h1>
     </section>
 
     <div class="px-96 my-8">
         <div class="flex justify-start items-baseline space-x-2">
             <a
-                href="/author/new-blog"
+                href="/home/be/projs/spc-175/temp-vault/projects/new"
                 class="w-fit flex justify-start items-center space-x-2 bg-spc-light text-spc-green font-bold px-4 py-2 rounded-sm my-1 ">
             <span class="pr-2">
                 <svg
@@ -54,22 +54,12 @@ const { meta } = Astro.props;
                         </path>
                 </svg>
             </span>
-                Create new blog
+                Create new project
             </a>
         </div>
 
-        <section class="mt-12">
-            <h1 class="font-bold text-xl leading-[95%]">Contents</h1>
-        </section>
         <div class="htmxenable my-4">
             <Table />
-        </div>
-
-        <section class="mt-12">
-            <h1 class="font-bold text-xl leading-[95%]">Blogs</h1>
-        </section>
-        <div class="htmxenable my-4">
-            <Table category="blogs" />
         </div>
     </div>
 

@@ -1,4 +1,4 @@
-const DEBUG = true;
+const DEBUG = false;
 
 let API = "";
 let APP = "";
@@ -15,6 +15,7 @@ function get_app_route(route: string) {
 }
 
 function get_api_route(route: string) {
+    const API = "http://localhost:2004/api/v1/index.php";
     return API + "?p=" + route;
 }
 

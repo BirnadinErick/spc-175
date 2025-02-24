@@ -15,6 +15,8 @@ class BaseModel
 
     function __construct()
     {
+        // TODO: remove after porting
+        return;
         $host = $_ENV['DB_HOST'];
         $db = $_ENV['DB_NAME'];
 

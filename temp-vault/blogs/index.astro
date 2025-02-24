@@ -1,20 +1,20 @@
 ---
-import CommonHead from "@components/common/CommonHead.astro";
-import CommonHeader from "@components/common/CommonHeader.astro";
-import Footer from "@components/footer/Footer.astro";
-import PageTitle from "@components/common/PageTitle.astro";
-import Search from "@components/patrician-publications/Search.astro";
-import MobileNavButton from "@components/common/MobileNavButton.astro";
-import Loader from "@components/common/Loader.astro";
-import HTMX from "@components/common/HTMX.astro";
-import SWUP from "../../components/common/SWUP.astro";
+import CommonHead from "../../src/components/common/CommonHead.astro";
+import CommonHeader from "../../src/components/common/CommonHeader.astro";
+import Footer from "../../src/components/footer/Footer.astro";
+import PageTitle from "../../src/components/common/PageTitle.astro";
+import Search from "../../src/components/patrician-publications/Search.astro";
+import MobileNavButton from "../../src/components/common/MobileNavButton.astro";
+import Loader from "../../src/components/common/Loader.astro";
+import HTMX from "../../src/components/common/HTMX.astro";
+import SWUP from "../../src/components/common/SWUP.astro";
 
-import { get_api_route } from "@config/global";
+import { get_api_route } from "../../src/config/global";
 
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
 import "@fontsource/space-mono/400.css";
-import "@components/common/swup.css";
+import "../../src/components/common/swup.css";
 ---
 
 <html lang="en">

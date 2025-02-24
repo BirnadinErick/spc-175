@@ -2,10 +2,6 @@
 import SPCLogo from "@components/common/SPCLogo.astro";
 import { get_api_route } from "../../config/global";
 const currentYear = new Date().getFullYear();
-const quickNavLinks = [
-    "Home", "Academics", "Blogs & News", "Our Spirituality", "Projects", "Our History",
-    "Live Streams", "175 Celebrations", "Gallery", "Sports", "Contact Us"
-];
 ---
 
 <footer class="text-spc-light bg-spc-dark">
@@ -14,7 +10,7 @@ const quickNavLinks = [
         <div class="px-6 py-8 space-y-8">
             <div class="text-center">
                 <div class="flex items-center justify-center">
-                    <SPCLogo />
+                    <SPCLogo dim={80}/>
                 </div>
                 <h2 class="text-2xl font-semibold mb-2 mt-2">St. Patrick's College</h2>
                 <p class="text-sm opacity-80">Jaffna</p>
@@ -24,22 +20,21 @@ const quickNavLinks = [
                     <li><a href="/" class="hover:text-spc-gold transition-colors">Home</a></li>
                     <li><a href="/academics/news" class="hover:text-spc-gold transition-colors">Academics</a>
                     </li>
-                    <li><a href="/blogs" class="hover:text-spc-gold transition-colors">Blogs & News</a></li>
+                    <!--<li><a href="/home/be/projs/spc-175/temp-vault/blogs" class="hover:text-spc-gold transition-colors">Blogs & News</a></li>-->
                     <li><a href="/alma-mater/our-spirituality" class="hover:text-spc-gold transition-colors">Our
                         Spirituality</a></li>
-                    <li><a href="/projects" class="hover:text-spc-gold transition-colors">Projects</a></li>
+                    <!--<li><a href="/home/be/projs/spc-175/temp-vault/projects" class="hover:text-spc-gold transition-colors">Projects</a></li>-->
                     <li><a href="/alma-mater/history-of-the-college"
                            class="hover:text-spc-gold transition-colors">Our History</a></li>
                     <li><a href="https://www.youtube.com/@st.patrickscollegejaffna.8326/streams" target="_blank"
                            class="hover:text-spc-gold transition-colors">Live Streams</a></li>
                     <li><a href="https://spc175.com/" target="_blank"
                            class="hover:text-spc-gold transition-colors">175 Celebrations</a></li>
-                    <li><a href="/gallery" class="hover:text-spc-gold transition-colors">Gallery</a></li>
-                    <li><a href="/co-curriculum/sports" class="hover:text-spc-gold transition-colors">Sports</a>
-                    </li>
+                    <!--<li><a href="/gallery" class="hover:text-spc-gold transition-colors">Gallery</a></li>-->
+                    <!--<li><a href="/co-curriculum/sports" class="hover:text-spc-gold transition-colors">Sports</a> </li>-->
                 </ul>
             </nav>
-            <p class="mt-2"><a target="_blank"
+            <p class="mt-2 text-center"><a target="_blank"
                                href="https://www.google.de/maps/place/St.+Patrick's+College,+Jaffna/@9.6551515,80.0187737,17z/data=!3m1!4b1!4m6!3m5!1s0x3afe56bad7689735:0x4428bae8d47fa23f!8m2!3d9.6551515!4d80.0213486!16s%2Fm%2F05p2xx9?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D">St.
                 Patrick's College,<br />St. Patrick's Road,<br />40 000 Jaffna</a></p>
             <div class="text-center text-sm space-y-2">
@@ -72,7 +67,7 @@ const quickNavLinks = [
                 can be used without prior written knowledge of the Unit Members.</p>
             <p class="text-xs text-center opacity-70">Source text is owned by the members of 2022's SPC Media Unit.</p>
             <div class="w-20 h-1 bg-spc-gold mx-auto rounded-full"></div>
-            <p class="text-xs text-center">Proudly developed in Deggendorf and Jaffna, by SPC Media Unit 2022.</p>
+            <p class="text-xs text-center">Proudly developed in Jaffna, and Deggendorf, by SPC Media Unit 2022.</p>
             <p class="text-xs text-center opacity-70">&copy; {currentYear} SPC Media Unit</p>
         </div>
     </div>
@@ -80,12 +75,12 @@ const quickNavLinks = [
     <!-- Desktop Footer -->
     <div class="hidden lg:block">
         <div class="max-w-7xl mx-auto px-6 py-12">
-            <div class="rounded-3xl shadow-lg overflow-hidden">
+            <div class="rounded-3xl shadow-lg overflow-hidden bg-spc-green/20">
                 <div class="grid grid-cols-4 gap-8 p-8">
                     <div class="col-span-2 space-y-6">
                         <div class="flex items-center space-x-4">
                             <div>
-                                <SPCLogo />
+                                <SPCLogo dim={80}/>
                             </div>
                             <div>
                                 <h2 class="text-2xl font-semibold">St. Patrick's College</h2>
@@ -97,18 +92,18 @@ const quickNavLinks = [
                             <li><a href="/" class="hover:text-spc-gold transition-colors">Home</a></li>
                             <li><a href="/academics/news" class="hover:text-spc-gold transition-colors">Academics</a>
                             </li>
-                            <li><a href="/blogs" class="hover:text-spc-gold transition-colors">Blogs & News</a></li>
+                            <!--<li><a href="/home/be/projs/spc-175/temp-vault/blogs" class="hover:text-spc-gold transition-colors">Blogs & News</a></li>-->
                             <li><a href="/alma-mater/our-spirituality" class="hover:text-spc-gold transition-colors">Our
                                 Spirituality</a></li>
-                            <li><a href="/projects" class="hover:text-spc-gold transition-colors">Projects</a></li>
+                            <!--<li><a href="/home/be/projs/spc-175/temp-vault/projects" class="hover:text-spc-gold transition-colors">Projects</a></li>-->
                             <li><a href="/alma-mater/history-of-the-college"
                                    class="hover:text-spc-gold transition-colors">Our History</a></li>
                             <li><a href="https://www.youtube.com/@st.patrickscollegejaffna.8326/streams" target="_blank"
                                    class="hover:text-spc-gold transition-colors">Live Streams</a></li>
                             <li><a href="https://spc175.com/" target="_blank"
                                    class="hover:text-spc-gold transition-colors">175 Celebrations</a></li>
-                            <li><a href="/gallery" class="hover:text-spc-gold transition-colors">Gallery</a></li>
-                            <li><a href="/co-curriculum/sports" class="hover:text-spc-gold transition-colors">Sports</a>
+                            <!--<li><a href="/gallery" class="hover:text-spc-gold transition-colors">Gallery</a></li>-->
+                            <!--<li><a href="/co-curriculum/sports" class="hover:text-spc-gold transition-colors">Sports</a>-->
                             </li>
                         </ul>
                     </div>
@@ -140,26 +135,26 @@ const quickNavLinks = [
                             </a>
                         </div>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4">Feedback</h3>
-                        <form class="htmxenable space-y-4" hx-post={get_api_route("feedback")} hx-target="#feedback-button" hx-swap="outerHTML">
-                            <div>
-                                <label for="email" class="block text-sm font-medium mb-1">Email</label>
-                                <input type="email" id="email" name="email" required
-                                       class="w-full px-3 py-2 bg-spc-light/10 rounded-md focus:outline-none focus:ring-2 focus:ring-spc-gold" />
-                            </div>
-                            <div>
-                                <label for="message" class="block text-sm font-medium mb-1">Message</label>
-                                <textarea id="message" name="message" rows="4" required
-                                          class="w-full px-3 py-2 bg-spc-light/10 rounded-md focus:outline-none focus:ring-2 focus:ring-spc-gold"></textarea>
-                            </div>
-                            <button type="submit"
-                                    id="feedback-button"
-                                    class="inline-block px-6 py-2 bg-transparent text-spc-gold font-bold rounded-full border-2 border-spc-gold hover:bg-spc-gold/10 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-center text-lg">
-                                Send Feedback
-                            </button>
-                        </form>
-                    </div>
+                    <!--<div>-->
+                    <!--    <h3 class="text-xl font-semibold mb-4">Feedback</h3>-->
+                    <!--    <form class="htmxenable space-y-4" hx-post={get_api_route("feedback")} hx-target="#feedback-button" hx-swap="outerHTML">-->
+                    <!--        <div>-->
+                    <!--            <label for="email" class="block text-sm font-medium mb-1">Email</label>-->
+                    <!--            <input type="email" id="email" name="email" required-->
+                    <!--                   class="w-full px-3 py-2 bg-spc-light/10 rounded-md focus:outline-none focus:ring-2 focus:ring-spc-gold" />-->
+                    <!--        </div>-->
+                    <!--        <div>-->
+                    <!--            <label for="message" class="block text-sm font-medium mb-1">Message</label>-->
+                    <!--            <textarea id="message" name="message" rows="4" required-->
+                    <!--                      class="w-full px-3 py-2 bg-spc-light/10 rounded-md focus:outline-none focus:ring-2 focus:ring-spc-gold"></textarea>-->
+                    <!--        </div>-->
+                    <!--        <button type="submit"-->
+                    <!--                id="feedback-button"-->
+                    <!--                class="inline-block px-6 py-2 bg-transparent text-spc-gold font-bold rounded-full border-2 border-spc-gold hover:bg-spc-gold/10 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-center text-lg">-->
+                    <!--            Send Feedback-->
+                    <!--        </button>-->
+                    <!--    </form>-->
+                    <!--</div>-->
                 </div>
                 <div class="border-t border-spc-light/20 p-8">
                     <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
