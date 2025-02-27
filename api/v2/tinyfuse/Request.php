@@ -30,4 +30,9 @@ class Request
         return array_key_exists("REQUEST_METHOD", $this->server) ? $this->server["REQUEST_METHOD"]:"GET";
     }
 
+    public function get_post_params(): array
+    {
+        return $this->post_params;
+    }
+
 }

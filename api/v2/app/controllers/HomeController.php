@@ -16,6 +16,13 @@ class HomeController
         $this->settings = new SettingsModel($state);
     }
 
+    public function count(Request $request): Response
+    {
+        $params = $request->get_post_params();
+        $new_count = $this->settings->set_count((int)$params['value']) ?? 0;
+        return new Response('new count: ' . $new_count);
+    }
+
     public function home(Request $request): Response
     {
         $content = 'Hello from controller';

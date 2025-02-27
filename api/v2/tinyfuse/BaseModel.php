@@ -45,7 +45,7 @@ class BaseModel
         return [$types, $values];
     }
 
-    protected function execute(string $statement, array $params): array|Error
+    protected function execute(string $statement, array $params): array|false
     {
         $stmt = $this->conn->prepare($statement);
 
@@ -58,7 +58,10 @@ class BaseModel
             $stmt->bind_param($types, ...$values);
         }
 
-        $stmt->execute();
+        if (!$stmt->execute()) {
+            Utils::logInfo('DB_STMT: stmt failed to execute');
+            return false;
+        }
 
         $result = $stmt->get_result();
         if ($result) {
