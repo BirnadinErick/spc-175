@@ -1,6 +1,6 @@
 <?php
 
-namespace Tinyfuse\Kernel;
+namespace tinyfuse;
 
 enum LOG_LEVEL
 {

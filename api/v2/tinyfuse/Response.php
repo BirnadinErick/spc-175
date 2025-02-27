@@ -1,8 +1,6 @@
 <?php
 
-namespace Tinyfuse\Http;
-
-use Tinyfuse\Kernel\STATUS_CODES;
+namespace tinyfuse;
 
 class Response
 {
@@ -12,6 +10,18 @@ class Response
         private STATUS_CODES    $code = STATUS_CODES::OK
     )
     {
+    }
+
+    public static function forNotFound():static
+    {
+        $message = 'Page not found.';
+        return new self($message, code: STATUS_CODES::NOT_FOUND);
+    }
+
+    public static function forNotAllowed(): static
+    {
+        $message = 'Method not allowed';
+        return new self($message, code: STATUS_CODES::NOT_ALLOWED);
     }
 
     public function setCode(STATUS_CODES $code): void

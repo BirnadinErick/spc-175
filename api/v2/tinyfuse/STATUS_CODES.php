@@ -1,6 +1,6 @@
 <?php
 
-namespace Tinyfuse\Kernel;
+namespace tinyfuse;
 enum  STATUS_CODES: int
 {
     case OK = 200;

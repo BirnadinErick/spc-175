@@ -1,8 +1,8 @@
 {
   "autoload": {
     "psr-4": {
-      "Tinyfuse\\": "tinyfuse/",
-      "App\\": "src/"
+      "tinyfuse\\": "tinyfuse/",
+      "app\\": "app/"
     }
   },
   "require": {
