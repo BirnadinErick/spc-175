@@ -11,7 +11,7 @@ class BaseState
     protected array $routes;
 
     public function __construct(
-        public readonly array $global_env
+        private readonly array $global_env
     )
     {
         $this->routes = [];
@@ -32,7 +32,7 @@ class BaseState
 
     }
 
-    public static function default():static
+    public static function default(): static
     {
         return new self($_ENV);
     }
@@ -60,5 +60,10 @@ class BaseState
 
         $this->routes[$path] = [$method, $handler];
         return true;
+    }
+
+    public function get_env(string $key): string|null
+    {
+        return array_key_exists($key, $this->global_env) ? $this->global_env[$key] : null;
     }
 }

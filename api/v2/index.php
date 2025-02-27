@@ -5,6 +5,7 @@ use Dotenv\Dotenv;
 use tinyfuse\BaseState as State;
 use tinyfuse\Kernel;
 use tinyfuse\Request;
+use tinyfuse\Utils;
 
 const ROOT = __DIR__;
 require_once ROOT . '/vendor/autoload.php';
@@ -14,11 +15,14 @@ require_once ROOT.'/tinyfuse/Constants.php';
 $dotenv = Dotenv::createImmutable(ROOT, '.dev');
 $dotenv->load();
 
-// init controllers
-$home = new HomeController();
+Utils::logRequest();
 
-// int new state and add routes
 $state = State::default();
+
+// init controllers
+$home = new HomeController($state);
+
+// hook routing controllers
 $state->addRoute(ROUTE_METHOD_GET, 'hello', [$home, 'home']);
 
 session_start();
