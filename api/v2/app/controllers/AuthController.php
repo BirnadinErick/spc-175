@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\AuthModel;
+use app\models\MagicCodeModel;
 use tinyfuse\ACTION;
 use tinyfuse\BaseController;
 use tinyfuse\BaseState;
@@ -17,11 +18,13 @@ class AuthController extends BaseController
     use CryptoFunctions, Mailer;
 
     private AuthModel $model;
+    private MagicCodeModel $magic_model;
 
     public function __construct(BaseState $state)
     {
         parent::__construct($state);
         $this->model = new AuthModel($state);
+        $this->magic_model = new MagicCodeModel($state);
     }
 
     public function register_user(Request $request): Response
@@ -41,25 +44,22 @@ class AuthController extends BaseController
         }
         if (sizeof($missingFields) > 0) {
             Utils::logInfo(
-            'AUTH_ERR: Following fields are missing from the request for new user:\n'
+                'AUTH_ERR: Following fields are missing from the request for new user:\n'
                 .
                 var_export($missingFields, true)
             );
             return Response::forFailedAction();
         }
 
-        $ok = $this->model->new_user($params);
-        if ($ok === false) {
-            return Response::forFailedAction();
-        }
-
         $magic_code = $this->gen_magic_code(ACTION::NEW_USER);
-        $ok = $this->mail_html(
-            $params['email'],
-            $params['first_name'] . ' ' . $params['last_name'],
-            $this->render($this->state->VIEWS . 'email-user-activate', ['link' => $magic_code])
-        );
-        if ($ok === false) {
+        $email_to = $params['email'];
+        $email_to_name = $params['first_name'] . ' ' . $params['last_name'];
+        $email_body = $this->render($this->state->VIEWS . 'email-user-activate', ['link' => $magic_code]);
+        if (
+            ($this->model->new_user($params) === false)
+            || ($this->magic_model->add_magic_code($magic_code, $params['email']) === false)
+            || ($this->mail_html($email_to, $email_to_name, $email_body) === false)
+        ) {
             return Response::forFailedAction();
         }
 

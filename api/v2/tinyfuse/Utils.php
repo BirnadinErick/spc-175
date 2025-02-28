@@ -10,6 +10,11 @@ class Utils
         error_log( "DEBUG[$timestamp]: ". $msg);
     }
 
+    public static function get_time_full():string
+    {
+       return date('Y-m-d H:i:s');
+    }
+
     public static function logInfo(string $msg):void
     {
         $timestamp = date("Y-m-d H:i:s");
