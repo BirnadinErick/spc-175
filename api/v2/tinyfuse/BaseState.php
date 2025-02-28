@@ -7,6 +7,7 @@ class BaseState
     public LOG_LEVEL $LOG_LEVEL;
     public bool $LOG_DEBUG_VARS;
     public bool $DEBUG;
+    public string $VIEWS;
 
     protected array $routes;
 
@@ -15,6 +16,7 @@ class BaseState
     )
     {
         $this->routes = [];
+        $this->VIEWS = ROOT . '/app/views/';
 
         if ($this->global_env['ENV'] === 'development') {
             $this->DEBUG = true;
@@ -30,6 +32,11 @@ class BaseState
             $this->LOG_DEBUG_VARS = false;
         }
 
+    }
+
+    public function set_view_root(string $view_root):void
+    {
+        $this->VIEWS = $view_root;
     }
 
     public static function default(): static

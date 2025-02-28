@@ -3,17 +3,26 @@
 namespace app\controllers;
 
 use app\models\SettingsModel;
+use tinyfuse\BaseController;
 use tinyfuse\BaseState;
 use tinyfuse\Request;
 use tinyfuse\Response;
 
-class HomeController
+class HomeController extends BaseController
 {
     private SettingsModel $settings;
 
     public function __construct(BaseState $state)
     {
+        parent::__construct($state);
         $this->settings = new SettingsModel($state);
+        $this->state = $state;
+    }
+
+    public function servus(Request $request): Response
+    {
+        $content = $this->render($this->state->VIEWS . 'servus', ['name' => "BE"]);
+        return new Response($content);
     }
 
     public function count(Request $request): Response

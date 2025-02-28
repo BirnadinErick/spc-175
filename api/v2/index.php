@@ -25,6 +25,7 @@ $home = new HomeController($state);
 // hook routing controllers
 $state->addRoute(ROUTE_METHOD_GET, 'hello', [$home, 'home']);
 $state->addRoute(ROUTE_METHOD_POST, 'count', [$home, 'count']);
+$state->addRoute(ROUTE_METHOD_GET, 'servus', [$home, 'servus']);
 
 session_start();
 $req = Request::fromGlobals();
