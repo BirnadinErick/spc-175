@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use app\controllers\AuthController;
 use app\controllers\HomeController;
 use Dotenv\Dotenv;
 use tinyfuse\BaseState as State;
@@ -21,11 +22,13 @@ $state = State::default();
 
 // init controllers
 $home = new HomeController($state);
+$auth = new AuthController($state);
 
 // hook routing controllers
 $state->addRoute(ROUTE_METHOD_GET, 'hello', [$home, 'home']);
 $state->addRoute(ROUTE_METHOD_POST, 'count', [$home, 'count']);
 $state->addRoute(ROUTE_METHOD_GET, 'servus', [$home, 'servus']);
+$state->addRoute(ROUTE_METHOD_POST, 'register-user', [$auth, 'register_user']);
 
 session_start();
 $req = Request::fromGlobals();

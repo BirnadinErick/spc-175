@@ -24,6 +24,12 @@ class Response
         return new self($message, code: STATUS_CODES::NOT_ALLOWED);
     }
 
+    public static function forFailedAction(): static
+    {
+        $message = 'Failed to complete the action. Retry.';
+        return new self($message, code: STATUS_CODES::UNKNOWN_ERROR);
+    }
+
     public function setCode(STATUS_CODES $code): void
     {
         $this->code = $code;

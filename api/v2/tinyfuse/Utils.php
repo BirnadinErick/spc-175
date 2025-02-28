@@ -7,7 +7,7 @@ class Utils
     public static function logDebug(string $msg):void
     {
         $timestamp = date("Y-m-d H:i:s");
-        fwrite(STDOUT, "DEBUG[$timestamp]: ". $msg);
+        error_log( "DEBUG[$timestamp]: ". $msg);
     }
 
     public static function logInfo(string $msg):void

@@ -5,10 +5,10 @@ namespace tinyfuse;
 class Request
 {
     public function __construct(
-        public readonly array      $get_params,
-        public readonly array      $post_params,
-        public readonly array|null $session,
-        public readonly array      $server
+        private readonly array      $get_params,
+        private readonly array      $post_params,
+        private readonly array|null $session,
+        private readonly array      $server
 
     )
     {
@@ -17,6 +17,11 @@ class Request
     public static function fromGlobals(): static
     {
         return new self($_GET, $_POST, $_SESSION, $_SERVER);
+    }
+
+    public function get_session_data(string $key): array|null
+    {
+        return array_key_exists($key, $this->session) ? $this->session[$key] : null;
     }
 
     public function get_route(): string|null
