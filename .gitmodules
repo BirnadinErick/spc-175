@@ -1,0 +1,3 @@
+[submodule "spc-backups"]
+	path = spc-backups
+	url = git@github.com:BirnadinErick/spc-backups.git
