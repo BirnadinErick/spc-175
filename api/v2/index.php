@@ -30,6 +30,13 @@ $state->addRoute(ROUTE_METHOD_POST, 'count', [$home, 'count']);
 $state->addRoute(ROUTE_METHOD_GET, 'servus', [$home, 'servus']);
 $state->addRoute(ROUTE_METHOD_POST, 'register-user', [$auth, 'register_user']);
 $state->addRoute(ROUTE_METHOD_GET, 'activate-user', [$auth, 'activate_user']);
+$state->addRoute(ROUTE_METHOD_POST, 'login-user', [$auth, 'login_user']);
+
+/* session setup */
+ini_set('session.use_only_cookies', 1);
+ini_set('session.use_strict_mode', 1);
+ini_set('session.name', 'SPCMotherSessID');
+/* end session setup */
 
 session_start();
 $req = Request::fromGlobals();

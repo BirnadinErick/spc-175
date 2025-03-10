@@ -7,6 +7,7 @@ use tinyfuse\BaseController;
 use tinyfuse\BaseState;
 use tinyfuse\Request;
 use tinyfuse\Response;
+use tinyfuse\Utils;
 
 class HomeController extends BaseController
 {
@@ -21,7 +22,7 @@ class HomeController extends BaseController
 
     public function servus(Request $request): Response
     {
-        $content = $this->render($this->state->VIEWS . 'servus', ['name' => "BE"]);
+        $content = $this->render($this->state->VIEWS . 'servus', ['name' => $_SESSION[SESSION_USER_EMAIL] ?? 'Anonymity']);
         return new Response($content);
     }
 

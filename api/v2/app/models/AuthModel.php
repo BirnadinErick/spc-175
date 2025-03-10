@@ -18,7 +18,7 @@ class AuthModel extends BaseModel
             $params['last_name'],
             $params['email'],
             $this->hash_password($params['password']),
-            (int) $params['year_of_batch'],
+            (int)$params['year_of_batch'],
             $params['country'],
             $params['address_line_1'],
             $params['address_line_2'] ?? null,
@@ -32,5 +32,32 @@ first_name, last_name, email, password, year_of_batch, country, address_line_1, 
     ) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         return !($this->execute($sql, $params) === false);
+    }
+
+    public function does_user_exists_and_active(string $email): bool
+    {
+        $sql = "SELECT COUNT(*) as is_user_ok FROM users WHERE email = ? AND isactive = 1;";
+        $res = $this->execute($sql, [$email])[0];
+        return array_key_exists('is_user_ok', $res) && $res['is_user_ok'] === 1;
+    }
+
+    public function is_user_cred_valid(string $password): bool
+    {
+        $sql = "SELECT COUNT(*) as is_cred_valid FROM users WHERE password = ? AND isactive = 1;";
+        $res = $this->execute($sql, [$this->hash_password($password)])[0];
+        return array_key_exists('is_cred_valid', $res) && $res['is_cred_valid'] === 1;
+    }
+
+    public function get_user_role(string $email): int
+    {
+        $sql = "SELECT role FROM users WHERE email = ? AND isactive = 1;";
+        $res = $this->execute($sql, [$email])[0];
+        return $res['role'] ?? -2003;
+    }
+
+    public function activate_user(string $email): bool
+    {
+        $sql = "UPDATE users SET isactive = 1 WHERE email = ? AND isactive =0;";
+        return $this->check_if_action_ok($this->execute($sql, [$email]));
     }
 }

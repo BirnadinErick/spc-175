@@ -14,17 +14,11 @@ class Kernel
             return Response::forNotFound();
         }
         if ($http_method !== $request->get_http_method()) {
+            Utils::logDebug($request->get_http_method());
             return Response::forNotAllowed();
         }
 
-        $response = $controller->$method($request, $state);
-
-        if ($state->LOG_DEBUG_VARS === true) {
-            dump($request);
-            dump($state);
-            dump($response);
-        }
-        return $response;
+        return $controller->$method($request, $state);
     }
 
 }

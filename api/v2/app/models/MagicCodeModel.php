@@ -16,11 +16,11 @@ class MagicCodeModel extends BaseModel
         );
     }
 
-    public function validate_magic_code(string $magic_code, ACTION $action): bool
+    public function validate_magic_code(string $magic_code, ACTION $action): string|false
     {
-        $sql = "SELECT COUNT(*) as is_valid FROM magiclinks WHERE code=? AND purpose=? AND used=0;";
+        $sql = "SELECT email, COUNT(*) as is_valid FROM magiclinks WHERE code=? AND purpose=? AND used=0 GROUP BY email;";
         $res = $this->execute($sql, [$magic_code, (int)$action->value])[0];
-        return array_key_exists('is_valid', $res) && $res['is_valid'] === 1;
+        return array_key_exists('is_valid', $res) && $res['is_valid'] === 1 ? $res['email'] : false;
     }
 
     public function complete_magic_transaction(string $magic_code): bool

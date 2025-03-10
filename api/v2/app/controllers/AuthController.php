@@ -27,6 +27,27 @@ class AuthController extends BaseController
         $this->magic_model = new MagicCodeModel($state);
     }
 
+    public function login_user(Request $request): Response
+    {
+        session_regenerate_id(true);
+
+        $params = $request->get_post_params();
+        if (!isset($params['email']) || !isset($params['password'])) {
+            return Response::forFailedAction();
+        }
+
+        $user_ok = $this->model->does_user_exists_and_active($params['email']);
+        $creds_ok = $this->model->is_user_cred_valid($params['password']);
+        if (!$user_ok && !$creds_ok) {
+            return Response::forNotFound();
+        }
+
+        $_SESSION[SESSION_USER_LOGGED_IN] = '1';
+        $_SESSION[SESSION_USER_EMAIL] = $params['email'];
+        $_SESSION[SESSION_USER_ROLE] = strval($this->model->get_user_role($params['email']));
+        return new Response('Logged in!');
+    }
+
     public function register_user(Request $request): Response
     {
         $params = $request->get_post_params();
@@ -73,12 +94,16 @@ class AuthController extends BaseController
     {
         $magic_code = $request->get_get_param('code') ?? '';
 
-        if (!$this->magic_model->validate_magic_code($magic_code, ACTION::NEW_USER)) {
+        $magic_ok = $this->magic_model->validate_magic_code($magic_code, ACTION::NEW_USER);
+        if ($magic_ok === false) {
             Utils::logInfo('AUTH_ERR: magic_transaction returned 404. code: ' . $magic_code);
             return Response::forNotFound();
         }
 
-        if (!$this->magic_model->complete_magic_transaction($magic_code)) {
+        if (
+            !$this->model->activate_user($magic_ok)
+            || !$this->magic_model->complete_magic_transaction($magic_code)
+        ) {
             return Response::forFailedAction();
         }
 
