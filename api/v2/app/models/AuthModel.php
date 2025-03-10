@@ -5,6 +5,7 @@ namespace app\models;
 use tinyfuse\BaseModel;
 use tinyfuse\CryptoFunctions;
 use tinyfuse\UserRole;
+use tinyfuse\Utils;
 
 class AuthModel extends BaseModel
 {
@@ -41,11 +42,17 @@ first_name, last_name, email, password, year_of_batch, country, address_line_1, 
         return array_key_exists('is_user_ok', $res) && $res['is_user_ok'] === 1;
     }
 
-    public function is_user_cred_valid(string $password): bool
+    public function get_active_user_details(string $email): array
     {
-        $sql = "SELECT COUNT(*) as is_cred_valid FROM users WHERE password = ? AND isactive = 1;";
-        $res = $this->execute($sql, [$this->hash_password($password)])[0];
-        return array_key_exists('is_cred_valid', $res) && $res['is_cred_valid'] === 1;
+        $sql = "SELECT * FROM users WHERE email = ? AND isactive=1;";
+        return $this->execute($sql, [$email])[0];
+    }
+
+    public function is_user_cred_valid(string $password, string $email): bool
+    {
+        $sql = "SELECT password FROM users WHERE email = ? AND isactive = 1;";
+        $res = $this->execute($sql, [$email])[0];
+        return array_key_exists('password', $res) && password_verify($password, $res['password']);
     }
 
     public function get_user_role(string $email): int
@@ -60,4 +67,13 @@ first_name, last_name, email, password, year_of_batch, country, address_line_1, 
         $sql = "UPDATE users SET isactive = 1 WHERE email = ? AND isactive =0;";
         return $this->check_if_action_ok($this->execute($sql, [$email]));
     }
+
+    public function reset_user_password(string $email, string $new_password_txt): bool
+    {
+        $new_password_hash = $this->hash_password($new_password_txt);
+        $sql = "UPDATE users SET password = ? WHERE email = ? AND isactive=1;";
+        return $this->check_if_action_ok($this->execute($sql, [$new_password_hash, $email]));
+    }
+
+
 }

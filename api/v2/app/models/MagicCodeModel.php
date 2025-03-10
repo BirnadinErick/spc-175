@@ -18,9 +18,10 @@ class MagicCodeModel extends BaseModel
 
     public function validate_magic_code(string $magic_code, ACTION $action): string|false
     {
-        $sql = "SELECT email, COUNT(*) as is_valid FROM magiclinks WHERE code=? AND purpose=? AND used=0 GROUP BY email;";
+        $sql = "SELECT email FROM magiclinks WHERE code=? AND purpose=? AND used=0 ORDER BY created_at DESC LIMIT 1;";
         $res = $this->execute($sql, [$magic_code, (int)$action->value])[0];
-        return array_key_exists('is_valid', $res) && $res['is_valid'] === 1 ? $res['email'] : false;
+        Utils::logDebug(var_export($res, true));
+        return array_key_exists('email', $res) && $res['email'] !== '' ? $res['email'] : false;
     }
 
     public function complete_magic_transaction(string $magic_code): bool

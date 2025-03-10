@@ -6,8 +6,8 @@
 </p>
 
 If by any chance you could not click the link, paste following link  into browser address bar and hit Return.
-
-<?= $link ?>
+<br />
+<pre><?= $link ?></pre>
 
 <p>
     Servus,

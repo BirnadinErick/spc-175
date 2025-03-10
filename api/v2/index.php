@@ -28,10 +28,13 @@ $auth = new AuthController($state);
 $state->addRoute(ROUTE_METHOD_GET, 'hello', [$home, 'home']);
 $state->addRoute(ROUTE_METHOD_POST, 'count', [$home, 'count']);
 $state->addRoute(ROUTE_METHOD_GET, 'servus', [$home, 'servus']);
+
 $state->addRoute(ROUTE_METHOD_POST, 'register-user', [$auth, 'register_user']);
 $state->addRoute(ROUTE_METHOD_GET, 'activate-user', [$auth, 'activate_user']);
 $state->addRoute(ROUTE_METHOD_POST, 'login-user', [$auth, 'login_user']);
 $state->addRoute(ROUTE_METHOD_POST, 'logout-user', [$auth, 'logout_user']);
+$state->addRoute(ROUTE_METHOD_POST, 'initiate-password-reset', [$auth, 'initiate_password_reset']);
+$state->addRoute(ROUTE_METHOD_POST, 'complete-password-reset', [$auth, 'complete_password_reset']);
 
 /* session setup */
 ini_set('session.use_only_cookies', 1);

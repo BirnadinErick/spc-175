@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\SMTP;
 
 trait Mailer
 {
-    private function mail_html(string $to, string $to_name, string $body): bool
+    private function mail_html(string $to, string $to_name, string $body, string $subject='Notification from SPC Media Unit'): bool
     {
         $mail = new PHPMailer(true);
         try {
@@ -24,7 +24,7 @@ trait Mailer
             $mail->addAddress($to, $to_name);
 
             $mail->isHTML(true);
-            $mail->Subject = 'Activate your account';
+            $mail->Subject = $subject;
             $mail->Body = $body;
             $mail->AltBody = htmlspecialchars($body);
 

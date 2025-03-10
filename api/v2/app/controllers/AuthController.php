@@ -38,8 +38,8 @@ class AuthController extends BaseController
         }
 
         $user_ok = $this->model->does_user_exists_and_active($params['email']);
-        $creds_ok = $this->model->is_user_cred_valid($params['password']);
-        if (!$user_ok && !$creds_ok) {
+        $creds_ok = $this->model->is_user_cred_valid($params['password'], $params['email']);
+        if (!$user_ok || !$creds_ok) {
             return Response::forNotFound();
         }
 
@@ -97,7 +97,7 @@ class AuthController extends BaseController
         if (
             ($this->model->new_user($params) === false)
             || ($this->magic_model->add_magic_code($magic_code, $params['email']) === false)
-            || ($this->mail_html($email_to, $email_to_name, $email_body) === false)
+            || ($this->mail_html($email_to, $email_to_name, $email_body, 'Activate your Account') === false)
         ) {
             return Response::forFailedAction();
         }
@@ -105,7 +105,53 @@ class AuthController extends BaseController
         return new Response('All done. Please check your email inbox to activate your account');
     }
 
+    public function initiate_password_reset(Request $request): Response
+    {
+        $params = $request->get_post_params();
+        if (!isset($params['email'])) {
+            return Response::forNotAllowed();
+        }
 
+        if (!$this->model->does_user_exists_and_active($params['email'])) {
+            return Response::forNotFound();
+        }
+        $user_details = $this->model->get_active_user_details($params['email']);
+
+        $magic_code = $this->gen_magic_code(ACTION::RESET_PASSWORD);
+        $email_to = $user_details['email'];
+        $email_to_name = $user_details['first_name'] . ' ' . $user_details['last_name'];
+        $email_body = $this->render($this->state->VIEWS . 'email-user-reset-password', [
+            'link' => $this->state->get_env('APP') . 'auth/continue-password-reset&code=' . $magic_code
+        ]);
+        if (
+            ($this->magic_model->add_magic_code($magic_code, $params['email'], ACTION::RESET_PASSWORD) === false)
+            || ($this->mail_html($email_to, $email_to_name, $email_body, 'Reset your password') === false)
+        ) {
+            return Response::forFailedAction();
+        }
+        return new Response('Check your inbox please');
+    }
+
+    public function complete_password_reset(Request $request): Response
+    {
+        $params = $request->get_post_params();
+        $magic_code = $request->get_get_param('code');
+        if (!isset($params['new_password']) || !isset($magic_code)) {
+            return Response::forNotAllowed();
+        }
+
+        $magic_user = $this->magic_model->validate_magic_code($magic_code, ACTION::RESET_PASSWORD);
+        if ($magic_user === false) {
+            Utils::logInfo('AUTH_ERR: magic_transaction returned 404. code: ' . $magic_code);
+            return Response::forNotFound();
+        }
+
+        if (!$this->model->reset_user_password($magic_user, $params['new_password'])) {
+            return Response::forFailedAction();
+        }
+
+        return new Response('Password reset complete. Please login again manually.');
+    }
 
     public function activate_user(Request $request): Response
     {
