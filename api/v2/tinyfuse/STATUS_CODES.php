@@ -11,4 +11,5 @@ enum  STATUS_CODES: int
     case NOT_FOUND = 404;
 
     case UNKNOWN_ERROR = 500;
+    case TEMPREDIRECT = 303;
 }

@@ -8,6 +8,7 @@ use tinyfuse\ACTION;
 use tinyfuse\BaseController;
 use tinyfuse\BaseState;
 use tinyfuse\CryptoFunctions;
+use tinyfuse\lib\Constants;
 use tinyfuse\Mailer;
 use tinyfuse\Request;
 use tinyfuse\Response;
@@ -46,6 +47,20 @@ class AuthController extends BaseController
         $_SESSION[SESSION_USER_EMAIL] = $params['email'];
         $_SESSION[SESSION_USER_ROLE] = strval($this->model->get_user_role($params['email']));
         return new Response('Logged in!');
+    }
+
+    public function logout_user(Request $_): Response
+    {
+        if (
+            !isset($_SESSION[SESSION_USER_LOGGED_IN])
+            && !$this->model->does_user_exists_and_active($_SESSION[SESSION_USER_EMAIL] ?? '')
+        ) {
+            return Response::forNotAllowed();
+        }
+
+        session_unset();
+        session_destroy();
+        return Response::forTemporaryRedirect('/');
     }
 
     public function register_user(Request $request): Response
@@ -89,6 +104,8 @@ class AuthController extends BaseController
 
         return new Response('All done. Please check your email inbox to activate your account');
     }
+
+
 
     public function activate_user(Request $request): Response
     {

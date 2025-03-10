@@ -7,12 +7,26 @@ class Response
     public function __construct(
         private readonly string $content,
         private readonly string $type = 'text/html;',
-        private STATUS_CODES    $code = STATUS_CODES::OK
+        private STATUS_CODES    $code = STATUS_CODES::OK,
+        private array           $headers = []
     )
     {
     }
 
-    public static function forNotFound():static
+    public static function forTemporaryRedirect(string $redirect_path): static
+    {
+        return new self('Your are being redirected, please wait...',
+            code: STATUS_CODES::TEMPREDIRECT,
+            headers: ["Location: $redirect_path"]
+        );
+    }
+
+    public function append_header(string $header_key, string $header_value): void
+    {
+        $this->headers[] = "$header_key: $header_value";
+    }
+
+    public static function forNotFound(): static
     {
         $message = 'Page not found.';
         return new self($message, code: STATUS_CODES::NOT_FOUND);
@@ -38,6 +52,9 @@ class Response
     public function sendHeaders(): void
     {
         header("Content-Type: $this->type");
+        foreach ($this->headers as $header) {
+            header($header);
+        }
         http_response_code($this->code->value);
     }
 

@@ -31,6 +31,7 @@ $state->addRoute(ROUTE_METHOD_GET, 'servus', [$home, 'servus']);
 $state->addRoute(ROUTE_METHOD_POST, 'register-user', [$auth, 'register_user']);
 $state->addRoute(ROUTE_METHOD_GET, 'activate-user', [$auth, 'activate_user']);
 $state->addRoute(ROUTE_METHOD_POST, 'login-user', [$auth, 'login_user']);
+$state->addRoute(ROUTE_METHOD_POST, 'logout-user', [$auth, 'logout_user']);
 
 /* session setup */
 ini_set('session.use_only_cookies', 1);
