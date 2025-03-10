@@ -8,8 +8,8 @@ trait CryptoFunctions
     {
         $delim = array_key_exists('MAGIC_DELIM', $_ENV) ? $_ENV['MAGIC_DELIM'] : '::';
         return match ($action) {
-            ACTION::NEW_USER => ($_ENV['magic_code'] ?? 'spcmediaunit2023') . $delim . ('new_user'),
-            default => $_ENV['magic_code'] ?? 'spcmediaunit2023',
+            ACTION::NEW_USER => substr($this->hash_password(($_ENV['MAGIC_CODE'] ?? 'spcmediaunit2023') . $delim . ('new_user')), offset: 7),
+            default => substr($this->hash_password($_ENV['MAGIC_CODE'] ?? 'spcmediaunit2023'), offset: 7),
         };
     }
 

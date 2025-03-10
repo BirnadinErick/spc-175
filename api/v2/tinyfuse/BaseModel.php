@@ -73,4 +73,9 @@ class BaseModel
         $stmt->close();
         return $data;
     }
+
+    protected function check_if_action_ok(array|false $specimen):bool
+    {
+        return gettype($specimen) === 'array';
+    }
 }

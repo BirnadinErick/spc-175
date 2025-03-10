@@ -2,7 +2,7 @@
 
 namespace tinyfuse;
 
-enum ACTION
+enum ACTION: int
 {
-    case NEW_USER;
+    case NEW_USER = 1;
 }

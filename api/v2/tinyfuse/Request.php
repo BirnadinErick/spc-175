@@ -40,4 +40,9 @@ class Request
         return $this->post_params;
     }
 
+    public function get_get_param($query_key):null|string
+    {
+        return array_key_exists($query_key,$this->get_params) === true ? $this->get_params[$query_key]: null;
+    }
+
 }

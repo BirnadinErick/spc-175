@@ -10,11 +10,12 @@
     "dev-b": "php -S localhost:2004",
     "log-d": "tail --lines 15 --follow api/v1/debug_log.txt",
     "log-e": "tail --lines 15 --follow api/v1/error_log.txt",
-    "dev-c": "cd chrome ; chromium-browser --disable-web-security --user-data-dir=. http://localhost:2007/",
+    "dev-c": "cd chrome; chromium-browser --disable-web-security --user-data-dir=. http://localhost:2007/",
     "build": "astro build",
     "preview": "astro preview --port 2007",
     "astro": "astro",
-    "format": "prettier"
+    "format": "prettier",
+    "mail": "maildev --open"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.0",
@@ -55,6 +56,7 @@
     "@prettier/plugin-php": "^0.22.2",
     "@tailwindcss/forms": "^0.5.4",
     "@tailwindcss/typography": "^0.5.9",
+    "maildev": "^2.2.1",
     "mysql": "^2.18.1",
     "postcss-nesting": "^13.0.1",
     "prettier": "^3.2.5",

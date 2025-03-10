@@ -54,7 +54,10 @@ class AuthController extends BaseController
         $magic_code = $this->gen_magic_code(ACTION::NEW_USER);
         $email_to = $params['email'];
         $email_to_name = $params['first_name'] . ' ' . $params['last_name'];
-        $email_body = $this->render($this->state->VIEWS . 'email-user-activate', ['link' => $magic_code]);
+        $email_body = $this->render($this->state->VIEWS . 'email-user-activate', [
+            'link' => $this->state->get_env('API') . 'activate-user&code=' . $magic_code
+        ]);
+
         if (
             ($this->model->new_user($params) === false)
             || ($this->magic_model->add_magic_code($magic_code, $params['email']) === false)
@@ -65,4 +68,47 @@ class AuthController extends BaseController
 
         return new Response('All done. Please check your email inbox to activate your account');
     }
+
+    public function activate_user(Request $request): Response
+    {
+        $magic_code = $request->get_get_param('code') ?? '';
+
+        if (!$this->magic_model->validate_magic_code($magic_code, ACTION::NEW_USER)) {
+            Utils::logInfo('AUTH_ERR: magic_transaction returned 404. code: ' . $magic_code);
+            return Response::forNotFound();
+        }
+
+        if (!$this->magic_model->complete_magic_transaction($magic_code)) {
+            return Response::forFailedAction();
+        }
+
+        return new Response('Account Activated');
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

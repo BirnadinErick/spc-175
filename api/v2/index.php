@@ -29,6 +29,7 @@ $state->addRoute(ROUTE_METHOD_GET, 'hello', [$home, 'home']);
 $state->addRoute(ROUTE_METHOD_POST, 'count', [$home, 'count']);
 $state->addRoute(ROUTE_METHOD_GET, 'servus', [$home, 'servus']);
 $state->addRoute(ROUTE_METHOD_POST, 'register-user', [$auth, 'register_user']);
+$state->addRoute(ROUTE_METHOD_GET, 'activate-user', [$auth, 'activate_user']);
 
 session_start();
 $req = Request::fromGlobals();

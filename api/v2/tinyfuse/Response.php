@@ -6,7 +6,7 @@ class Response
 {
     public function __construct(
         private readonly string $content,
-        private readonly string $type = 'text/plain;',
+        private readonly string $type = 'text/html;',
         private STATUS_CODES    $code = STATUS_CODES::OK
     )
     {
