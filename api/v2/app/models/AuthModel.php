@@ -75,5 +75,11 @@ first_name, last_name, email, password, year_of_batch, country, address_line_1, 
         return $this->check_if_action_ok($this->execute($sql, [$new_password_hash, $email]));
     }
 
+    public function change_user_role(string $email, int $new_role): bool
+    {
+        $sql = "UPDATE users SET role = ? WHERE email = ?;";
+        return $this->check_if_action_ok($this->execute($sql, [$new_role, $email]));
+    }
+
 
 }
