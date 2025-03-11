@@ -18,7 +18,7 @@ const {category = "contents"} = Astro.props;
             </th>
         </tr>
         </thead>
-        <tbody class="htmxenable" hx-get={get_api_route("editable-"+category)} hx-trigger="load" hx-swap="innerHTML">
+        <tbody class="htmxenable" hx-get={get_api_route("editable-"+category, "v2")} hx-trigger="load" hx-swap="innerHTML">
         <tr>
             <td class="text-spc-light" colspan="3">Loading the data, please wait.</td>
         </tr>

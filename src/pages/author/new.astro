@@ -1,10 +1,10 @@
 ---
-import CommonHead from "../../src/components/common/CommonHead.astro";
-import Loader from "../../src/components/common/Loader.astro";
-import PrimaryActionWidget from "../../src/components/editor/PrimaryActionWidget.astro";
-import ImageWidget from "../../src/components/editor/ImageWidget.astro";
+import CommonHead from "../../components/common/CommonHead.astro";
+import Loader from "../../components/common/Loader.astro";
+import PrimaryActionWidget from "../../components/editor/PrimaryActionWidget.astro";
+import ImageWidget from "../../components/editor/ImageWidget.astro";
 
-import "../../src/components/common/swup.css";
+import "../../components/common/swup.css";
 ---
 <style>
     .ce-toolbar__plus {
@@ -44,7 +44,7 @@ import "../../src/components/common/swup.css";
     import List from "@editorjs/list";
     import Delimiter from "@editorjs/delimiter";
 
-    import { get_api_route } from "../../src/config/global";
+    import { get_api_route } from "../../config/global";
 
     // get current path
     const path = document.querySelector("#path");

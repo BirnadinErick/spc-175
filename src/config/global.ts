@@ -3,10 +3,10 @@ const DEBUG = false;
 let API = "";
 let APP = "";
 if (DEBUG) {
-    API = "http://localhost:2004/api/v1/index.php";
+    API = "http://localhost:2004";
     APP = "http://localhost:2007";
 } else {
-    API = "https://dev.spcjaffna.org/api/v1/index.php";
+    API = "https://dev.spcjaffna.org";
     APP = "https://dev.spcjaffna.org";
 }
 
@@ -15,7 +15,7 @@ function get_app_route(route: string) {
 }
 
 function get_api_route(route: string, version: string = "v1") {
-    const API = `http://localhost:2004/api/${version}/index.php`;
+    API = `${API}/api/${version}/index.php`;
     return API + (version === "v1" ? "?p=" : "?path=") + route;
 }
 

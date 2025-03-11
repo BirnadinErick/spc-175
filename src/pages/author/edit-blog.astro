@@ -1,16 +1,16 @@
 ---
-import CommonHead from "../../src/components/common/CommonHead.astro";
-import Loader from "../../src/components/common/Loader.astro";
-import { NEW_NAVS } from "../../src/config/navigation";
-import Image from "../../src/components/patrician-publications/Image.astro";
-import ImageWidget from "../../src/components/editor/ImageWidget.astro";
+import CommonHead from "../../components/common/CommonHead.astro";
+import Loader from "../../components/common/Loader.astro";
+import { NEW_NAVS } from "../../config/navigation";
+import Image from "../../components/patrician-publications/Image.astro";
+import ImageWidget from "../../components/editor/ImageWidget.astro";
 
-import "../../src/components/common/swup.css";
+import "../../components/common/swup.css";
 import "@fontsource/space-grotesk";
 import "@fontsource/space-mono";
-import CommonHeader from "../../src/components/common/CommonHeader.astro";
-import SectionTitle from "../../src/components/common/SectionTitle.astro";
-import Footer from "../../src/components/footer/Footer.astro";
+import CommonHeader from "../../components/common/CommonHeader.astro";
+import SectionTitle from "../../components/common/SectionTitle.astro";
+import Footer from "../../components/footer/Footer.astro";
 ---
 
 <style>
@@ -73,7 +73,7 @@ import Footer from "../../src/components/footer/Footer.astro";
     import List from "@editorjs/list";
     import Delimiter from "@editorjs/delimiter";
 
-    import { get_api_route } from "../../src/config/global";
+    import { get_api_route } from "../../config/global";
 
     const saveEditorBtn = document.querySelector("#saveEditorBtn");
     const loader = document.querySelector("#loader");

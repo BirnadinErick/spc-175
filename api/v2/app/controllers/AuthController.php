@@ -105,7 +105,6 @@ class AuthController extends BaseController
     public function register_user(Request $request): Response
     {
         $params = $request->get_post_params();
-        Utils::logDebug(var_export([$params, $_POST], true));
         $requiredFields = [
             "first_name", "last_name", "email", "password",
             "year_of_batch", "country", "address_line_1",
@@ -177,9 +176,6 @@ class AuthController extends BaseController
         $params = $request->get_post_params();
         $magic_code = $params['code'];
         if (!isset($params['new_password']) || !isset($magic_code)) {
-            Utils::logDebug(var_export([
-                $params, $magic_code
-            ], true));
             return Response::forNotAllowed();
         }
 
@@ -216,30 +212,3 @@ class AuthController extends BaseController
         return Response::forTemporaryRedirect($this->state->get_env('APP').'/auth/login');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

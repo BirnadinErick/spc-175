@@ -1,10 +1,10 @@
 ---
-import CommonHead from "../../src/components/common/CommonHead.astro";
-import CommonHeader from "../../src/components/common/CommonHeader.astro";
-import MobileNavButton from "../../src/components/common/MobileNavButton.astro";
-import Footer from "../../src/components/footer/Footer.astro";
-import ImageWidget from "../../src/components/editor/ImageWidget.astro";
-import "../../src/components/common/swup.css";
+import CommonHead from "../../components/common/CommonHead.astro";
+import CommonHeader from "../../components/common/CommonHeader.astro";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
+import Footer from "../../components/footer/Footer.astro";
+import ImageWidget from "../../components/editor/ImageWidget.astro";
+import "../../components/common/swup.css";
 ---
 
 <style>
@@ -85,7 +85,7 @@ import "../../src/components/common/swup.css";
     import Embed from "@editorjs/embed";
     import List from "@editorjs/list";
     import Delimiter from "@editorjs/delimiter";
-    import { get_api_route } from "../../src/config/global";
+    import { get_api_route } from "../../config/global";
 
     const queryStr = window.location.search;
     const searchParams = new URLSearchParams(queryStr);
