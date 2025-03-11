@@ -36,6 +36,7 @@ $state->addRoute(ROUTE_METHOD_POST, 'count', [$home, 'count']);
 $state->addRoute(ROUTE_METHOD_GET, 'servus', [$home, 'servus']);
 
 // auth
+$state->addRoute(ROUTE_METHOD_GET, 'auth-state', [$auth, 'auth_state']);
 $state->addRoute(ROUTE_METHOD_POST, 'register-user', [$auth, 'register_user']);
 $state->addRoute(ROUTE_METHOD_GET, 'activate-user', [$auth, 'activate_user']);
 $state->addRoute(ROUTE_METHOD_POST, 'login-user', [$auth, 'login_user']);

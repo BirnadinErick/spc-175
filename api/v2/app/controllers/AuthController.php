@@ -5,27 +5,48 @@ namespace app\controllers;
 use app\models\AuthModel;
 use app\models\MagicCodeModel;
 use tinyfuse\ACTION;
+use tinyfuse\AuthUtils;
 use tinyfuse\BaseController;
 use tinyfuse\BaseState;
 use tinyfuse\CryptoFunctions;
+use tinyfuse\IAMUtils;
 use tinyfuse\lib\Constants;
 use tinyfuse\Mailer;
 use tinyfuse\Request;
 use tinyfuse\Response;
+use tinyfuse\UserRole;
 use tinyfuse\Utils;
 
 class AuthController extends BaseController
 {
-    use CryptoFunctions, Mailer;
+    use CryptoFunctions, Mailer, AuthUtils, IAMUtils;
 
     private AuthModel $model;
     private MagicCodeModel $magic_model;
+    public string $auth_views_root;
 
     public function __construct(BaseState $state)
     {
         parent::__construct($state);
         $this->model = new AuthModel($state);
         $this->magic_model = new MagicCodeModel($state);
+        $this->auth_views_root = $state->VIEWS . 'auth/';
+    }
+
+    public function auth_state(Request $_): Response
+    {
+        if ($this->is_anon_user()) {
+            $content = $this->render($this->auth_views_root . 'state-not-authed', []);
+        } else {
+            $content = $this->render(
+                $this->auth_views_root . 'state-authed',
+                array_merge($this->get_user_roles_matrix(
+                    UserRole::from($this->model->get_user_role($this->get_user_email() ?? ''))),
+                    ["username" => $this->model->get_user_display_name($this->get_user_email() ?? '')])
+            );
+        }
+
+        return new Response($content);
     }
 
     public function login_user(Request $request): Response

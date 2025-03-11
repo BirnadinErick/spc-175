@@ -4,6 +4,8 @@ namespace tinyfuse;
 
 class Request
 {
+    public $session_data;
+
     public function __construct(
         private readonly array $get_params,
         private readonly array $post_params,

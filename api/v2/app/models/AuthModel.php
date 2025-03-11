@@ -81,5 +81,16 @@ first_name, last_name, email, password, year_of_batch, country, address_line_1, 
         return $this->check_if_action_ok($this->execute($sql, [$new_role, $email]));
     }
 
+    public function get_user_display_name(string $email): string
+    {
+        if ($email === '') {
+            return 'Patrician';
+        }
+
+        $sql = "SELECT first_name, last_name FROM users WHERE email = ? AND isactive = 1;";
+        $res = $this->execute($sql, [$email])[0];
+        return ucfirst(strtolower($res['first_name'])) . ' ' . strtoupper(substr($res['last_name'], offset: 0, length: 1));
+    }
+
 
 }
