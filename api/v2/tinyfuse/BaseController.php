@@ -15,12 +15,12 @@ class BaseController
         $this->state = $state;
     }
 
-    protected function render(string $view, array $params): string|null
+    protected function render(string $view, array $params, bool $add_ext = true): string|null
     {
         try {
             ob_start();
             extract($params, EXTR_OVERWRITE);
-            require $view . '.php';
+            require $view . ($add_ext ? '.php' : '');
             $content = ob_get_clean();
             ob_end_clean();
         } catch (Exception $e) {

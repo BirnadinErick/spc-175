@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use app\controllers\AuthController;
+use app\controllers\ContentController;
 use app\controllers\HomeController;
 use app\controllers\IAMController;
 use Dotenv\Dotenv;
@@ -25,6 +26,7 @@ $state = State::default();
 $home = new HomeController($state);
 $auth = new AuthController($state);
 $iam = new IAMController($state);
+$content = new ContentController($state);
 
 /* routing hooks configuration */
 
@@ -40,6 +42,9 @@ $state->addRoute(ROUTE_METHOD_POST, 'login-user', [$auth, 'login_user']);
 $state->addRoute(ROUTE_METHOD_POST, 'logout-user', [$auth, 'logout_user']);
 $state->addRoute(ROUTE_METHOD_POST, 'initiate-password-reset', [$auth, 'initiate_password_reset']);
 $state->addRoute(ROUTE_METHOD_POST, 'complete-password-reset', [$auth, 'complete_password_reset']);
+
+// content
+$state->addRoute(ROUTE_METHOD_GET, 'get-content-html', [$content, 'get_content_html']);
 
 // IAM
 $state->addRoute(ROUTE_METHOD_POST, 'change-user-role', [$iam, 'change_user_role']); // TODO: not tested
