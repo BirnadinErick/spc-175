@@ -105,6 +105,7 @@ class AuthController extends BaseController
     public function register_user(Request $request): Response
     {
         $params = $request->get_post_params();
+        Utils::logDebug(var_export([$params, $_POST], true));
         $requiredFields = [
             "first_name", "last_name", "email", "password",
             "year_of_batch", "country", "address_line_1",
@@ -212,7 +213,7 @@ class AuthController extends BaseController
             return Response::forFailedAction();
         }
 
-        return new Response('Account Activated');
+        return Response::forTemporaryRedirect($this->state->get_env('APP').'/auth/login');
     }
 }
 
