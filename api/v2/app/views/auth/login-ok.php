@@ -1,11 +1,11 @@
-<?php /** @noinspection ALL */ ?>
+<?php /** @noinspection PhpUndefinedVariableInspection */ ?>
 
 <div id="navbar-auth">
-    <?php include_once VIEWS . 'auth-ok-navbar.php'; ?>
+    <?= $desktop_navbar_oob ?>
 </div>
 
 <div id="navbar-auth-mobile">
-    <?php include_once VIEWS . 'mobile-state-auth.php'; ?>
+    <?= $mobile_navbar_oob ?>
 </div>
 
 <div id="main-content">
@@ -50,7 +50,7 @@
         <div>
             <a href="/">
                 <p class="text-sm underline underline-offset-2 font-sans">
-                    Go to home instead
+                    Go Home instead.
                 </p>
             </a>
         </div>

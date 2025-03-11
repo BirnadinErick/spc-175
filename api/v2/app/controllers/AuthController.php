@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnusedParameterInspection */
 
 namespace app\controllers;
 
@@ -10,7 +10,6 @@ use tinyfuse\BaseController;
 use tinyfuse\BaseState;
 use tinyfuse\CryptoFunctions;
 use tinyfuse\IAMUtils;
-use tinyfuse\lib\Constants;
 use tinyfuse\Mailer;
 use tinyfuse\Request;
 use tinyfuse\Response;
@@ -33,17 +32,24 @@ class AuthController extends BaseController
         $this->auth_views_root = $state->VIEWS . 'auth/';
     }
 
+    private function get_auth_state_params(): array
+    {
+        return array_merge($this->get_user_roles_matrix(
+            UserRole::from($this->model->get_user_role($this->get_user_email() ?? ''))),
+            [
+                "username" => $this->model->get_user_display_name($this->get_user_email() ?? ''),
+                "logout_path" => ($this->state->get_env('API') ?? '') . 'logout-user'
+            ]
+        );
+
+    }
+
     public function auth_state(Request $_): Response
     {
         if ($this->is_anon_user()) {
             $content = $this->render($this->auth_views_root . 'state-not-authed', []);
         } else {
-            $content = $this->render(
-                $this->auth_views_root . 'state-authed',
-                array_merge($this->get_user_roles_matrix(
-                    UserRole::from($this->model->get_user_role($this->get_user_email() ?? ''))),
-                    ["username" => $this->model->get_user_display_name($this->get_user_email() ?? '')])
-            );
+            $content = $this->render($this->auth_views_root . 'state-authed', $this->get_auth_state_params());
         }
 
         return new Response($content);
@@ -61,13 +67,25 @@ class AuthController extends BaseController
         $user_ok = $this->model->does_user_exists_and_active($params['email']);
         $creds_ok = $this->model->is_user_cred_valid($params['password'], $params['email']);
         if (!$user_ok || !$creds_ok) {
-            return Response::forNotFound();
+            return new Response($this->render(
+                $this->auth_views_root . 'login-failed.html', [], false
+            ));
         }
+        $user_role = strval($this->model->get_user_role($params['email']));
 
         $_SESSION[SESSION_USER_LOGGED_IN] = '1';
         $_SESSION[SESSION_USER_EMAIL] = $params['email'];
-        $_SESSION[SESSION_USER_ROLE] = strval($this->model->get_user_role($params['email']));
-        return new Response('Logged in!');
+        $_SESSION[SESSION_USER_ROLE] = $user_role;
+
+        $desktop_navbar = $this->render($this->auth_views_root . 'state-authed', $this->get_auth_state_params());
+        $mobile_navbar = "";
+        return new Response($this->render(
+            $this->auth_views_root . 'login-ok',
+            params: [
+                "desktop_navbar_oob" => $desktop_navbar,
+                "mobile_navbar_oob" => $mobile_navbar,
+            ]
+        ));
     }
 
     public function logout_user(Request $_): Response
@@ -81,7 +99,7 @@ class AuthController extends BaseController
 
         session_unset();
         session_destroy();
-        return Response::forTemporaryRedirect('/');
+        return Response::forTemporaryRedirect($this->state->get_env('APP') ?? '/');
     }
 
     public function register_user(Request $request): Response
@@ -142,7 +160,7 @@ class AuthController extends BaseController
         $email_to = $user_details['email'];
         $email_to_name = $user_details['first_name'] . ' ' . $user_details['last_name'];
         $email_body = $this->render($this->state->VIEWS . 'email-user-reset-password', [
-            'link' => $this->state->get_env('APP') . 'auth/continue-password-reset&code=' . $magic_code
+            'link' => $this->state->get_env('APP') . 'auth/continue-password-reset?code=' . $magic_code
         ]);
         if (
             ($this->magic_model->add_magic_code($magic_code, $params['email'], ACTION::RESET_PASSWORD) === false)
@@ -156,8 +174,11 @@ class AuthController extends BaseController
     public function complete_password_reset(Request $request): Response
     {
         $params = $request->get_post_params();
-        $magic_code = $request->get_get_param('code');
+        $magic_code = $params['code'];
         if (!isset($params['new_password']) || !isset($magic_code)) {
+            Utils::logDebug(var_export([
+                $params, $magic_code
+            ], true));
             return Response::forNotAllowed();
         }
 
