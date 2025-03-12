@@ -57,3 +57,7 @@ app_deprecated/
 backup/
 
 **/*.bak
+
+file.xml
+
+app/
