@@ -1,0 +1,50 @@
+---
+import CommonHead from "../../components/common/CommonHead.astro";
+import CommonHeader from "../../components/common/CommonHeader.astro";
+import Footer from "../../components/footer/Footer.astro";
+import SectionTitle from "../../components/common/SectionTitle.astro";
+import BackButton from "../../components/patrician-publications/BackButton.astro";
+import MobileNavButton from "../../components/common/MobileNavButton.astro";
+import HTMX from "../../components/common/HTMX.astro";
+import LoginForm from "../../components/auth/LoginForm.astro";
+
+import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/700.css";
+import "../../components/common/swup.css";
+---
+
+<style>
+    section {
+        @apply px-6 my-8 md:px-12 lg:px-24 xl:px-[30%];
+    }
+
+    ul {
+        @apply list-disc;
+    }
+</style>
+
+<html lang="en">
+<CommonHead title="Log In | SPC Media Unit | 175 years" />
+
+<body x-data="{open : false}" class="cursor-default bg-spc-dark text-spc-light font-sans">
+<CommonHeader title="Digital <br/>Patrician" />
+
+<main>
+    <section>
+        <BackButton />
+    </section>
+
+    <section>
+        <SectionTitle title="Authenticate You." />
+    </section>
+
+    <section>
+        <LoginForm />
+    </section>
+</main>
+<Footer />
+<MobileNavButton />
+
+<HTMX />
+</body>
+</html>

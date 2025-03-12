@@ -3,9 +3,9 @@ import Countries from "./Countries.astro";
 import { get_api_route } from "../../config/global";
 ---
 
-<form hx-post={get_api_route("signin")} hx-swap="outerHTML" class="htmxenable">
+<form hx-post={get_api_route("register-user", "v2")} hx-swap="outerHTML" class="htmxenable">
     <div class="mb-4">
-        <label class="block mb-1" for="fname">First name</label>
+        <label class="block mb-1" for="first_name">First name</label>
         <div
             class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
         >
@@ -13,8 +13,8 @@ import { get_api_route } from "../../config/global";
                 class="text-white bg-spc-dark w-full focus:ring-0"
                 required
                 type="text"
-                name="fname"
-                id="fname"
+                name="first_name"
+                id="first_name"
                 placeholder="e.g. Jesus"
                 spellcheck="false"
                 autofocus
@@ -23,7 +23,7 @@ import { get_api_route } from "../../config/global";
         </div>
     </div>
     <div class="mb-4">
-        <label class="block mb-1" for="lname">Last name</label>
+        <label class="block mb-1" for="last_name">Last name</label>
         <div
             class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
         >
@@ -31,8 +31,8 @@ import { get_api_route } from "../../config/global";
                 class="text-white bg-spc-dark w-full focus:ring-0"
                 required
                 type="text"
-                name="lname"
-                id="lname"
+                name="last_name"
+                id="last_name"
                 placeholder="e.g. Christ"
                 spellcheck="false"
                 autocomplete="last-name"
@@ -73,7 +73,7 @@ import { get_api_route } from "../../config/global";
         </div>
     </div>
     <div class="mb-4">
-        <label class="block mb-1" for="year">Year of the Batch</label>
+        <label class="block mb-1" for="year_of_batch">Year of the Batch</label>
         <div
             class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
         >
@@ -84,8 +84,8 @@ import { get_api_route } from "../../config/global";
                 type="number"
                 min="1850"
                 max="2050"
-                name="year"
-                id="year"
+                name="year_of_batch"
+                id="year_of_batch"
                 placeholder="e.g. 2022 for pupil who are born in 2003"
             />
         </div>
@@ -106,7 +106,7 @@ import { get_api_route } from "../../config/global";
     </div>
 
     <div class="mb-4">
-        <label class="block mb-1" for="address1">Address Line 1</label>
+        <label class="block mb-1" for="address_line_1">Address Line 1</label>
         <div
             class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
         >
@@ -114,16 +114,16 @@ import { get_api_route } from "../../config/global";
                 class="text-white bg-spc-dark w-full focus:ring-0"
                 required
                 type="text"
-                autocomplete="address-line1"
-                name="address1"
-                id="address1"
+                autocomplete="address1"
+                name="address_line_1"
+                id="address_line_1"
                 placeholder="e.g. House of Trinity,"
                 spellcheck="false"
             />
         </div>
     </div>
     <div class="mb-4">
-        <label class="block mb-1" for="address2"
+        <label class="block mb-1" for="address_line_2"
         >Address Line 2 <span class="ml-2 text-spc-light/50 text-sm"
         >(optional)</span
         ></label
@@ -135,15 +135,15 @@ import { get_api_route } from "../../config/global";
                 class="text-white bg-spc-dark w-full focus:ring-0"
                 type="text"
                 autocomplete="address-line2"
-                name="address2"
-                id="address2"
+                name="address_line_2"
+                id="address_line_2"
                 placeholder="Heaven"
                 spellcheck="false"
             />
         </div>
     </div>
     <div class="mb-4">
-        <label class="block mb-1" for="zipcode">Zip Code</label>
+        <label class="block mb-1" for="zip_code">Zip Code</label>
         <div
             class="bg-gradient-to-b w-full from-[#5ABF64] to-spc-gold p-[1px]"
         >
@@ -152,8 +152,8 @@ import { get_api_route } from "../../config/global";
                 required
                 type="text"
                 autocomplete="postal-code"
-                name="zipcode"
-                id="zipcode"
+                name="zip_code"
+                id="zip_code"
                 placeholder="e.g. 042+1850H"
                 spellcheck="false"
             />
