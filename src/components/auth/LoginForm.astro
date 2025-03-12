@@ -4,28 +4,23 @@ import TextInput from "../common/TextInput.astro";
 import { get_api_route } from "../../config/global";
 ---
 
-<form class="htmxenable" method="post" hx-post={get_api_route("login")} hx-swap="outerHTML"
-hx-select-oob="#navbar-auth:innerHTML, #navbar-auth-mobile:innerHTML"
+<form class="htmxenable" method="post" hx-post={get_api_route("login-user", "v2")} hx-swap="outerHTML"
+      hx-select-oob="#navbar-auth:innerHTML, #navbar-auth-mobile:innerHTML"
 >
     <TextInput type="email" id="email" label="Email Address" />
 
     <TextInput type="password" id="password" label="Password" />
 
     <div class="flex justify-end space-x-6 items-center">
-<!--
-        <button
-            type="button"
-            onclick="window.location = '/auth/password-reset'"
-            class="text-spc-gold"
-        >
+        <a href="/auth/password-reset" class="text-spc-gold hover:underline hover:underline-offset-2">
             Forgot Password?
-        </button>
--->
+        </a>
+
         <button
             class="font-bold px-4 py-2 bg-white text-spc-green"
             type="submit">Log In
         </button
         >
     </div>
-    <a href="/home/be/projs/spc-175/temp-vault/auth/signin" class="underline underline-offset-4">New? Register here.</a>
+    <a href="/auth/signin" class="underline underline-offset-4">New? Register here.</a>
 </form>

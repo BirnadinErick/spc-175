@@ -35,7 +35,6 @@ sftp_backup*/
 *.sqlite
 *.sql
 *_log.*
-app/
 
 **/.idea/
 
@@ -58,3 +57,7 @@ app_deprecated/
 backup/
 
 **/*.bak
+
+file.xml
+
+app/

@@ -28,7 +28,7 @@ export const NEW_NAVS = [
         title: "Academics",
         link: "academics",
         children: [
-            // { title: "Achievements", link: "achievements" },
+            { title: "Achievements", link: "achievements" },
             { title: "News", link: "news" }
         ]
     },
@@ -37,7 +37,7 @@ export const NEW_NAVS = [
         link: "co-curriculum",
         children: [
             { title: "Clubs", link: "clubs" },
-            // { title: "Sports", link: "sports" }
+            { title: "Sports", link: "sports" }
         ]
     },
     {
@@ -51,5 +51,5 @@ export const NEW_NAVS = [
     // { title: "Blogs", link: "blogs", children: [] },
     // { title: "Projects", link: "projects", children: [] },
     { title: "Facilities", link: "facilities", children: [] },
-    // { title: "Gallery", link: "gallery", children: [] },
+    { title: "Gallery", link: "gallery", children: [] },
 ];

@@ -252,4 +252,9 @@ class UsersModel extends BaseModel
             return false;
         }
     }
+
+    public function change_user_role(mixed $email, mixed $new_role)
+    {
+
+    }
 }
