@@ -9,6 +9,11 @@ trait AuthUtils
         return !isset($_SESSION[SESSION_USER_LOGGED_IN]);
     }
 
+    protected function get_user_role(): int
+    {
+        return isset($_SESSION[SESSION_USER_ROLE]) ? intval($_SESSION[SESSION_USER_ROLE]) : 0;
+    }
+
     protected function get_user_email(): string|null
     {
         return (

@@ -18,4 +18,11 @@ class ContentModel extends BaseModel
         $res = $this->execute($sql, [$slug]);
         return $res !== false ? $res[0]['file'] : null;
     }
+
+    public function get_editable_meta(): array|null
+    {
+        $sql = "SELECT path, updated_at as time FROM spc.contents_meta ORDER BY path;";
+        $res = $this->execute($sql, []);
+        return $res !== false ? $res : null;
+    }
 }
