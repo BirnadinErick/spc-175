@@ -12,4 +12,5 @@ enum  STATUS_CODES: int
 
     case UNKNOWN_ERROR = 500;
     case TEMPREDIRECT = 303;
+    case UPDATED = 204;
 }

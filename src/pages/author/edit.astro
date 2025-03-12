@@ -176,11 +176,11 @@ import Footer from "../../components/footer/Footer.astro";
         }
 
         const formBody = new FormData();
-        formBody.append("path", path);
+        formBody.append("slug", path);
         formBody.append("data", JSON.stringify(data));
 
         try {
-            const res = await fetch(get_api_route("update-content"), {
+            const res = await fetch(get_api_route("update-content","v2"), {
                 method: "POST",
                 body: formBody,
                 credentials: "include"

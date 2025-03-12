@@ -158,7 +158,7 @@ class Contents
         $path = $_POST['path'];
         $ok = $this->contents_v2->update($path, $user_id, $data_raw, $this->engine->render($data_raw));
         if (!$ok) {
-            debug("updateing content: $path failed!", __FILE__);
+            debug("updating content: $path failed!", __FILE__);
             http_response_code(HTTP_STATUS_SERVER_ERROR);
             exit(1);
         }

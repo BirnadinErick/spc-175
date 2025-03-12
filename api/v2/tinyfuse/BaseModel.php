@@ -8,9 +8,11 @@ use mysqli;
 class BaseModel
 {
     private mysqli $conn;
+    protected BaseState $state;
 
     function __construct(BaseState $state)
     {
+        $this->state = $state;
         $host = $state->get_env('DB_HOST');
         $db = $state->get_env('DB_NAME');
         $username = $state->get_env('DB_USERNAME');

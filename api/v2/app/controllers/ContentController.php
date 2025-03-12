@@ -7,13 +7,16 @@ use tinyfuse\AuthUtils;
 use tinyfuse\BaseController;
 use tinyfuse\BaseState;
 use tinyfuse\IAMUtils;
+use tinyfuse\renderer\ContentRenderer;
 use tinyfuse\Request;
 use tinyfuse\Response;
+use tinyfuse\STATUS_CODES;
 use tinyfuse\UserRole;
+use tinyfuse\Utils;
 
 class ContentController extends BaseController
 {
-    use AuthUtils, IAMUtils;
+    use AuthUtils, IAMUtils, ContentRenderer;
 
     private readonly ContentModel $model;
     private string $contents_root_path;
@@ -61,6 +64,34 @@ class ContentController extends BaseController
 
         $data = $this->render($this->contents_root_path . 'raw/' . $raw_file, [], add_ext: false);
         return new Response($data, type: 'application/json');
+    }
+
+    public function update_content(Request $request): Response
+    {
+        if ($this->is_anon_user()) {
+            return Response::forNotFound();
+        }
+
+        $iam_matrix = $this->get_user_roles_matrix(UserRole::from($this->get_user_role()));
+        if ($iam_matrix["is_user_editor"] !== true) {
+            return Response::forNotAllowed();
+        }
+        $editor_id = $this->get_user_id($this->state);
+
+        $params = $request->get_post_params();
+        if (!isset($params['data']) && !isset($params['slug'])) {
+            return Response::forNotFound();
+        }
+
+
+        return $this->model->update_content(
+            $params['slug'],
+            $editor_id,
+            $params['data'],
+            $this->content_render($params['data'])
+        )
+            ? new Response('Saved', code: STATUS_CODES::UPDATED)
+            : Response::forFailedAction();
     }
 
     public function get_content_html(Request $request): Response

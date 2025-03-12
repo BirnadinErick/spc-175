@@ -92,5 +92,10 @@ first_name, last_name, email, password, year_of_batch, country, address_line_1, 
         return ucfirst(strtolower($res['first_name'])) . ' ' . strtoupper(substr($res['last_name'], offset: 0, length: 1));
     }
 
-
+    public function get_user_id(string $email): int
+    {
+        $sql = 'SELECT id FROM users WHERE email = ? AND isactive = 1;';
+        $res = $this->execute($sql, [$email]);
+        return $res !== false ? $res[0]['id'] : -2003;
+    }
 }
