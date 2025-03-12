@@ -59,7 +59,7 @@ import Footer from "../../components/footer/Footer.astro";
 
     <ImageWidget />
 
-    <Footer/>
+    <Footer />
 </main>
 </body>
 </html>
@@ -98,7 +98,7 @@ import Footer from "../../components/footer/Footer.astro";
         }
 
         try {
-            const URL = get_api_route("read-content-raw") + "&path=" + path;
+            const URL = get_api_route("get-content-raw", "v2") + "&slug=" + path;
             const req = await fetch(URL, {
                 method: "GET",
                 credentials: "include"

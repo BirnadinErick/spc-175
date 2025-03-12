@@ -12,7 +12,7 @@ class ContentModel extends BaseModel
         parent::__construct($state);
     }
 
-    public function get_content_html_file(string $slug):string|null
+    public function get_content_html_file(string $slug): string|null
     {
         $sql = "SELECT html_file_name as file FROM contents_meta WHERE path = ?;";
         $res = $this->execute($sql, [$slug]);
@@ -24,5 +24,12 @@ class ContentModel extends BaseModel
         $sql = "SELECT path, updated_at as time FROM spc.contents_meta ORDER BY path;";
         $res = $this->execute($sql, []);
         return $res !== false ? $res : null;
+    }
+
+    public function get_content_raw_file(string $slug): string|null
+    {
+        $sql = "SELECT contents_meta.raw_file_name as file FROM contents_meta WHERE path = ?;";
+        $res = $this->execute($sql, [$slug]);
+        return $res !== false ? $res[0]['file'] : null;
     }
 }

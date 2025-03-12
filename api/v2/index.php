@@ -46,6 +46,7 @@ $state->addRoute(ROUTE_METHOD_POST, 'complete-password-reset', [$auth, 'complete
 
 // content
 $state->addRoute(ROUTE_METHOD_GET, 'get-content-html', [$content, 'get_content_html']);
+$state->addRoute(ROUTE_METHOD_GET, 'get-content-raw', [$content, 'get_content_raw']);
 $state->addRoute(ROUTE_METHOD_GET, 'editable-contents', [$content, 'editable_contents']);
 
 // IAM
