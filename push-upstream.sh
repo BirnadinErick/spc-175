@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Read connection data from XML file
