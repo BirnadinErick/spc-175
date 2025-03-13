@@ -8,16 +8,16 @@ use PHPMailer\PHPMailer\SMTP;
 
 trait Mailer
 {
-    private function mail_html(string $to, string $to_name, string $body, string $subject='Notification from SPC Media Unit'): bool
+    private function mail_html(string $to, string $to_name, string $body, string $subject = 'Notification from SPC Media Unit'): bool
     {
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();
             $mail->Host = $this->state->get_env('MAIL_HOST') ?? 'localhost';
-            $mail->SMTPAuth = !$this->state->DEBUG;
+            $mail->SMTPAuth = true;
             $mail->Username = $this->state->get_env('MAIL_USERNAME') ?? 'root@localhost';
             $mail->Password = $this->state->get_env('MAIL_PASSWORD') ?? 'spcmediaunit2023';
-            $mail->SMTPSecure = $this->state->DEBUG ? null : PHPMailer::ENCRYPTION_SMTPS;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = $this->state->get_env('MAIL_PORT') ?? 1025;
 
             $mail->setFrom('info@spcjaffna.org', 'SPC Media Unit');
