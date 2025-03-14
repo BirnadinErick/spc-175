@@ -3,8 +3,8 @@ import { get_api_route } from "../../config/global";
 import TextInput from "../common/TextInput.astro";
 ---
 
-<form hx-post={get_api_route("projects")} hx-swap="outerHTML">
-    <TextInput type="text" id="project_title" label="Project Title" />
+<form hx-post={get_api_route("request-new-project", "v2")} hx-swap="outerHTML">
+    <TextInput type="text" id="title" label="Project Title" />
 
     <div class="mb-8">
         <label class="block mb-1" for="desc">Description</label>
@@ -13,7 +13,7 @@ import TextInput from "../common/TextInput.astro";
         >
                     <textarea
                         class="text-white bg-spc-dark w-full focus:ring-0 focus:outline-0"
-                        name="desc"
+                        name="description"
                         id="desc"
                     />
         </div>
