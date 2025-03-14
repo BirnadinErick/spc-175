@@ -17,7 +17,7 @@ require_once ROOT . '/vendor/autoload.php';
 require_once ROOT.'/tinyfuse/Constants.php';
 
 // in prod, change the env file to .prod
-$dotenv = Dotenv::createImmutable(ROOT, '.dev');
+$dotenv = Dotenv::createImmutable(ROOT, '.env');
 $dotenv->load();
 
 Utils::logRequest();
