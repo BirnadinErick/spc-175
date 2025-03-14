@@ -11,7 +11,6 @@ use tinyfuse\IAMUtils;
 use tinyfuse\Request;
 use tinyfuse\Response;
 use tinyfuse\UserRole;
-use tinyfuse\Utils;
 
 class ProjectController extends BaseController
 {
@@ -25,6 +24,47 @@ class ProjectController extends BaseController
         parent::__construct($state);
         $this->model = new ProjectModel($state);
         $this->views_root = $this->state->VIEWS . 'projects/';
+    }
+
+    public function get_project_detail(Request $request): Response
+    {
+        $project_id = $this->retrieve_project_id() ?? -2003;
+
+        $project = $this->model->get_project($project_id);
+        if (!isset($project['title'])) {
+            return Response::forNotFound();
+        }
+
+        $content = $this->render($this->views_root . 'project-detail', [
+            'project' => $project
+        ]);
+        return new Response($content);
+    }
+
+    private function retrieve_project_id(): int|null
+    {
+        //get pid from URL Header and retrieve the content
+        $h = getallheaders()['HX-Current-URL'];
+        $qs = parse_url($h, PHP_URL_QUERY);
+        parse_str($qs, $qs);
+
+        /** @noinspection PhpArrayKeyDoesNotMatchArrayShapeInspection */
+        return intval($qs['pid']) ?? null;
+    }
+
+    public function admin_project_list(Request $_): Response
+    {
+        if ($this->is_user_not_allowed()) {
+            return Response::forNotFound();
+        }
+
+        $projects = $this->model->get_all_project();
+        $content = $this->render(
+            $this->views_root . 'admin-projects-list', [
+                "projects" => $projects
+            ]
+        );
+        return new Response($content);
     }
 
     private function is_user_not_allowed(): bool
@@ -41,24 +81,12 @@ class ProjectController extends BaseController
         return false;
     }
 
-    /** @noinspection PhpUnusedParameterInspection */
-    public function admin_project_list(Request $_): Response
-    {
-        if ($this->is_user_not_allowed()) {
-            return Response::forNotFound();
-        }
-
-        $projects = $this->model->get_all_project();
-        $content = $this->render(
-            $this->views_root . 'admin-projects-list', [
-                "projects" => $projects
-            ]
-        );
-        return new Response($content);
-    }
-
     public function update_project(Request $request): Response
     {
+        if ($this->is_user_not_allowed()) {
+            return Response::forNotAllowed();
+        }
+
         $params = $request->get_post_params();
         if (!$this->does_params_have_needed_properties($params)) {
             return Response::forNotAllowed();
@@ -72,8 +100,24 @@ class ProjectController extends BaseController
             : Response::forFailedAction();
     }
 
+    private function does_params_have_needed_properties(array $params): bool
+    {
+        if (
+            !isset($params['title']) && !isset($params['description'])
+            && !isset($params['deadline']) && !isset($params['amount'])
+        ) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function project_edit_form(Request $request): Response
     {
+        if ($this->is_user_not_allowed()) {
+            return Response::forNotAllowed();
+        }
+
         $project_id = $this->retrieve_project_id() ?? -2003;
         if ($this->is_user_not_allowed() || $project_id === -2003) {
             return Response::forNotFound();
@@ -89,29 +133,6 @@ class ProjectController extends BaseController
             ["project" => $project]
         );
         return new Response($content);
-    }
-
-    private function retrieve_project_id(): int|null
-    {
-        //get pid from URL Header and retrieve the content
-        $h = getallheaders()['HX-Current-URL'];
-        $qs = parse_url($h, PHP_URL_QUERY);
-        parse_str($qs, $qs);
-
-        /** @noinspection PhpArrayKeyDoesNotMatchArrayShapeInspection */
-        return intval($qs['pid']) ?? null;
-    }
-
-    private function does_params_have_needed_properties(array $params): bool
-    {
-        if (
-            !isset($params['title']) && !isset($params['description'])
-            && !isset($params['deadline']) && !isset($params['amount'])
-        ) {
-            return false;
-        }
-
-        return true;
     }
 
     public function request_new_project(Request $request): Response

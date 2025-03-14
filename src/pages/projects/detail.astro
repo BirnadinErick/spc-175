@@ -25,7 +25,7 @@ import "../../components/common/swup.css";
     </section>
 
     <section class="px-6 md:px-12 xl:px-96 my-6 htmxenable"
-             hx-get={get_api_route("project-detail")} hx-swap="innerHTML" hx-trigger="load">
+             hx-get={get_api_route("get-project-detail", "v2")} hx-swap="innerHTML" hx-trigger="load">
         <Loader />
     </section>
 
