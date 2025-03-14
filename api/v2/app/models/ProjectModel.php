@@ -48,4 +48,10 @@ class ProjectModel extends BaseModel
             $project_id,
         ]));
     }
+
+    public function get_project_comments(int $project_id):array
+    {
+        $sql = "SELECT p.comment, p.created_at , u.first_name as fname , u.last_name as lname FROM projectcomments p JOIN users u ON p.user_id = u.id WHERE p.project_id = ?;";
+        return $this->execute($sql, [$project_id]);
+    }
 }

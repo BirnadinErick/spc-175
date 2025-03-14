@@ -135,6 +135,18 @@ class ProjectController extends BaseController
         return new Response($content);
     }
 
+    public function get_project_comments(Request $request): Response
+    {
+        $project_id = $this->retrieve_project_id() ?? -2003;
+        $comments = $this->model->get_project_comments($project_id);
+        $content = $this->render($this->views_root . 'project-comments', [
+            'comments' => $comments,
+            'is_user_authed' => !$this->is_anon_user(),
+            'API' => $this->state->get_env('API')
+        ]);
+        return new Response($content);
+    }
+
     public function request_new_project(Request $request): Response
     {
         $params = $request->get_post_params();
