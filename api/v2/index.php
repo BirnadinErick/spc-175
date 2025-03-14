@@ -5,6 +5,7 @@ use app\controllers\BlogController;
 use app\controllers\ContentController;
 use app\controllers\HomeController;
 use app\controllers\IAMController;
+use app\controllers\ProjectController;
 use Dotenv\Dotenv;
 use tinyfuse\BaseState as State;
 use tinyfuse\Kernel;
@@ -29,6 +30,7 @@ $auth = new AuthController($state);
 $iam = new IAMController($state);
 $content = new ContentController($state);
 $blog = new BlogController($state);
+$projects = new ProjectController($state);
 
 /* routing hooks configuration */
 
@@ -57,8 +59,14 @@ $state->addRoute(ROUTE_METHOD_GET, 'get-blog-html', [$blog, 'get_blog_html']);
 $state->addRoute(ROUTE_METHOD_GET, 'get-blog-raw', [$blog, 'get_blog_raw']);
 $state->addRoute(ROUTE_METHOD_GET, 'editable-blogs', [$blog, 'editable_blogs']);
 $state->addRoute(ROUTE_METHOD_POST, 'update-blog', [$blog, 'update_blog']);
+
 // IAM
 $state->addRoute(ROUTE_METHOD_POST, 'change-user-role', [$iam, 'change_user_role']); // TODO: not tested
+
+// project
+$state->addRoute(ROUTE_METHOD_GET, 'get-project-list', [$projects, 'get_project_list']);
+$state->addRoute(ROUTE_METHOD_POST, 'request-new-project', [$projects, 'request_new_project']);
+$state->addRoute(ROUTE_METHOD_POST, 'update-project', [$projects, 'update_project']);
 
 /* end routing hooks configuration */
 

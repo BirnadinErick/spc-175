@@ -1,16 +1,16 @@
 ---
-import CommonHead from "../../../src/components/common/CommonHead.astro";
-import CommonHeader from "../../../src/components/common/CommonHeader.astro";
-import Footer from "../../../src/components/footer/Footer.astro";
-import BackButton from "../../../src/components/patrician-publications/BackButton.astro";
-import MobileNavButton from "../../../src/components/common/MobileNavButton.astro";
-import HTMX from "../../../src/components/common/HTMX.astro";
+import CommonHead from "../../../components/common/CommonHead.astro";
+import CommonHeader from "../../../components/common/CommonHeader.astro";
+import Footer from "../../../components/footer/Footer.astro";
+import BackButton from "../../../components/patrician-publications/BackButton.astro";
+import MobileNavButton from "../../../components/common/MobileNavButton.astro";
+import HTMX from "../../../components/common/HTMX.astro";
 
 import "@fontsource/space-grotesk/400.css";
 import "@fontsource/space-grotesk/700.css";
 import "@fontsource/space-mono/400.css";
-import "../../../src/components/common/swup.css";
-import Table from "../../../src/components/padmin/Table.astro";
+import "../../../components/common/swup.css";
+import Table from "../../../components/padmin/Table.astro";
 
 const { meta } = Astro.props;
 ---
@@ -36,7 +36,7 @@ const { meta } = Astro.props;
     <div class="px-96 my-8">
         <div class="flex justify-start items-baseline space-x-2">
             <a
-                href="/home/be/projs/spc-175/temp-vault/projects/new"
+                href="/home/be/projs/spc-175/src/pages/projects/new"
                 class="w-fit flex justify-start items-center space-x-2 bg-spc-light text-spc-green font-bold px-4 py-2 rounded-sm my-1 ">
             <span class="pr-2">
                 <svg
