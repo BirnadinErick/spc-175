@@ -71,6 +71,7 @@ $state->addRoute(ROUTE_METHOD_GET, 'admin-project-list', [$projects, 'admin_proj
 $state->addRoute(ROUTE_METHOD_GET, 'project-edit-form', [$projects, 'project_edit_form']);
 $state->addRoute(ROUTE_METHOD_POST, 'update-project', [$projects, 'update_project']);
 $state->addRoute(ROUTE_METHOD_POST, 'request-new-project', [$projects, 'request_new_project']);
+$state->addRoute(ROUTE_METHOD_POST, 'new-project-comment', [$projects, 'new_project_comment']);
 
 
 /* end routing hooks configuration */

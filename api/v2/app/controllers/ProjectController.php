@@ -135,6 +135,33 @@ class ProjectController extends BaseController
         return new Response($content);
     }
 
+    public function new_project_comment(Request $request): Response
+    {
+        if ($this->is_anon_user()) {
+            return Response::forNotAllowed();
+        }
+
+        $params = $request->get_post_params();
+        if (!isset($params['comment'])) {
+            return Response::forNotAllowed();
+        }
+
+        $project_id = $this->retrieve_project_id() ?? -2003;
+        $user_id = $this->get_user_id($this->state);
+
+        if (!$this->model->new_project_comment($project_id, $user_id, $params['comment'])) {
+            return Response::forFailedAction();
+        }
+
+        $user = $this->get_user_names($this->state);
+        $content = $this->render($this->views_root . 'new-comment-fragment', [
+            'fname' => $user['first_name'],
+            'lname' => $user['last_name'],
+            'comment' => $params['comment']
+        ]);
+        return new Response($content);
+    }
+
     public function get_project_comments(Request $request): Response
     {
         $project_id = $this->retrieve_project_id() ?? -2003;

@@ -6,6 +6,21 @@ use app\models\AuthModel;
 
 trait AuthUtils
 {
+    protected function get_user_names(BaseState $state): array|null
+    {
+        if ($this->is_anon_user()) {
+            return null;
+        }
+
+        $auth_model = new AuthModel($state);
+        $user = $auth_model->get_active_user_details($_SESSION[SESSION_USER_EMAIL]);
+
+        return isset($user['id'])
+            ? array_filter($user, function (string $k) {
+                return ($k === 'first_name') || ($k === 'last_name');
+            }, ARRAY_FILTER_USE_KEY) : null;
+    }
+
     protected function is_anon_user(): bool
     {
         return !isset($_SESSION[SESSION_USER_LOGGED_IN]);

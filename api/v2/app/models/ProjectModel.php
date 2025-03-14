@@ -49,9 +49,15 @@ class ProjectModel extends BaseModel
         ]));
     }
 
-    public function get_project_comments(int $project_id):array
+    public function get_project_comments(int $project_id): array
     {
         $sql = "SELECT p.comment, p.created_at , u.first_name as fname , u.last_name as lname FROM projectcomments p JOIN users u ON p.user_id = u.id WHERE p.project_id = ?;";
         return $this->execute($sql, [$project_id]);
+    }
+
+    public function new_project_comment(int $project_id, int $user_id, string $comment): bool
+    {
+        $sql = "INSERT INTO projectcomments (project_id, comment, user_id) VALUES(?,?,?);";
+        return $this->check_if_action_ok($this->execute($sql, [$project_id, $comment, $user_id]));
     }
 }
