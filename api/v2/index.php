@@ -66,6 +66,8 @@ $state->addRoute(ROUTE_METHOD_POST, 'change-user-role', [$iam, 'change_user_role
 // project
 $state->addRoute(ROUTE_METHOD_GET, 'get-project-list', [$projects, 'get_project_list']);
 $state->addRoute(ROUTE_METHOD_POST, 'request-new-project', [$projects, 'request_new_project']);
+$state->addRoute(ROUTE_METHOD_GET, 'admin-project-list', [$projects, 'admin_project_list']);
+$state->addRoute(ROUTE_METHOD_GET, 'project-edit-form', [$projects, 'project_edit_form']);
 $state->addRoute(ROUTE_METHOD_POST, 'update-project', [$projects, 'update_project']);
 
 /* end routing hooks configuration */
