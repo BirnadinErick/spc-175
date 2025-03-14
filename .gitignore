@@ -61,3 +61,5 @@ backup/
 file.xml
 
 staging/
+
+.ftp-env
