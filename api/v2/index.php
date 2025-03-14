@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use app\controllers\AuthController;
+use app\controllers\BlogController;
 use app\controllers\ContentController;
 use app\controllers\HomeController;
 use app\controllers\IAMController;
@@ -27,6 +28,7 @@ $home = new HomeController($state);
 $auth = new AuthController($state);
 $iam = new IAMController($state);
 $content = new ContentController($state);
+$blog = new BlogController($state);
 
 /* routing hooks configuration */
 
@@ -50,6 +52,11 @@ $state->addRoute(ROUTE_METHOD_GET, 'get-content-raw', [$content, 'get_content_ra
 $state->addRoute(ROUTE_METHOD_GET, 'editable-contents', [$content, 'editable_contents']);
 $state->addRoute(ROUTE_METHOD_POST, 'update-content', [$content, 'update_content']);
 
+// blogs
+$state->addRoute(ROUTE_METHOD_GET, 'get-blog-html', [$blog, 'get_blog_html']);
+$state->addRoute(ROUTE_METHOD_GET, 'get-blog-raw', [$blog, 'get_blog_raw']);
+$state->addRoute(ROUTE_METHOD_GET, 'editable-blogs', [$blog, 'editable_blogs']);
+$state->addRoute(ROUTE_METHOD_POST, 'update-blog', [$blog, 'update_blog']);
 // IAM
 $state->addRoute(ROUTE_METHOD_POST, 'change-user-role', [$iam, 'change_user_role']); // TODO: not tested
 
