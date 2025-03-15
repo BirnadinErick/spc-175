@@ -63,3 +63,5 @@ file.xml
 staging/
 
 .ftp-env
+
+*.log
