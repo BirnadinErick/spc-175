@@ -43,8 +43,15 @@ class ProjectController extends BaseController
 
     private function retrieve_project_id(): int|null
     {
-        //get pid from URL Header and retrieve the content
-        $h = getallheaders()['HX-Current-URL'];
+        // the project id is in the Htmx Header
+        $hs = getallheaders();
+        if (isset($hs['HX-Current-URL'])) {
+            $h = $hs['HX-Current-URL'];
+        } else if (isset($hs['Hx-Current-Url'])) {
+            $h = $hs['Hx-Current-Url'];
+        } else {
+            return null;
+        }
         $qs = parse_url($h, PHP_URL_QUERY);
         parse_str($qs, $qs);
 
