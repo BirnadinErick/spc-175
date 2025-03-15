@@ -20,9 +20,9 @@ class AuthController extends BaseController
 {
     use CryptoFunctions, Mailer, AuthUtils, IAMUtils;
 
+    public string $auth_views_root;
     private AuthModel $model;
     private MagicCodeModel $magic_model;
-    public string $auth_views_root;
 
     public function __construct(BaseState $state)
     {
@@ -30,6 +30,27 @@ class AuthController extends BaseController
         $this->model = new AuthModel($state);
         $this->magic_model = new MagicCodeModel($state);
         $this->auth_views_root = $state->VIEWS . 'auth/';
+    }
+
+    public function mobile_auth_state(Request $_): Response
+    {
+        $content = $this->is_anon_user()
+            ? $this->render($this->auth_views_root . 'mobile-state-no-authed', [])
+            : $this->render($this->auth_views_root . 'mobile-state-authed', [
+                'API'=>$this->state->get_env('API')
+            ]);
+        return new Response($content);
+    }
+
+    public function auth_state(Request $_): Response
+    {
+        if ($this->is_anon_user()) {
+            $content = $this->render($this->auth_views_root . 'state-not-authed', []);
+        } else {
+            $content = $this->render($this->auth_views_root . 'state-authed', $this->get_auth_state_params());
+        }
+
+        return new Response($content);
     }
 
     private function get_auth_state_params(): array
@@ -42,17 +63,6 @@ class AuthController extends BaseController
             ]
         );
 
-    }
-
-    public function auth_state(Request $_): Response
-    {
-        if ($this->is_anon_user()) {
-            $content = $this->render($this->auth_views_root . 'state-not-authed', []);
-        } else {
-            $content = $this->render($this->auth_views_root . 'state-authed', $this->get_auth_state_params());
-        }
-
-        return new Response($content);
     }
 
     public function login_user(Request $request): Response
@@ -209,6 +219,6 @@ class AuthController extends BaseController
             return Response::forFailedAction();
         }
 
-        return Response::forTemporaryRedirect($this->state->get_env('APP').'/auth/login');
+        return Response::forTemporaryRedirect($this->state->get_env('APP') . '/auth/login');
     }
 }
