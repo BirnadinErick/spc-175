@@ -2,12 +2,20 @@
 
 namespace tinyfuse;
 
+use Monolog\Handler\StreamHandler;
+use Monolog\Level;
+use Monolog\Logger;
+
 class Utils
 {
     public static function logDebug(string $msg):void
     {
+        $log = new Logger('name');
+        $log->pushHandler(new StreamHandler('debug.log', Level::Debug));
         $timestamp = date("Y-m-d H:i:s");
-        error_log( "DEBUG[$timestamp]: ". $msg);
+        $log_data =  "DEBUG[$timestamp]: ". $msg;
+        error_log($log_data);
+        $log->debug($log_data);
     }
 
     public static function get_time_full():string

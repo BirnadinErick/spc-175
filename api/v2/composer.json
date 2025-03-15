@@ -12,6 +12,7 @@
     "symfony/var-dumper": "^6.4",
     "bumpcore/editor.php": "1.1.*",
     "vlucas/phpdotenv": "5.6.*",
-    "phpmailer/phpmailer": "^6.9"
+    "phpmailer/phpmailer": "^6.9",
+    "monolog/monolog": "^3.8"
   }
 }

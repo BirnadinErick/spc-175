@@ -25,6 +25,10 @@ rm staging/api/v2/.env
 cp .prod staging/api/v2/
 mv staging/api/v2/.prod staging/api/v2/.env
 
+# remove logs
+rm staging/api/v2/debug.log || true
+rm staging/api/v2/info.log || true
+
 # set the DEBUG flag back to true
 echo "setting DEBUG flag true..."
 sed -i 's/const DEBUG = false;/const DEBUG = true;/' "./src/config/global.ts"
